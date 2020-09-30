@@ -8,7 +8,7 @@ let mapleader = "\<Space>"
 " set guicursor=
 set encoding=UTF-8
 set noshowmode
-set number                      "Line numbers are good
+set nu                          "Line numbers are good
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set belloff=all
@@ -101,6 +101,7 @@ Plug 'ap/vim-css-color'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'mattn/calendar-vim'
+" Plug 'lambdalisue/fern.vim'
 " Plug 'w0rp/ale'
 " Plug 'sheerun/vim-polyglot'
 " Plug 'stsewd/fzf-checkout.vim'
@@ -256,6 +257,13 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " Key Mappings {{{
 
+" Join line
+noremap <Leader>j :j<cr>
+noremap <Leader>J :j!<cr>
+
+" Toggle syntax fold marker
+noremap <Leader>cy :set foldmethod=syntax<cr>
+
 " coc-smartf
 nmap f <Plug>(coc-smartf-forward)
 nmap F <Plug>(coc-smartf-backward)
@@ -278,6 +286,9 @@ nmap <Leader><Leader> V
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
+" Startify
+nnoremap <Leader>S :Startify<cr>
+
 " Anyjump mappings
 nnoremap <leader>aj :AnyJump<CR>
 xnoremap <leader>aj :AnyJumpVisual<CR>
@@ -296,6 +307,7 @@ nnoremap q <Nop>
 " Quickfix list movement
 nmap <Leader>cj :cnext<cr>
 nmap <Leader>ck :cprevious<cr>
+nmap <Leader>co :copen<cr>
 
 " CocCommand
 nmap <Leader>cc :<C-u>CocList commands<cr>
@@ -355,6 +367,7 @@ nmap <Leader>F :Lines<cr>
 " " Toggle numbers
 " nmap <Leader>n :NumbersToggle<cr>
 nmap <Leader>n :set nu!<cr>
+nmap <Leader>N :set rnu!<cr>
 
 " Coc explorer
 nmap <Leader>e :CocCommand explorer<CR>
@@ -464,7 +477,7 @@ nmap <leader>2 <Plug>(coc-rename)
 
 " Fzf
 nnoremap <silent> <leader>o :GFiles<cr>
-nnoremap <silent> <leader>g :Files<cr>
+nnoremap <silent> <leader>b :Files<cr>
 
 " Coc multicursor
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
@@ -472,8 +485,8 @@ nmap <silent> <C-d> <Plug>(coc-cursors-word)
 xmap <silent> <C-d> <Plug>(coc-cursors-range)
 
 " Coc spell check
-vmap <leader>a <Plug>(coc-codeaction-selected)<cr>
 nmap <leader>a <Plug>(coc-codeaction-selected)<cr>
+vmap <leader>a <Plug>(coc-codeaction-selected)<cr>
 nmap <leader>c <Plug>(coc-cspell-toggle)<cr>
 
 noremap <silent> <leader>pv :call OpenMarkdownPreview()<cr>
