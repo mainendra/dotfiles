@@ -35,10 +35,9 @@ g['startify_bookmarks'] = {
     { p = '~/.config/nvim/lua/plugins.lua' },
     { c = '~/.config/nvim/lua/config.lua' },
     { o = '~/.config/nvim/lua/options.lua' },
-    { z = '~/.zshrc' }, { g = '~/.gitconfig' },
-    { b = '~/Library/Preferences/org.dystroy.broot/conf.toml' },
+    { z = '~/.zshrc' },
+    { g = '~/.gitconfig' },
     { t = '~/.tmux.conf'},
-    { l = '~/Library/Application\\ Support/jesseduffield/lazygit/config.yml' }
 }
 
 cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, timeout=200}]]
