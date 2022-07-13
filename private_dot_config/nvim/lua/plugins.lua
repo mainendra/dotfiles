@@ -93,7 +93,8 @@ use 'gennaro-tedesco/nvim-peekup'
 -- fuzzy finder
 use {
   'nvim-telescope/telescope.nvim',
-  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+  tag = '0.1.0',
+  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
 }
 
 use 'andymass/vim-matchup'
