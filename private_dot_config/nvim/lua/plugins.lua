@@ -129,7 +129,26 @@ use {
 use 'gennaro-tedesco/nvim-jqx'
 
 -- terminal
-use 'numToStr/FTerm.nvim'
+use {
+    'numToStr/FTerm.nvim',
+    config = function()
+        local fterm = require("FTerm")
+
+        local lazygit = fterm:new({
+           cmd = "lazygit",
+        })
+        local tig = fterm:new({
+            cmd = "tig %",
+        })
+
+        vim.keymap.set('n', '<Leader>lg', function()
+            lazygit:toggle()
+        end)
+        vim.keymap.set('n', '<Leader>tg', function()
+            tig:toggle()
+        end)
+    end
+}
 
 -- Commenting
 use {

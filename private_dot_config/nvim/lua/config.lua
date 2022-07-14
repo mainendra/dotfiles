@@ -65,22 +65,6 @@ map('v', '<', '<gv');
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
 
--- terminal
-local fterm = require("FTerm")
-
-local lazygit = fterm:new({
-    cmd = "lazygit",
-})
-local tig = fterm:new({
-    cmd = "tig %",
-})
-vim.keymap.set('n', '<Leader>lg', function()
-    lazygit:toggle()
-end)
-vim.keymap.set('n', '<Leader>tg', function()
-    tig:toggle()
-end)
-
 -- Telescope
 map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>')
