@@ -22,13 +22,7 @@ g.coq_settings = {
 g['gitblame_date_format'] = '%r' -- relative date
 g['gitblame_enabled'] = 0 -- default disabled
 
-g['floaterm_gitcommit'] = 'floaterm'
-g['floaterm_autoinsert'] = 1
-g['floaterm_width'] = 0.9
-g['floaterm_height'] = 0.9
-g['floaterm_wintitle'] = 0
-g['floaterm_autoclose'] = 2
-
+-- g['startify_disable_at_vimenter'] = 1
 g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
 g['startify_bookmarks'] = {
     { i = '~/.config/nvim/init.lua' },
@@ -39,6 +33,10 @@ g['startify_bookmarks'] = {
     { g = '~/.gitconfig' },
     { t = '~/.tmux.conf'},
 }
+
+-- register
+g['peekup_paste_before'] = '<leader>P'
+g['peekup_paste_after'] = '<leader>p'
 
 cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, timeout=200}]]
 
@@ -68,8 +66,20 @@ map('v', '<', '<gv');
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
 
 -- terminal
-map('n', '<Leader>lg', ':FloatermNew lazygit<CR>');
-map('n', '<Leader>tg', ':FloatermNew tig %<CR>');
+local fterm = require("FTerm")
+
+local lazygit = fterm:new({
+    cmd = "lazygit",
+})
+local tig = fterm:new({
+    cmd = "tig %",
+})
+vim.keymap.set('n', '<Leader>lg', function()
+    lazygit:toggle()
+end)
+vim.keymap.set('n', '<Leader>tg', function()
+    tig:toggle()
+end)
 
 -- Telescope
 map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>')

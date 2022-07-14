@@ -23,6 +23,7 @@ use {'wbthomason/packer.nvim', opt = true}
 
 use {
     'nvim-treesitter/nvim-treesitter',
+    requires ={ 'andymass/vim-matchup' },
     run = ':TSUpdate',
     config = function()
         require'nvim-treesitter.configs'.setup {
@@ -42,7 +43,10 @@ use {
     "neovim/nvim-lspconfig",
     config = function()
         require("nvim-lsp-installer").setup {
-            automatic_installation = true
+            automatic_installation = true,
+            matchup = {
+                enable = true, -- mandatory, false will disable the whole extension
+            },
         }
     end,
 }
@@ -97,8 +101,6 @@ use {
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
 }
 
-use 'andymass/vim-matchup'
-
 use {
   'kyazdani42/nvim-tree.lua',
   requires = {
@@ -127,9 +129,7 @@ use {
 use 'gennaro-tedesco/nvim-jqx'
 
 -- terminal
-use {
-    'voldikss/vim-floaterm',
-}
+use 'numToStr/FTerm.nvim'
 
 -- Commenting
 use {
@@ -210,8 +210,13 @@ use {
 use 'dstein64/vim-startuptime' -- startup time
 use 'markonm/traces.vim' -- search and replace
 use {
-    'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    'nvim-lualine/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    config = function()
+        require('lualine').setup({
+            options = { theme = 'gruvbox' }
+        })
+    end
 }
 
 -- jk to escape

@@ -47,3 +47,32 @@ opt('o', 'wildmode', 'full')
 opt('o', 'lazyredraw', true)
 opt('o', 'signcolumn', 'yes:1')
 opt('o', 'background', 'dark')
+opt('o', 'synmaxcol', 200)                           -- syntax file is slow,
+
+
+----------------------- DISABLE BUILT-IN PLUGINS -------------------------
+
+local disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
