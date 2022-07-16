@@ -23,26 +23,16 @@ use {'wbthomason/packer.nvim', opt = true}
 
 use {
     'nvim-treesitter/nvim-treesitter',
-    requires ={ 'andymass/vim-matchup' },
     run = ':TSUpdate',
     config = function()
-        require'nvim-treesitter.configs'.setup {
-            -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-            highlight = {
-                enable = true,              -- false will disable the whole extension
-                disable = {'lua'},          -- list of language that will be disabled
-            },
-            autotag = {
-                enable = true,
-            },
-        }
+        require'nvim-treesitter.configs'.setup {}
     end
 }
 use {
-    "williamboman/nvim-lsp-installer",
-    "neovim/nvim-lspconfig",
+    'williamboman/nvim-lsp-installer',
+    'neovim/nvim-lspconfig',
     config = function()
-        require("nvim-lsp-installer").setup {
+        require('nvim-lsp-installer').setup {
             automatic_installation = true,
             matchup = {
                 enable = true, -- mandatory, false will disable the whole extension
@@ -50,8 +40,8 @@ use {
         }
     end,
 }
-local lsp_installer = require("nvim-lsp-installer")
-local lspconfig = require("lspconfig")
+local lsp_installer = require('nvim-lsp-installer')
+local lspconfig = require('lspconfig')
 lsp_installer.on_server_ready(function (server)
     if server.name == 'tsserver' then
         server:setup {root_dir = lspconfig.util.root_pattern("package.json")}
@@ -61,24 +51,6 @@ lsp_installer.on_server_ready(function (server)
         server:setup {}
     end
 end)
-
-use {
-  'ojroques/nvim-lspfuzzy',
-  requires = {
-    {'junegunn/fzf'},
-    {'junegunn/fzf.vim'},  -- to enable preview (optional)
-  },
-  config = function()
-      require('lspfuzzy').setup {
-          methods = 'all',         -- either 'all' or a list of LSP methods (see below)
-          fzf_preview = {          -- arguments to the FZF '--preview-window' option
-          'right:+{2}-/2'          -- preview on the right and centered on entry
-          },
-          fzf_modifier = ':~:.',   -- format FZF entries, see |filename-modifiers|
-          fzf_trim = true,         -- trim FZF entries
-      }
-  end
-}
 
 -- improve default vim ui. e.g. code actions
 use { 'stevearc/dressing.nvim' }
@@ -96,9 +68,12 @@ use 'gennaro-tedesco/nvim-peekup'
 
 -- fuzzy finder
 use {
-  'nvim-telescope/telescope.nvim',
-  tag = '0.1.0',
-  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.0',
+    requires = {
+        'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim',
+    }
 }
 
 use {
@@ -124,9 +99,6 @@ use {
 use {
     'f-person/git-blame.nvim',
 }
-
--- Interactive interface for json files
-use 'gennaro-tedesco/nvim-jqx'
 
 -- terminal
 use {
@@ -170,10 +142,9 @@ use {
 use 'kevinhwang91/nvim-hlslens'
 
 use {
-    'echasnovski/mini.nvim',
-    branch = 'stable',
+    'kylechui/nvim-surround',
     config = function()
-        require('mini.surround').setup()
+        require('nvim-surround').setup{}
     end
 }
 
@@ -203,7 +174,7 @@ use {
     end
 }
 
--- Ack search (vim script)
+-- Ack search (vim script), TODO: find lua alternative
 use 'wincent/ferret'
 
 use {
