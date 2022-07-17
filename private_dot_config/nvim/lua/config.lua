@@ -75,11 +75,6 @@ map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={he
 map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
 
--- ferret mappings
-map('n', '<Leader>x', ':Ack ')
-map('n', '<Leader>y', ':Lack ')
-map('n', '<Leader>ur', ':Ack <C-R><C-W><CR>')
-
 map('n', '<S-u>', '<C-u>')
 map('n', '<S-d>', '<C-d>')
 
@@ -128,6 +123,11 @@ map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 
 -- startify
 map('n', '<Leader>S', ':Startify<CR>')
+
+-- search and replace
+map('n', '<Leader>sr', '<cmd>lua require("spectre").open()<CR>')
+map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>')
+map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>')
 
 map('n', '<Leader>gb', ':GitBlameToggle<CR>')
 

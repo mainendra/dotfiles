@@ -74,6 +74,17 @@ use { 'ms-jpq/coq.thirdparty', branch = '3p' }
 -- vim registers
 use 'gennaro-tedesco/nvim-peekup'
 
+-- search and replace
+use {
+    'windwp/nvim-spectre',
+    requires = {
+        'nvim-lua/plenary.nvim'
+    },
+    config = function()
+        require('spectre').setup()
+    end
+}
+
 -- fuzzy finder
 use {
     'nvim-telescope/telescope.nvim',
@@ -181,9 +192,6 @@ use {
         })
     end
 }
-
--- Ack search (vim script), TODO: find lua alternative
-use 'wincent/ferret'
 
 use {
     'windwp/nvim-autopairs',
