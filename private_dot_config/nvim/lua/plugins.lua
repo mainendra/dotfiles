@@ -41,10 +41,7 @@ use {
     'neovim/nvim-lspconfig',
     config = function()
         require('nvim-lsp-installer').setup {
-            automatic_installation = true,
-            matchup = {
-                enable = true, -- mandatory, false will disable the whole extension
-            },
+            automatic_installation = true
         }
     end,
 }
@@ -54,7 +51,7 @@ lsp_installer.on_server_ready(function (server)
     if server.name == 'tsserver' then
         server:setup {root_dir = lspconfig.util.root_pattern('package.json')}
     elseif server.name == 'denols' then
-        server:setup {root_dir = lspconfig.util.root_pattern('deno.json'),}
+        server:setup {root_dir = lspconfig.util.root_pattern('deno.json'), single_file_support = false}
     else
         server:setup {}
     end
