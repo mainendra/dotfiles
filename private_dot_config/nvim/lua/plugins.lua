@@ -29,7 +29,7 @@ use {
             ensure_installed = 'all',
             auto_install = true,
             highlight = {
-                enabled = true,
+                enable = true,
             }
         }
     end
