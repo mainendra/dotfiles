@@ -52,9 +52,9 @@ local lsp_installer = require('nvim-lsp-installer')
 local lspconfig = require('lspconfig')
 lsp_installer.on_server_ready(function (server)
     if server.name == 'tsserver' then
-        server:setup {root_dir = lspconfig.util.root_pattern("package.json")}
+        server:setup {root_dir = lspconfig.util.root_pattern('package.json')}
     elseif server.name == 'denols' then
-        server:setup {root_dir = lspconfig.util.root_pattern("deno.json"),}
+        server:setup {root_dir = lspconfig.util.root_pattern('deno.json'),}
     else
         server:setup {}
     end
@@ -101,7 +101,7 @@ use {
     'kyazdani42/nvim-web-devicons', -- optional, for file icons
   },
   config = function()
-      require("nvim-tree").setup()
+      require('nvim-tree').setup()
   end
 }
 
@@ -123,13 +123,13 @@ use {
 use {
     'numToStr/FTerm.nvim',
     config = function()
-        local fterm = require("FTerm")
+        local fterm = require('FTerm')
 
         local lazygit = fterm:new({
-           cmd = "lazygit",
+           cmd = 'lazygit',
         })
         local tig = fterm:new({
-            cmd = "tig %",
+            cmd = 'tig %',
         })
 
         vim.keymap.set('n', '<Leader>lg', function()
@@ -203,8 +203,8 @@ use {
 use {
     'ellisonleao/gruvbox.nvim',
     config = function()
-        require("gruvbox").setup({
-            contrast = "hard",
+        require('gruvbox').setup({
+            contrast = 'hard',
         })
         vim.cmd[[colorscheme gruvbox]]
     end
@@ -227,15 +227,15 @@ use {
 
 -- jk to escape
 use {
-  "max397574/better-escape.nvim",
+  'max397574/better-escape.nvim',
   config = function()
-    require("better_escape").setup()
+    require('better_escape').setup()
   end
 }
 
 -- create missing directory on save
 use {
-  "jghauser/mkdir.nvim",
+  'jghauser/mkdir.nvim',
 }
 
 end)
