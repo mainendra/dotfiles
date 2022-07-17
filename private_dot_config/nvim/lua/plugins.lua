@@ -25,9 +25,17 @@ use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
-        require'nvim-treesitter.configs'.setup {}
+        require'nvim-treesitter.configs'.setup {
+            ensure_installed = 'all',
+            auto_install = true,
+            highlight = {
+                enabled = true,
+            }
+        }
     end
 }
+
+
 use {
     'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
