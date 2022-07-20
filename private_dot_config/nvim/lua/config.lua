@@ -40,6 +40,9 @@ g['peekup_paste_after'] = '<leader>p'
 
 cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, timeout=200}]]
 
+-- Remove trailing space
+cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
+
 
 -------------------- MAPPINGS -------------------------------
 
