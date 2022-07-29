@@ -101,6 +101,9 @@ map('n', '<S-l>', '<C-w>l')
 map('v', '<S-j>', ':m\'>+<CR>gv=gv')
 map('v', '<S-k>', ':m-2<CR>gv=gv')
 
+-- escape visual selection
+map('v', ';;', '<Esc>')
+
 -- disable recording macros
 map('n', 'q', '<Nop>')
 map('n', 'Q', '<Nop>')
@@ -133,4 +136,3 @@ map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=tru
 map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>')
 
 map('n', '<Leader>gb', ':GitBlameToggle<CR>')
-
