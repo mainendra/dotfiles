@@ -12,7 +12,7 @@ end
 -------------------- CONFIG -------------------------------
 g['mapleader'] = ' ' -- leader key
 
-if fn.executable('volta') > 0 then
+if vim.fn.executable('volta') > 0 then
     g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
 else
     g['node_host_prog'] = '/usr/local/bin/neovim-node-host'
