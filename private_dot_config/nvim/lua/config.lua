@@ -12,8 +12,11 @@ end
 -------------------- CONFIG -------------------------------
 g['mapleader'] = ' ' -- leader key
 
--- let g:node_host_prog = '/usr/local/bin/neovim-node-host'
-g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
+if fn.executable('volta') > 0 then
+    g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
+else
+    g['node_host_prog'] = '/usr/local/bin/neovim-node-host'
+end
 
 g.coq_settings = {
     auto_start = 'shut-up',
@@ -122,7 +125,7 @@ map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
