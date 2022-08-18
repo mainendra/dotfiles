@@ -235,5 +235,10 @@ use {
   'jghauser/mkdir.nvim',
 }
 
+-- case convert
+use {
+    'tpope/vim-abolish',
+}
+
 end)
 
