@@ -15,7 +15,7 @@ g['mapleader'] = ' ' -- leader key
 if vim.fn.executable('volta') > 0 then
     g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
 else
-    g['node_host_prog'] = '/usr/local/bin/neovim-node-host'
+    g['node_host_prog'] = '~/.nvm/versions/node/v16.17.0/bin/neovim-node-host';
 end
 
 g.coq_settings = {
@@ -80,6 +80,7 @@ map('n', '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={he
 map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>')
 
 map('n', '<S-u>', '<C-u>')
 map('n', '<S-d>', '<C-d>')
