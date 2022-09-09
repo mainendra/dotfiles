@@ -15,7 +15,7 @@ g['mapleader'] = ' ' -- leader key
 if vim.fn.executable('volta') > 0 then
     g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
 else
-    g['node_host_prog'] = '~/.nvm/versions/node/v16.17.0/bin/neovim-node-host';
+    g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 end
 
 g.coq_settings = {
