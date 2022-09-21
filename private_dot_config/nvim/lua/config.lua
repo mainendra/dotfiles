@@ -76,7 +76,7 @@ map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy l
 map('n', '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fg', '<cmd>Telescope live_grep theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fb', '<cmd>Telescope buffers theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fe', '<cmd>Telescope file_browser theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>e', '<cmd>Telescope file_browser path=%:p:h theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
