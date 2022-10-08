@@ -35,27 +35,28 @@ use {
     end
 }
 
-
 use {
-    'williamboman/nvim-lsp-installer',
-    'neovim/nvim-lspconfig',
-    config = function()
-        require('nvim-lsp-installer').setup {
-            automatic_installation = true
-        }
-    end,
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig'
 }
-local lsp_installer = require('nvim-lsp-installer')
-local lspconfig = require('lspconfig')
-lsp_installer.on_server_ready(function (server)
-    if server.name == 'tsserver' then
-        server:setup {root_dir = lspconfig.util.root_pattern('package.json')}
-    elseif server.name == 'denols' then
-        server:setup {root_dir = lspconfig.util.root_pattern('deno.json'), single_file_support = false}
-    else
-        server:setup {}
+require('mason').setup()
+require('mason-lspconfig').setup({
+    automatic_installation = true
+})
+require('mason-lspconfig').setup_handlers {
+    function (server_name)
+        -- require('lspconfig')[server_name].setup {}
+        local lspconfig = require('lspconfig')
+        if server_name == 'tsserver' then
+            lspconfig[server_name].setup {root_dir = lspconfig.util.root_pattern('package.json')}
+        elseif server_name == 'denols' then
+            lspconfig[server_name].setup {root_dir = lspconfig.util.root_pattern('deno.json'), single_file_support = false}
+        else
+            lspconfig[server_name].setup {}
+        end
     end
-end)
+}
 
 -- improve default vim ui. e.g. code actions
 use { 'stevearc/dressing.nvim' }
