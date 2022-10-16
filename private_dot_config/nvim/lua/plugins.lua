@@ -46,7 +46,6 @@ require('mason-lspconfig').setup({
 })
 require('mason-lspconfig').setup_handlers {
     function (server_name)
-        -- require('lspconfig')[server_name].setup {}
         local lspconfig = require('lspconfig')
         if server_name == 'tsserver' then
             lspconfig[server_name].setup {root_dir = lspconfig.util.root_pattern('package.json')}
