@@ -152,7 +152,12 @@ use {
     end
 }
 
-use 'kevinhwang91/nvim-hlslens'
+use {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+        require('hlslens').setup()
+    end
+}
 
 use {
     'kylechui/nvim-surround',
