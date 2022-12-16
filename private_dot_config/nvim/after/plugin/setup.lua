@@ -14,11 +14,6 @@ require('hop').setup{keys = 'etovxqpdygfblzhckisuran'}
 
 require('nvim-surround').setup{}
 
-require('gruvbox').setup({
-    contrast = 'hard',
-})
-vim.cmd[[colorscheme gruvbox]]
-
 require('lualine').setup({
     options = { theme = 'gruvbox' }
 })

@@ -4,9 +4,9 @@ local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local g = vim.g      -- a table to access global variables
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -------------------- CONFIG -------------------------------
@@ -48,6 +48,8 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
+-- color scheme
+vim.cmd.colorscheme('gruvbox')
 -- remove bg color
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
