@@ -9,10 +9,11 @@ end
 
 -------------------- OPTIONS -------------------------------
 local indent = 4
-opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
 opt('b', 'shiftwidth', indent)                        -- Size of an indent
-opt('b', 'smartindent', true)                         -- Insert indents automatically
 opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
+opt('b', 'softtabstop', indent)
+opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
+opt('b', 'smartindent', true)                         -- Insert indents automatically
 opt('o', 'completeopt', 'menuone,noinsert,noselect')  -- Completion options (for deoplete)
 opt('o', 'hidden', true)                              -- Enable modified buffers in background
 opt('o', 'ignorecase', true)                          -- Ignore case
@@ -43,6 +44,8 @@ opt('o', 'updatetime', 50)
 --opt('o', 'timeoutlen', 100)
 opt('o', 'clipboard', 'unnamedplus')
 opt('o', 'wildmenu', true)
+opt('o', 'hlssearch', false)
+opt('o', 'incsearch', true)
 opt('o', 'wildmode', 'full')
 opt('o', 'lazyredraw', true)
 opt('o', 'signcolumn', 'yes:1')

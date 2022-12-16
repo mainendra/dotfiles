@@ -18,10 +18,6 @@ else
     g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 end
 
-g.coq_settings = {
-    auto_start = 'shut-up',
-}
-
 g['gitblame_date_format'] = '%r' -- relative date
 g['gitblame_enabled'] = 0 -- default disabled
 
@@ -46,6 +42,14 @@ cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, time
 -- Remove trailing space
 cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 
+-- diagnostics
+vim.diagnostic.config({
+    virtual_text = true,
+})
+
+-- remove bg color
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -------------------- MAPPINGS -------------------------------
 
@@ -76,12 +80,15 @@ map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy l
 map('n', '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fg', '<cmd>Telescope live_grep theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fb', '<cmd>Telescope buffers theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>e', '<cmd>Telescope file_browser path=%:p:h theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>e', ':NvimTreeFindFileToggle<CR>')
 map('n', '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>')
+
+-- lsp config
+map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 map('n', '<S-u>', '<C-u>')
 map('n', '<S-d>', '<C-d>')
@@ -118,16 +125,6 @@ map('n', '<Leader>hc', ':HopChar1<cr>')
 map('n', '<Leader>hw', ':HopWord<cr>')
 map('n', '<Leader>hl', ':HopLine<cr>')
 map('n', '<Leader>hp', ':HopPattern<cr>')
-
--- lsp config
-map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', 'gD', '<cmd>lua vim.diagnostic.open_float()<CR>')
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 
 -- startify
 map('n', '<Leader>S', ':Startify<CR>')
