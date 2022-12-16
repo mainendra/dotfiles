@@ -28,6 +28,7 @@ g['startify_bookmarks'] = {
     { p = '~/.config/nvim/lua/plugins.lua' },
     { c = '~/.config/nvim/lua/config.lua' },
     { o = '~/.config/nvim/lua/options.lua' },
+    { s = '~/.config/nvim/after/plugin/setup.lua' },
     { z = '~/.zshrc' },
     { g = '~/.gitconfig' },
     { t = '~/.tmux.conf'},
