@@ -30,10 +30,24 @@ use {
             auto_install = true,
             highlight = {
                 enable = true,
+            },
+            indent = {
+                enable = true,
+            },
+            autotag = {
+                enable = true,
             }
         }
     end
 }
+
+-- Auto completion
+use {
+    'ms-jpq/coq_nvim',
+    branch = 'coq',
+}
+use { 'ms-jpq/coq.artifacts', branch = 'artifacts' }
+use { 'ms-jpq/coq.thirdparty', branch = '3p' }
 
 use {
     'williamboman/mason.nvim',
@@ -47,12 +61,13 @@ require('mason-lspconfig').setup({
 require('mason-lspconfig').setup_handlers {
     function (server_name)
         local lspconfig = require('lspconfig')
+        local coq = require 'coq'
         if server_name == 'tsserver' then
-            lspconfig[server_name].setup {root_dir = lspconfig.util.root_pattern('package.json')}
+            lspconfig[server_name].setup(coq.lsp_ensure_capabilities{root_dir = lspconfig.util.root_pattern('package.json')})
         elseif server_name == 'denols' then
-            lspconfig[server_name].setup {root_dir = lspconfig.util.root_pattern('deno.json'), single_file_support = false}
+            lspconfig[server_name].setup(coq.lsp_ensure_capabilities{root_dir = lspconfig.util.root_pattern('deno.json'), single_file_support = false})
         else
-            lspconfig[server_name].setup {}
+            lspconfig[server_name].setup(coq.lsp_ensure_capabilities{})
         end
     end
 }
@@ -60,13 +75,10 @@ require('mason-lspconfig').setup_handlers {
 -- improve default vim ui. e.g. code actions
 use { 'stevearc/dressing.nvim' }
 
--- Auto completion
 use {
-    'ms-jpq/coq_nvim',
-    branch = 'coq',
+    'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async'
 }
-use { 'ms-jpq/coq.artifacts', branch = 'artifacts' }
-use { 'ms-jpq/coq.thirdparty', branch = '3p' }
 
 -- vim registers
 use 'gennaro-tedesco/nvim-peekup'
@@ -213,7 +225,7 @@ use {
     'mhinz/vim-startify',
 }
 use 'dstein64/vim-startuptime' -- startup time
-use 'markonm/traces.vim' -- search and replace
+-- use 'markonm/traces.vim' -- search and replace
 use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
@@ -240,6 +252,11 @@ use {
 -- case convert
 use {
     'tpope/vim-abolish',
+}
+
+-- editor config
+use {
+    'gpanders/editorconfig.nvim'
 }
 
 end)
