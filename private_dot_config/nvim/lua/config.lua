@@ -43,11 +43,6 @@ cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, time
 -- Remove trailing space
 cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 
--- diagnostics
-vim.diagnostic.config({
-    virtual_text = true,
-})
-
 -- color scheme
 vim.cmd.colorscheme('gruvbox')
 -- remove bg color
@@ -137,4 +132,5 @@ map('n', '<Leader>sr', '<cmd>lua require("spectre").open()<CR>')
 map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>')
 map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>')
 
+-- git blame
 map('n', '<Leader>gb', ':GitBlameToggle<CR>')
