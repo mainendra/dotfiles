@@ -22,8 +22,6 @@ require('packer').startup(function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
-    use 'folke/neodev.nvim'
-
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
@@ -116,9 +114,6 @@ require('packer').startup(function(use)
     use 'max397574/better-escape.nvim'
     -- case convert
     use 'tpope/vim-abolish'
-    -- editor config
-    use 'gpanders/editorconfig.nvim'
-
 
     -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
     local has_plugins, plugins = pcall(require, 'custom.plugins')
