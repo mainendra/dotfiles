@@ -14,6 +14,8 @@ require('nvim-treesitter.configs').setup {
     }
 }
 
+require('neodev').setup()
+
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 lsp.setup()
