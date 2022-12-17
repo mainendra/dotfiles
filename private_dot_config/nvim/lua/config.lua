@@ -11,12 +11,9 @@ end
 
 -------------------- CONFIG -------------------------------
 g['mapleader'] = ' ' -- leader key
+g['maplocalleader'] = ' ' -- leader key
 
-if vim.fn.executable('volta') > 0 then
-    g['node_host_prog'] = vim.call('system', 'volta which neovim-node-host | tr -d "\n"')
-else
-    g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
-end
+g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 
 g['gitblame_date_format'] = '%r' -- relative date
 g['gitblame_enabled'] = 0 -- default disabled

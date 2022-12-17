@@ -27,17 +27,36 @@ vim.diagnostic.config({
     float = true,
 })
 
+-- [[ Configure Telescope ]]
+-- See `:help telescope` and `:help telescope.setup()`
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-u>'] = false,
+        ['<C-d>'] = false,
+      },
+    },
+  },
+}
+
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
+
+-- Turn on lsp status information
+require('fidget').setup()
+
 require('spectre').setup()
 
 require('nvim-tree').setup()
 
 require('gitsigns').setup()
 
-require('kommentary.config').use_extended_mappings()
+require('Comment').setup()
 
 require('hop').setup{keys = 'etovxqpdygfblzhckisuran'}
 
-require('nvim-surround').setup{}
+require('nvim-surround').setup()
 
 require('lualine').setup({
     options = { theme = 'gruvbox' }
