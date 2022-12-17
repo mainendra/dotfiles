@@ -18,7 +18,7 @@ cmd [[packadd packer.nvim]]
 
 -------------------- PLUGINS ------------------------------
 
-require('packer').startup(function()
+require('packer').startup(function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
