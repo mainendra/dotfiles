@@ -28,7 +28,7 @@ cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 vim.cmd.colorscheme('gruvbox')
 -- remove bg color (after setting colorscheme)
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -------------------- MAPPINGS -------------------------------
 
