@@ -22,27 +22,13 @@ require('packer').startup(function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
-    use {
-        'VonHeikemen/lsp-zero.nvim',
-        requires = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+    -- lsp
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
 
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
-
-            -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
-        }
-    }
+    -- utilities. autocomplete, surround, pair, etc ...
+    use 'echasnovski/mini.nvim'
 
     -- Useful status updates for LSP
     use 'j-hui/fidget.nvim'
@@ -63,13 +49,9 @@ require('packer').startup(function(use)
         }
     }
 
-
     -- theme
     use 'ellisonleao/gruvbox.nvim'
-    -- status line
-    use 'nvim-lualine/lualine.nvim'
-    -- Commenting
-    use 'numToStr/Comment.nvim'
+
     -- Detect tabstop and shiftwidth automatically
     use 'tpope/vim-sleuth'
 
@@ -81,6 +63,9 @@ require('packer').startup(function(use)
 
     -- improve default vim ui. e.g. code actions
     use { 'stevearc/dressing.nvim' }
+
+    -- quick fix list
+    use {'kevinhwang91/nvim-bqf', ft = 'qf'}
 
     -- search and replace
     use {
@@ -99,13 +84,6 @@ require('packer').startup(function(use)
         tag = 'nightly'
     }
 
-    -- easy motion, jump to
-    use {
-        'phaazon/hop.nvim',
-        branch='v1'
-    }
-    -- surround motion
-    use 'kylechui/nvim-surround'
     -- startup page
     use 'mhinz/vim-startify'
     -- startup time

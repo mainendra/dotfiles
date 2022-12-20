@@ -15,22 +15,6 @@ g['maplocalleader'] = ' ' -- leader key
 
 g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 
-g['gitblame_date_format'] = '%r' -- relative date
-g['gitblame_enabled'] = 0 -- default disabled
-
--- g['startify_disable_at_vimenter'] = 1
-g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
-g['startify_bookmarks'] = {
-    { i = '~/.config/nvim/init.lua' },
-    { p = '~/.config/nvim/lua/plugins.lua' },
-    { c = '~/.config/nvim/lua/config.lua' },
-    { o = '~/.config/nvim/lua/options.lua' },
-    { s = '~/.config/nvim/after/plugin/setup.lua' },
-    { z = '~/.zshrc' },
-    { g = '~/.gitconfig' },
-    { t = '~/.tmux.conf'},
-}
-
 -- register
 g['peekup_paste_before'] = '<leader>P'
 g['peekup_paste_after'] = '<leader>p'
@@ -42,13 +26,13 @@ cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 
 -- color scheme
 vim.cmd.colorscheme('gruvbox')
--- remove bg color
+-- remove bg color (after setting colorscheme)
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -------------------- MAPPINGS -------------------------------
 
-map('n', '<Space>sv', ':source $MYVIMRC<CR>')
+map('n', '<Leader>sv', ':source $MYVIMRC<CR>')
 
 map('n', '<Space>', '<Nop>', { noremap = true, silent = true })
 
@@ -69,21 +53,6 @@ map('v', '<', '<gv');
 
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
-
--- Telescope
-map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fg', '<cmd>Telescope live_grep theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fb', '<cmd>Telescope buffers theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>e', ':NvimTreeFindFileToggle<CR>')
-map('n', '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
-map('n', '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>')
-
--- lsp config
-map('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 map('n', '<S-u>', '<C-u>')
 map('n', '<S-d>', '<C-d>')
@@ -115,13 +84,25 @@ map('n', 'Q', '<Nop>')
 map('n', 'qq', ':q<CR>')
 map('n', 'QQ', ':q!<CR>')
 
--- hop
-map('n', '<Leader>hc', ':HopChar1<cr>')
-map('n', '<Leader>hw', ':HopWord<cr>')
-map('n', '<Leader>hl', ':HopLine<cr>')
-map('n', '<Leader>hp', ':HopPattern<cr>')
+---------------------------------------- Plugins configs ------------------------------------------------
+
+-- gitblame
+g['gitblame_date_format'] = '%r' -- relative date
+g['gitblame_enabled'] = 0 -- default disabled
+map('n', '<Leader>gb', ':GitBlameToggle<CR>')
 
 -- startify
+g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
+g['startify_bookmarks'] = {
+    { i = '~/.config/nvim/init.lua' },
+    { p = '~/.config/nvim/lua/plugins.lua' },
+    { c = '~/.config/nvim/lua/config.lua' },
+    { o = '~/.config/nvim/lua/options.lua' },
+    { s = '~/.config/nvim/after/plugin/setup.lua' },
+    { z = '~/.zshrc' },
+    { g = '~/.gitconfig' },
+    { t = '~/.tmux.conf'},
+}
 map('n', '<Leader>S', ':Startify<CR>')
 
 -- search and replace
@@ -129,5 +110,15 @@ map('n', '<Leader>sr', '<cmd>lua require("spectre").open()<CR>')
 map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>')
 map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>')
 
--- git blame
-map('n', '<Leader>gb', ':GitBlameToggle<CR>')
+-- Telescope
+map('n', '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fg', '<cmd>Telescope live_grep theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fb', '<cmd>Telescope buffers theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>e', ':NvimTreeFindFileToggle<CR>')
+map('n', '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
+map('n', '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>')
+
