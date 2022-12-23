@@ -84,12 +84,17 @@ map('n', 'Q', '<Nop>')
 map('n', 'qq', ':q<CR>')
 map('n', 'QQ', ':q!<CR>')
 
+-- paste on selection
+map('x', 'p', [["_dP]])
+
 ---------------------------------------- Plugins configs ------------------------------------------------
 
--- gitblame
-g['gitblame_date_format'] = '%r' -- relative date
-g['gitblame_enabled'] = 0 -- default disabled
-map('n', '<Leader>gb', ':GitBlameToggle<CR>')
+-- git
+map('n', '<Leader>gb', ':VGit toggle_live_blame<CR>')
+map('n', '<Leader>gh', ':VGit buffer_history_preview<CR>')
+map('n', '<C-h>', ':VGit hunk_down<CR>')
+map('n', '<C-H>', ':VGit hunk_up<CR>')
+
 
 -- startify
 g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
@@ -122,3 +127,9 @@ map('n', '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={heig
 map('n', '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>')
 map('n', '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>')
 
+-- harpoon
+map('n', '<Leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>')
+map('n', '<Leader>ht', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>')
+map('n', '<Leader>hn', '<cmd>lua require("harpoon.ui").nav_next()<CR>')
+map('n', '<Leader>hp', '<cmd>lua require("harpoon.ui").nav_prev()<CR>')
+map('n', '<Leader>hj', '<cmd>lua require("harpoon.ui").nav_file(v:count1)<CR>')

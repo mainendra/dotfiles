@@ -41,9 +41,8 @@ require('packer').startup(function(use)
     }
 
     -- Git related plugins
-    use 'f-person/git-blame.nvim'
     use {
-        'lewis6991/gitsigns.nvim',
+        'tanvirtin/vgit.nvim',
         requires = {
             'nvim-lua/plenary.nvim'
         }
@@ -73,6 +72,12 @@ require('packer').startup(function(use)
         requires = {
             'nvim-lua/plenary.nvim'
         }
+    }
+
+    -- marks
+    use {
+        'ThePrimeagen/harpoon',
+        requires = { 'nvim-lua/plenary.nvim' },
     }
 
     -- file explorer
