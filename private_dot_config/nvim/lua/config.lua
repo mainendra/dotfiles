@@ -89,12 +89,10 @@ map('x', 'p', [["_dP]])
 
 ---------------------------------------- Plugins configs ------------------------------------------------
 
--- git
-map('n', '<Leader>gb', ':VGit toggle_live_blame<CR>')
-map('n', '<Leader>gh', ':VGit buffer_history_preview<CR>')
-map('n', '<C-h>', ':VGit hunk_down<CR>')
-map('n', '<C-H>', ':VGit hunk_up<CR>')
-
+-- gitblame
+g['gitblame_date_format'] = '%r' -- relative date
+g['gitblame_enabled'] = 0 -- default disabled
+map('n', '<Leader>gb', ':GitBlameToggle<CR>')
 
 -- startify
 g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}

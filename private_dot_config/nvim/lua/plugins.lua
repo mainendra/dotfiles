@@ -41,8 +41,9 @@ require('packer').startup(function(use)
     }
 
     -- Git related plugins
+    use 'f-person/git-blame.nvim'
     use {
-        'tanvirtin/vgit.nvim',
+        'lewis6991/gitsigns.nvim',
         requires = {
             'nvim-lua/plenary.nvim'
         }
