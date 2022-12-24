@@ -33,7 +33,6 @@ opt('w', 'wrap', false)                               -- Disable line wrap
 opt('o', 'swapfile', false)                           -- Disable swapfile
 opt('o', 'history', 1000)
 opt('o', 'autoread', true)
-opt('o', 'autochdir', true)
 opt('o', 'backup', false)
 opt('o', 'writebackup', false)
 opt('w', 'cursorline', true)
