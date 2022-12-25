@@ -76,7 +76,7 @@ require('packer').startup(function(use)
     }
 
     -- file explorer
-    use { 'nvim-telescope/telescope-file-browser.nvim' }
+    use { 'ms-jpq/chadtree', branch = 'chad', run = ':CHADdeps' }
 
     -- startup page
     use 'mhinz/vim-startify'
