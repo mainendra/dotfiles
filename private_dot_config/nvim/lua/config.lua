@@ -95,6 +95,17 @@ g['gitblame_date_format'] = '%r' -- relative date
 g['gitblame_enabled'] = 0 -- default disabled
 map('n', '<Leader>gb', ':GitBlameToggle<CR>')
 
+-- chadtree
+g['chadtree_settings'] = {
+    theme = {
+        text_colour_set = 'nord'
+    },
+    keymap = {
+        primary = { '<enter>', 'o' },
+        toggle_version_control = { 'g' }
+    }
+}
+
 -- startify
 g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
 g['startify_bookmarks'] = {
