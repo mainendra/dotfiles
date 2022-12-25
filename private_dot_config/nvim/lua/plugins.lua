@@ -42,12 +42,6 @@ require('packer').startup(function(use)
 
     -- Git related plugins
     use 'f-person/git-blame.nvim'
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim'
-        }
-    }
 
     -- theme
     use 'ellisonleao/gruvbox.nvim'
@@ -82,13 +76,7 @@ require('packer').startup(function(use)
     }
 
     -- file explorer
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- for file icons
-        },
-        tag = 'nightly'
-    }
+    use { 'nvim-telescope/telescope-file-browser.nvim' }
 
     -- startup page
     use 'mhinz/vim-startify'
