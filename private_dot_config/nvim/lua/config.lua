@@ -24,13 +24,6 @@ cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, time
 -- Remove trailing space
 cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 
--- color scheme
-vim.cmd.colorscheme('gruvbox')
--- remove bg color (after setting colorscheme)
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
-
 -------------------- MAPPINGS -------------------------------
 
 map('n', '<Leader>sv', ':source $MYVIMRC<CR>')
