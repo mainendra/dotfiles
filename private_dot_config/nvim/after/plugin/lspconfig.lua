@@ -1,6 +1,6 @@
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -25,11 +25,24 @@ local on_attach = function(client, bufnr)
 end
 
 require('mason').setup()
-require('mason-lspconfig').setup()
+require('mason-lspconfig').setup({
+  automatic_installation = true
+})
 require('mason-lspconfig').setup_handlers({
   function (server_name)
     require('lspconfig')[server_name].setup {
       on_attach = on_attach
     }
-  end
+  end,
+  ["sumneko_lua"] = function ()
+    require('lspconfig').sumneko_lua.setup {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' }
+          }
+        }
+      }
+    }
+  end,
 })
