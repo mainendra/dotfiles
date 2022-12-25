@@ -1,3 +1,8 @@
+local status_ok = pcall(require, 'mini.align')
+if not status_ok then
+  return
+end
+
 require('mini.align').setup()
 require('mini.comment').setup()
 require('mini.completion').setup()

@@ -1,6 +1,11 @@
+local status_ok, telescope = pcall(require, 'telescope')
+if not status_ok then
+  return
+end
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -12,7 +17,7 @@ require('telescope').setup {
 }
 
 -- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+pcall(telescope.load_extension, 'fzf')
 -- file browser
-pcall(require('telescope').load_extension, 'file_browser')
+pcall(telescope.load_extension, 'file_browser')
 

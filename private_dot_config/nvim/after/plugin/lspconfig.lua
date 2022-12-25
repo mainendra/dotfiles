@@ -1,3 +1,20 @@
+local status_ok, mason, mason_lspconfig, lspconfig
+
+status_ok, mason = pcall(require, 'mason')
+if not status_ok then
+  return
+end
+
+status_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not status_ok then
+  return
+end
+
+status_ok, lspconfig = pcall(require, 'lspconfig')
+if not status_ok then
+  return
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
@@ -24,18 +41,18 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-require('mason').setup()
-require('mason-lspconfig').setup({
+mason.setup()
+mason_lspconfig.setup({
   automatic_installation = true
 })
-require('mason-lspconfig').setup_handlers({
+mason_lspconfig.setup_handlers({
   function (server_name)
-    require('lspconfig')[server_name].setup {
+    lspconfig[server_name].setup {
       on_attach = on_attach
     }
   end,
   ["sumneko_lua"] = function ()
-    require('lspconfig').sumneko_lua.setup {
+    lspconfig.sumneko_lua.setup {
       settings = {
         Lua = {
           diagnostics = {
