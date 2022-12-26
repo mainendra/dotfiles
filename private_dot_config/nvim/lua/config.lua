@@ -95,7 +95,7 @@ g['chadtree_settings'] = {
     },
     keymap = {
         primary = { '<enter>', 'o' },
-        toggle_version_control = { 'g' }
+        toggle_version_control = { 'v' }
     }
 }
 
