@@ -40,9 +40,6 @@ require('packer').startup(function(use)
         end
     }
 
-    -- zfold
-    use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-
     -- Git related plugins
     use 'f-person/git-blame.nvim'
 

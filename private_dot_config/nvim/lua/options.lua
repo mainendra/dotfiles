@@ -51,3 +51,6 @@ opt('o', 'lazyredraw', true)
 opt('o', 'signcolumn', 'yes:1')
 opt('o', 'background', 'dark')
 opt('o', 'synmaxcol', 200)                           -- syntax file is slow,
+opt('o', 'foldmethod', 'expr')
+opt('o', 'foldexpr', 'nvim_treesitter#foldexpr()')
+opt('o', 'foldlevelstart', 99)                       -- no fold closed
