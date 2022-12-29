@@ -43,6 +43,7 @@ end
 
 mason.setup()
 mason_lspconfig.setup({
+  ensure_installed = { 'sumneko_lua' },
   automatic_installation = true
 })
 mason_lspconfig.setup_handlers({
@@ -51,7 +52,7 @@ mason_lspconfig.setup_handlers({
       on_attach = on_attach
     }
   end,
-  ["sumneko_lua"] = function ()
+  ['sumneko_lua'] = function ()
     lspconfig.sumneko_lua.setup {
       settings = {
         Lua = {
