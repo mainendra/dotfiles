@@ -22,6 +22,9 @@ require('packer').startup(function(use)
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
+    -- performance improvements
+    use 'lewis6991/impatient.nvim'
+
     -- lsp
     use 'neovim/nvim-lspconfig'
     use 'williamboman/mason.nvim'
