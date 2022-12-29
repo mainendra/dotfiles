@@ -1,99 +1,240 @@
--------------------- HELPERS ------------------------------
+-------------------- PLUGIN MANAGER ------------------------------
 
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
--------------------- PACKER PLUGIN MANAGER ------------------------------
-
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-    execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-    execute 'packadd packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
-
--- Only required if you have packer in your `opt` pack
-cmd [[packadd packer.nvim]]
+vim.opt.runtimepath:prepend(lazypath)
 
 -------------------- PLUGINS ------------------------------
 
-require('packer').startup(function(use)
-    -- Packer can manage itself as an optional plugin
-    use {'wbthomason/packer.nvim', opt = true}
-
-    -- performance improvements
-    use 'lewis6991/impatient.nvim'
-
+require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- lsp
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
+    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
 
     -- utilities. autocomplete, surround, pair, etc ...
-    use 'echasnovski/mini.nvim'
+    {
+        'echasnovski/mini.nvim',
+        config = function()
+            require('mini.align').setup()
+            require('mini.comment').setup()
+            require('mini.completion').setup()
+            require('mini.fuzzy').setup()
+            require('mini.jump').setup()
+            require('mini.jump2d').setup()
+            require('mini.misc').setup()
+            require('mini.pairs').setup()
+            require('mini.statusline').setup()
+            require('mini.surround').setup()
+            require('mini.trailspace').setup()
+            require('mini.ai').setup()
+        end
+    },
 
     -- Useful status updates for LSP
-    use 'j-hui/fidget.nvim'
+    {
+        'j-hui/fidget.nvim',
+        config = true,
+    },
 
-    use { -- Highlight, edit, and navigate code
+    { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
-        run = function()
+        build = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
+        end,
+        config = function()
+            require('nvim-treesitter.configs').setup({
+                sync_install = false,
+                auto_install = true,
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+                indent = {
+                    enable = true,
+                },
+                autotag = {
+                    enable = true,
+                }
+            })
+
+            -- folding with treesitter
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
         end
-    }
+    },
 
     -- Git related plugins
-    use 'f-person/git-blame.nvim'
+    {
+        'f-person/git-blame.nvim',
+        cmd = 'GitBlameToggle',
+        keys = { { '<Leader>gb', '<cmd>GitBlameToggle<CR>' } },
+        config = function()
+            vim.g['gitblame_date_format'] = '%r' -- relative date
+            vim.g['gitblame_enabled'] = 0 -- default disabled
+        end
+    },
 
     -- theme
-    use 'ellisonleao/gruvbox.nvim'
+    {
+        'ellisonleao/gruvbox.nvim',
+        config = function()
+            require('gruvbox').setup({
+                contrast = 'hard',
+                transparent_mode = true,
+            })
+            vim.cmd('colorscheme gruvbox')
+        end,
+    },
 
     -- Detect tabstop and shiftwidth automatically
-    use 'tpope/vim-sleuth'
+    'tpope/vim-sleuth',
 
     -- Fuzzy Finder (files, lsp, etc)
-    use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+    {
+        'nvim-telescope/telescope.nvim',
+        branch = '0.1.x',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        keys = {
+            { '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fg', '<cmd>Telescope live_grep theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fb', '<cmd>Telescope buffers theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fh', '<cmd>Telescope help_tags theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>' },
+        },
+        config = {
+            defaults = {
+                mappings = {
+                    i = {
+                        ['<C-u>'] = false,
+                        ['<C-d>'] = false,
+                    },
+                },
+            },
+        }
+    },
 
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+    {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim' },
+        build = 'make',
+        cond = vim.fn.executable 'make' == 1,
+        config = function()
+            require('telescope').load_extension('fzf');
+        end,
+    },
 
     -- improve default vim ui. e.g. code actions
-    use { 'stevearc/dressing.nvim' }
+    {
+        'stevearc/dressing.nvim',
+        event = 'VeryLazy',
+    },
 
     -- quick fix list
-    use {'kevinhwang91/nvim-bqf', ft = 'qf'}
+    {'kevinhwang91/nvim-bqf', ft = 'qf'},
 
     -- search and replace
-    use {
+    {
         'windwp/nvim-spectre',
-        requires = {
+        dependencies = {
             'nvim-lua/plenary.nvim'
-        }
-    }
+        },
+        keys = {
+            { '<Leader>sr', '<cmd>lua require("spectre").open()<CR>' },
+            { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
+            { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
+        },
+        config = true,
+    },
 
     -- marks
-    use {
+    {
         'ThePrimeagen/harpoon',
-        requires = { 'nvim-lua/plenary.nvim' },
-    }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        keys = {
+            { '<Leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>' },
+            { '<Leader>ht', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>' },
+            { '<Leader>hn', '<cmd>lua require("harpoon.ui").nav_next()<CR>' },
+            { '<Leader>hp', '<cmd>lua require("harpoon.ui").nav_prev()<CR>' },
+        }
+    },
 
     -- file explorer
-    use { 'ms-jpq/chadtree', branch = 'chad', run = ':CHADdeps' }
+    {
+        'nvim-tree/nvim-tree.lua',
+        cmd = 'NvimTreeFindFileToggle',
+        keys = { { '<Leader>e', '<cmd>NvimTreeFindFileToggle<CR>' } },
+        dependencies = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        config = {
+            respect_buf_cwd = true,
+            sort_by = 'case_sensitive',
+            view = {
+                adaptive_size = true,
+                mappings = {
+                    list = {
+                        { key = 'u', action = 'dir_up' },
+                    },
+                },
+            },
+            renderer = {
+                group_empty = true,
+            },
+            filters = {
+                dotfiles = true,
+            },
+        },
+    },
 
     -- startup page
-    use 'mhinz/vim-startify'
+    {
+        'mhinz/vim-startify',
+        lazy = false,
+        keys = { { '<Leader>S', '<cmd>Startify<CR>' } },
+        config = function()
+            vim.g['startify_lists'] = {{type = 'bookmarks', header = {'Bookmarks'}}}
+            vim.g['startify_bookmarks'] = {
+                { i = '~/.config/nvim/init.lua' },
+                { p = '~/.config/nvim/lua/plugins.lua' },
+                { c = '~/.config/nvim/lua/config.lua' },
+                { o = '~/.config/nvim/lua/options.lua' },
+                { s = '~/.config/nvim/after/plugin' },
+                { z = '~/.zshrc' },
+                { g = '~/.gitconfig' },
+                { t = '~/.tmux.conf'},
+            }
+        end,
+    },
+
     -- startup time
-    use 'dstein64/vim-startuptime'
+    {
+        'dstein64/vim-startuptime',
+        cmd = "StartupTime",
+    },
     -- jk to escape
-    use 'max397574/better-escape.nvim'
+    {
+        'max397574/better-escape.nvim',
+        config = true,
+    },
     -- case convert
-    use 'tpope/vim-abolish'
-
-    -- Add custom plugins to packer from /nvim/lua/custom/plugins.lua
-    local has_plugins, plugins = pcall(require, 'custom.plugins')
-    if has_plugins then
-        plugins(use)
-    end
-end)
-
+    {
+        'tpope/vim-abolish',
+        event = 'VeryLazy',
+    }
+})
