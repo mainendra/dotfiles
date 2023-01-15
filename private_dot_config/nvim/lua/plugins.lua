@@ -116,7 +116,13 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'kkharji/sqlite.lua',
+            'nvim-telescope/telescope-frecency.nvim', -- recent files
+            'nvim-telescope/telescope-ui-select.nvim', -- code actions using telescoe
+            'tsakirist/telescope-lazy.nvim',
+        },
         keys = {
             { '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>ff', '<cmd>Telescope find_files theme=get_ivy layout_config={height=0.5}<CR>' },
@@ -127,32 +133,25 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
             { '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fr', '<cmd>Telescope frecency theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fz', '<cmd>Telescope lazy theme=get_ivy layout_config={height=0.5}<CR>' },
         },
-        config = {
-            defaults = {
-                mappings = {
-                    i = {
-                        ['<C-u>'] = false,
-                        ['<C-d>'] = false,
+        config = function()
+            require('telescope').setup({
+                defaults = {
+                    mappings = {
+                        i = {
+                            ['<C-u>'] = false,
+                            ['<C-d>'] = false,
+                        },
                     },
                 },
-            },
-        }
+            })
+            require'telescope'.load_extension('frecency')
+            require('telescope').load_extension('ui-select')
+            require('telescope').load_extension('lazy')
+        end
     },
-
-    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-    {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        dependencies = { 'nvim-telescope/telescope.nvim' },
-        build = 'make',
-        cond = vim.fn.executable 'make' == 1,
-        config = function()
-            require('telescope').load_extension('fzf');
-        end,
-    },
-
-    -- improve default vim ui. e.g. code actions
-    'stevearc/dressing.nvim',
 
     -- quick fix list
     {'kevinhwang91/nvim-bqf', ft = 'qf'},
@@ -194,6 +193,10 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
         config = {
             respect_buf_cwd = true,
+            update_focused_file = {
+                enable = true,
+                update_cwd = true,
+            },
             sort_by = 'case_sensitive',
             view = {
                 adaptive_size = true,
