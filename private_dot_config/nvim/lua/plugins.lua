@@ -73,6 +73,19 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         end
     },
 
+    -- two slash queries
+    {
+        'marilari88/twoslash-queries.nvim',
+        keys = {
+            { '<Leader>ta', '<cmd>InspectTwoslashQueries<CR>' },
+            { '<Leader>tr', '<cmd>RemoveTwoslashQueries<CR>' },
+        },
+        config = {
+            multi_line = true,
+            enable = false,
+        }
+    },
+
     -- Git related plugins
     {
         'f-person/git-blame.nvim',
