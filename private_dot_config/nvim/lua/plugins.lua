@@ -118,8 +118,6 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         branch = '0.1.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
-            'kkharji/sqlite.lua',
-            'nvim-telescope/telescope-frecency.nvim', -- recent files
             'nvim-telescope/telescope-ui-select.nvim', -- code actions using telescoe
             'tsakirist/telescope-lazy.nvim',
         },
@@ -132,8 +130,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
             { '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
-            { '<Leader>fc', '<cmd>Telescope builtin theme=get_ivy layout_config={height=0.5}<CR>' },
-            { '<Leader>fr', '<cmd>Telescope frecency theme=get_ivy layout_config={height=0.5}<CR>' },
+            { '<Leader>fc', '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", layout_config={height=0.5} }))<CR>' },
             { '<Leader>fz', '<cmd>Telescope lazy theme=get_ivy layout_config={height=0.5}<CR>' },
         },
         config = function()
@@ -147,7 +144,6 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
                     },
                 },
             })
-            require'telescope'.load_extension('frecency')
             require('telescope').load_extension('ui-select')
             require('telescope').load_extension('lazy')
         end
