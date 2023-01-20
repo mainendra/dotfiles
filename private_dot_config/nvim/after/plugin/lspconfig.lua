@@ -22,6 +22,9 @@ local on_attach = function(client, bufnr)
     require('twoslash-queries').attach(client, bufnr)
   end
 
+  -- always load telescope ui extension
+  require('telescope').load_extension('ui-select')
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -56,6 +59,19 @@ mason_lspconfig.setup_handlers({
       on_attach = on_attach
     }
   end,
+  ['tsserver'] = function ()
+    lspconfig['tsserver'].setup {
+      on_attach = on_attach,
+      root_dir = lspconfig.util.root_pattern("package.json"),
+      single_file_support = false,
+    }
+  end,
+  ['denols'] = function ()
+    lspconfig['denols'].setup {
+      on_attach = on_attach,
+      root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    }
+  end,
   ['sumneko_lua'] = function ()
     lspconfig.sumneko_lua.setup {
       settings = {
@@ -65,6 +81,20 @@ mason_lspconfig.setup_handlers({
           }
         }
       }
+    }
+  end,
+  ['tailwindcss'] = function ()
+    lspconfig.tailwindcss.setup {
+      settings = {
+        tailwindCSS = {
+          experimental = {
+            classRegex = {
+              "cva\\(([^)]*)\\)",
+              "[\"'`]([^\"'`]*).*?[\"'`]",
+            },
+          },
+        },
+      },
     }
   end,
 })
