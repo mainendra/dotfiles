@@ -40,6 +40,9 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         end
     },
 
+    -- emmet
+    'mattn/emmet-vim',
+
     -- Useful status updates for LSP
     {
         'j-hui/fidget.nvim',
