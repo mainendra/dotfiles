@@ -22,9 +22,6 @@ local on_attach = function(client, bufnr)
     require('twoslash-queries').attach(client, bufnr)
   end
 
-  -- always load telescope ui extension
-  require('telescope').load_extension('ui-select')
-
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

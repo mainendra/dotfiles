@@ -121,8 +121,6 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         branch = '0.1.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope-ui-select.nvim', -- code actions using telescoe
-            'tsakirist/telescope-lazy.nvim',
         },
         keys = {
             { '<Leader>fl', '<cmd>Telescope current_buffer_fuzzy_find theme=get_ivy layout_config={height=0.5}<CR>' },
@@ -134,23 +132,21 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
             { '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fc', '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", hidden = true, layout_config={height=0.5} }))<CR>' },
-            { '<Leader>fz', '<cmd>Telescope lazy theme=get_ivy layout_config={height=0.5}<CR>' },
         },
-        config = function()
-            require('telescope').setup({
-                defaults = {
-                    mappings = {
-                        i = {
-                            ['<C-u>'] = false,
-                            ['<C-d>'] = false,
-                        },
+        config = {
+            defaults = {
+                mappings = {
+                    i = {
+                        ['<C-u>'] = false,
+                        ['<C-d>'] = false,
                     },
                 },
-            })
-            require('telescope').load_extension('ui-select')
-            require('telescope').load_extension('lazy')
-        end
+            },
+        }
     },
+
+    -- ui select and input
+    'stevearc/dressing.nvim',
 
     -- quick fix list
     {'kevinhwang91/nvim-bqf', ft = 'qf'},
@@ -228,5 +224,17 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     {
         'tpope/vim-abolish',
         event = 'VeryLazy',
-    }
+    },
+
+    -- note taking
+    {
+        'phaazon/mind.nvim',
+        branch = 'v2.2',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = true,
+        keys = {
+            { '<Leader>mo', '<cmd>MindOpenMain<CR>' },
+            { '<Leader>mc', '<cmd>MindClose<CR>' },
+        },
+    },
 })
