@@ -48,9 +48,6 @@ map('v', '<', '<gv');
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
 
-map('n', '<S-u>', '<C-u>')
-map('n', '<S-d>', '<C-d>')
-
 map('n', 'qo', ':only<CR>')
 
 map('', '<C-S-Left>', ':vertical resize -5<CR>')
