@@ -263,4 +263,4 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # asdf version manager
-. /usr/local/opt/asdf/libexec/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
