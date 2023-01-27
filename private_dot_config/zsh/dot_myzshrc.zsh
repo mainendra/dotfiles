@@ -144,10 +144,6 @@ alias chrome-ds='open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-c
 # VLC video player
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
-# node link
-alias npmlink='nvm exec default npm link'
-alias npmunlink='nvm exec default npm unlink'
-
 # pnpm
 alias pn=pnpm
 
@@ -261,34 +257,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
-
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+
+# asdf version manager
+. /usr/local/opt/asdf/libexec/asdf.sh
