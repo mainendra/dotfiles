@@ -27,7 +27,9 @@ local on_attach = function(client, bufnr)
 
   -- diagnostic config
   vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = {
+      source = "always",  -- Or "if_many"
+    },
     severity_sort = true,
     float = {
       source = "always",  -- Or "if_many"
@@ -40,7 +42,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'D', vim.diagnostic.open_float , bufopts)
+  vim.keymap.set('n', '<Leader>do', vim.diagnostic.open_float , bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
