@@ -24,6 +24,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
+        version = false,
         config = function()
             require('mini.align').setup()
             require('mini.comment').setup()
