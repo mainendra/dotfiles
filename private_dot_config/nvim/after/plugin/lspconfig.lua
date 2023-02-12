@@ -59,7 +59,7 @@ end
 
 mason.setup()
 mason_lspconfig.setup({
-  ensure_installed = { 'sumneko_lua' },
+  ensure_installed = { 'lua_ls' },
   automatic_installation = true
 })
 mason_lspconfig.setup_handlers({
@@ -81,8 +81,8 @@ mason_lspconfig.setup_handlers({
       root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     }
   end,
-  ['sumneko_lua'] = function ()
-    lspconfig.sumneko_lua.setup {
+  ['lua_ls'] = function ()
+    lspconfig.lua_ls.setup {
       settings = {
         Lua = {
           diagnostics = {
