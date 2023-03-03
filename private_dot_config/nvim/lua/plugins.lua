@@ -24,7 +24,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
-        lazy = true,
+        event = 'BufRead',
         version = false,
         config = function()
             require('mini.align').setup()
@@ -43,14 +43,14 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- emmet
-    { 'mattn/emmet-vim', event = 'InsertEnter', },
+    { 'mattn/emmet-vim', event = 'BufRead', },
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', event = 'InsertEnter', config = true, },
+    { 'j-hui/fidget.nvim', event = 'BufRead', config = true, },
 
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
-        event = 'InsertEnter',
+        event = 'BufAdd',
         build = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
@@ -114,7 +114,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- Detect tabstop and shiftwidth automatically
-    { 'tpope/vim-sleuth', event = 'InsertEnter', },
+    { 'tpope/vim-sleuth', event = 'BufAdd' },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -147,7 +147,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- ui select and input
-    { 'stevearc/dressing.nvim', event = 'InsertEnter', },
+    { 'stevearc/dressing.nvim', event = 'BufAdd', },
 
     -- quick fix list
     {'kevinhwang91/nvim-bqf', ft = 'qf'},
@@ -212,9 +212,9 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- jk to escape
-    { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
+    { 'max397574/better-escape.nvim', event = 'BufRead', config = true, },
     -- case convert
-    { 'tpope/vim-abolish', event = 'InsertEnter', },
+    { 'tpope/vim-abolish', event = 'BufRead', },
 
     -- note taking
     {
