@@ -24,6 +24,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
+        event = 'InsertEnter',
         version = false,
         config = function()
             require('mini.align').setup()
@@ -42,16 +43,14 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- emmet
-    'mattn/emmet-vim',
+    { 'mattn/emmet-vim', event = 'InsertEnter', },
 
     -- Useful status updates for LSP
-    {
-        'j-hui/fidget.nvim',
-        config = true,
-    },
+    { 'j-hui/fidget.nvim', config = true, },
 
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
+        event = 'InsertEnter',
         build = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
@@ -104,6 +103,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- theme
     {
         'ellisonleao/gruvbox.nvim',
+        priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
             require('gruvbox').setup({
                 contrast = 'hard',
@@ -114,7 +114,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- Detect tabstop and shiftwidth automatically
-    'tpope/vim-sleuth',
+    { 'tpope/vim-sleuth', event = 'InsertEnter', },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -147,7 +147,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     },
 
     -- ui select and input
-    'stevearc/dressing.nvim',
+    { 'stevearc/dressing.nvim', event = 'InsertEnter', },
 
     -- quick fix list
     {'kevinhwang91/nvim-bqf', ft = 'qf'},
@@ -211,21 +211,10 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
         },
     },
 
-    -- startup time
-    {
-        'dstein64/vim-startuptime',
-        cmd = "StartupTime",
-    },
     -- jk to escape
-    {
-        'max397574/better-escape.nvim',
-        config = true,
-    },
+    { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
     -- case convert
-    {
-        'tpope/vim-abolish',
-        event = 'VeryLazy',
-    },
+    { 'tpope/vim-abolish', event = 'InsertEnter', },
 
     -- note taking
     {
