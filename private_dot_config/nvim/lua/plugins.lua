@@ -24,7 +24,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
-        event = 'InsertEnter',
+        lazy = true,
         version = false,
         config = function()
             require('mini.align').setup()
@@ -46,7 +46,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     { 'mattn/emmet-vim', event = 'InsertEnter', },
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', config = true, },
+    { 'j-hui/fidget.nvim', event = 'InsertEnter', config = true, },
 
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
