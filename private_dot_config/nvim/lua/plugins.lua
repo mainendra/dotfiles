@@ -24,21 +24,24 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
-        event = 'BufRead',
+        event = { 'BufAdd' },
         version = false,
         config = function()
+            require('mini.ai').setup()
             require('mini.align').setup()
+            require('mini.basics').setup()
+            require('mini.bracketed').setup()
             require('mini.comment').setup()
             require('mini.completion').setup()
             require('mini.fuzzy').setup()
             require('mini.jump').setup()
             require('mini.jump2d').setup()
+            require('mini.map').setup()
             require('mini.misc').setup()
             require('mini.pairs').setup()
             require('mini.statusline').setup()
             require('mini.surround').setup()
             require('mini.trailspace').setup()
-            require('mini.ai').setup()
         end
     },
 
@@ -46,7 +49,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     { 'mattn/emmet-vim', event = 'BufRead', },
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', event = 'BufRead', config = true, },
+    { 'j-hui/fidget.nvim', config = true, event = { 'BufAdd' } },
 
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
