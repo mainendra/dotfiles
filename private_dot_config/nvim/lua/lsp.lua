@@ -57,53 +57,57 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<Leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-mason.setup()
-mason_lspconfig.setup({
-  ensure_installed = { 'lua_ls' },
-  automatic_installation = true
-})
-mason_lspconfig.setup_handlers({
-  function (server_name)
-    lspconfig[server_name].setup {
-      on_attach = on_attach
-    }
-  end,
-  ['tsserver'] = function ()
-    lspconfig['tsserver'].setup {
-      on_attach = on_attach,
-      root_dir = lspconfig.util.root_pattern("package.json"),
-      single_file_support = false,
-    }
-  end,
-  ['denols'] = function ()
-    lspconfig['denols'].setup {
-      on_attach = on_attach,
-      root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-    }
-  end,
-  ['lua_ls'] = function ()
-    lspconfig.lua_ls.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { 'vim' }
+return {
+  setup = function()
+    mason.setup()
+    mason_lspconfig.setup({
+      ensure_installed = { 'lua_ls' },
+      automatic_installation = true
+    })
+    mason_lspconfig.setup_handlers({
+      function (server_name)
+        lspconfig[server_name].setup {
+          on_attach = on_attach
+        }
+      end,
+      ['tsserver'] = function ()
+        lspconfig['tsserver'].setup {
+          on_attach = on_attach,
+          root_dir = lspconfig.util.root_pattern("package.json"),
+          single_file_support = false,
+        }
+      end,
+      ['denols'] = function ()
+        lspconfig['denols'].setup {
+          on_attach = on_attach,
+          root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+        }
+      end,
+      ['lua_ls'] = function ()
+        lspconfig.lua_ls.setup {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { 'vim' }
+              }
+            }
           }
         }
-      }
-    }
-  end,
-  ['tailwindcss'] = function ()
-    lspconfig.tailwindcss.setup {
-      settings = {
-        tailwindCSS = {
-          experimental = {
-            classRegex = {
-              "cva\\(([^)]*)\\)",
-              "[\"'`]([^\"'`]*).*?[\"'`]",
+      end,
+      ['tailwindcss'] = function ()
+        lspconfig.tailwindcss.setup {
+          settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  "cva\\(([^)]*)\\)",
+                  "[\"'`]([^\"'`]*).*?[\"'`]",
+                },
+              },
             },
           },
-        },
-      },
-    }
-  end,
-})
+        }
+      end,
+    })
+  end
+}

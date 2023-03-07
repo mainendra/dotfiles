@@ -17,9 +17,17 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- lsp
-    'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+        },
+        event = 'BufAdd',
+        config = function()
+            require('lsp').setup()
+        end
+    },
 
     -- utilities. autocomplete, surround, pair, etc ...
     {
