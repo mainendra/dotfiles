@@ -24,6 +24,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
             'williamboman/mason-lspconfig.nvim',
         },
         event = 'BufAdd',
+        cmd = 'Mason',
         config = function()
             require('lsp').setup()
         end
