@@ -230,7 +230,7 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
     -- startup time
     { 'dstein64/vim-startuptime', cmd = "StartupTime", },
     -- jk to escape
-    { 'max397574/better-escape.nvim', event = 'BufRead', config = true, },
+    { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
     -- case convert
     { 'tpope/vim-abolish', event = 'BufRead', },
 
