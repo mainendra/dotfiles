@@ -115,6 +115,11 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
             vim.g['gitblame_enabled'] = 0 -- default disabled
         end
     },
+    {
+        'lewis6991/gitsigns.nvim',
+        event = { 'BufAdd' },
+        config = true,
+    },
 
     -- theme
     {
