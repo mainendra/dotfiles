@@ -15,7 +15,7 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -------------------- PLUGINS ------------------------------
 
-require('lazy').setup({    -- Packer can manage itself as an optional plugin
+require('lazy').setup({
     -- lsp
     {
         'williamboman/mason.nvim',
@@ -230,6 +230,12 @@ require('lazy').setup({    -- Packer can manage itself as an optional plugin
                 dotfiles = true,
             },
         },
+    },
+
+    -- terminal
+    {
+        'numToStr/FTerm.nvim',
+        keys = { { '<Leader>;', '<cmd>lua require("FTerm").toggle()<CR>' } },
     },
 
     -- startup time
