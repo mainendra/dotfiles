@@ -39,6 +39,9 @@ require('lazy').setup({
         'echasnovski/mini.nvim',
         event = { 'BufAdd' },
         version = false,
+        keys = {
+            { '<Leader>e', '<cmd>lua MiniFiles.open()<CR>' },
+        },
         config = function()
             require('mini.ai').setup()
             require('mini.align').setup()
@@ -46,11 +49,15 @@ require('lazy').setup({
             require('mini.bracketed').setup()
             require('mini.comment').setup()
             require('mini.completion').setup()
+            require('mini.cursorword').setup()
+            require('mini.files').setup()
             require('mini.fuzzy').setup()
+            require('mini.hipatterns').setup()
             require('mini.jump').setup()
             require('mini.jump2d').setup()
             require('mini.map').setup()
             require('mini.misc').setup()
+            require('mini.move').setup()
             require('mini.pairs').setup()
             require('mini.splitjoin').setup()
             require('mini.statusline').setup()
@@ -63,7 +70,7 @@ require('lazy').setup({
     { 'mattn/emmet-vim', event = 'BufRead', },
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', config = true, event = { 'BufAdd' } },
+    { 'j-hui/fidget.nvim', tag = 'legacy', config = true, event = { 'BufAdd' } },
 
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
@@ -212,39 +219,6 @@ require('lazy').setup({
             { '<Leader>hn', '<cmd>lua require("harpoon.ui").nav_next()<CR>' },
             { '<Leader>hp', '<cmd>lua require("harpoon.ui").nav_prev()<CR>' },
         }
-    },
-
-    -- file explorer
-    {
-        'nvim-tree/nvim-tree.lua',
-        cmd = 'NvimTreeFindFileToggle',
-        keys = { { '<Leader>e', '<cmd>NvimTreeFindFileToggle<CR>' } },
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
-        config = {
-            respect_buf_cwd = true,
-            update_focused_file = {
-                enable = true,
-                update_cwd = true,
-            },
-            sort_by = 'case_sensitive',
-            view = {
-                adaptive_size = true,
-                mappings = {
-                    list = {
-                        { key = 'u', action = 'dir_up' },
-                    },
-                },
-            },
-            renderer = {
-                group_empty = true,
-            },
-            filters = {
-                dotfiles = true,
-            },
-        },
     },
 
     -- terminal
