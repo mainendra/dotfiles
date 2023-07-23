@@ -40,7 +40,18 @@ require('lazy').setup({
         event = { 'BufAdd' },
         version = false,
         keys = {
-            { '<Leader>e', '<cmd>lua MiniFiles.open()<CR>' },
+            {
+                '<Leader>e',
+                function()
+                    local files = require('mini.files')
+                    if not files.close() then
+                        files.open(vim.api.nvim_buf_get_name(0), false)
+                        -- files.reveal_cwd()
+                    else
+                        files.close()
+                    end
+                end
+            }
         },
         config = function()
             require('mini.ai').setup()
