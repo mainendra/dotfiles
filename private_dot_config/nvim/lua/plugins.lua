@@ -111,6 +111,7 @@ require('lazy').setup({
         end
     },
 
+    -- A VS Code like winbar for Neovim
     {
         'utilyre/barbecue.nvim',
         name = 'barbecue',
