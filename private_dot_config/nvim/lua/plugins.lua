@@ -2,14 +2,14 @@
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--single-branch",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--single-branch",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
@@ -58,6 +58,7 @@ require('lazy').setup({
             require('mini.align').setup()
             require('mini.basics').setup()
             require('mini.bracketed').setup()
+            require('mini.clue').setup()
             require('mini.comment').setup()
             require('mini.completion').setup()
             require('mini.cursorword').setup()
@@ -69,6 +70,7 @@ require('lazy').setup({
             require('mini.map').setup()
             require('mini.misc').setup()
             require('mini.move').setup()
+            require('mini.operators').setup()
             require('mini.pairs').setup()
             require('mini.splitjoin').setup()
             require('mini.statusline').setup()
@@ -82,7 +84,6 @@ require('lazy').setup({
 
     -- Useful status updates for LSP
     { 'j-hui/fidget.nvim', tag = 'legacy', config = true, event = { 'BufAdd' } },
-
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         event = 'BufAdd',
@@ -111,6 +112,18 @@ require('lazy').setup({
         end
     },
 
+    -- Copilot for neovim
+    {
+        'Exafunction/codeium.vim',
+        keys = {
+            { '<Leader>ce', '<cmd>CodeiumEnable<CR>' },
+            { '<Leader>cd', '<cmd>CodeiumDisable<CR>' },
+        },
+        config = function()
+            vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+        end
+    },
+
     -- A VS Code like winbar for Neovim
     {
         'utilyre/barbecue.nvim',
@@ -126,19 +139,6 @@ require('lazy').setup({
         },
     },
 
-    -- two slash queries
-    {
-        'marilari88/twoslash-queries.nvim',
-        keys = {
-            { '<Leader>ta', '<cmd>InspectTwoslashQueries<CR>' },
-            { '<Leader>tr', '<cmd>RemoveTwoslashQueries<CR>' },
-        },
-        config = {
-            multi_line = true,
-            enable = false,
-        }
-    },
-
     -- Git related plugins
     {
         'f-person/git-blame.nvim',
@@ -146,7 +146,7 @@ require('lazy').setup({
         keys = { { '<Leader>gb', '<cmd>GitBlameToggle<CR>' } },
         config = function()
             vim.g['gitblame_date_format'] = '%r' -- relative date
-            vim.g['gitblame_enabled'] = 0 -- default disabled
+            vim.g['gitblame_enabled'] = 0        -- default disabled
         end
     },
     {
@@ -169,7 +169,7 @@ require('lazy').setup({
     },
 
     -- Detect tabstop and shiftwidth automatically
-    { 'tpope/vim-sleuth', event = 'BufAdd' },
+    { 'tpope/vim-sleuth',       event = 'BufAdd' },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -187,7 +187,8 @@ require('lazy').setup({
             { '<Leader>fv', '<cmd>Telescope git_files theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fp', '<cmd>Telescope planets theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
-            { '<Leader>fc', '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", hidden = true, layout_config={height=0.5} }))<CR>' },
+            { '<Leader>fc',
+                                '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", hidden = true, layout_config={height=0.5} }))<CR>' },
         },
         config = {
             defaults = {
@@ -205,7 +206,7 @@ require('lazy').setup({
     { 'stevearc/dressing.nvim', event = 'BufAdd', },
 
     -- quick fix list
-    {'kevinhwang91/nvim-bqf', ft = 'qf'},
+    { 'kevinhwang91/nvim-bqf',  ft = 'qf' },
 
     -- search and replace
     {
@@ -240,21 +241,9 @@ require('lazy').setup({
     },
 
     -- startup time
-    { 'dstein64/vim-startuptime', cmd = "StartupTime", },
+    { 'dstein64/vim-startuptime',     cmd = "StartupTime", },
     -- jk to escape
     { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
     -- case convert
-    { 'tpope/vim-abolish', event = 'BufRead', },
-
-    -- note taking
-    {
-        'phaazon/mind.nvim',
-        branch = 'v2.2',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        config = true,
-        keys = {
-            { '<Leader>mo', '<cmd>MindOpenMain<CR>' },
-            { '<Leader>mc', '<cmd>MindClose<CR>' },
-        },
-    },
+    { 'tpope/vim-abolish',            event = 'BufRead', },
 })
