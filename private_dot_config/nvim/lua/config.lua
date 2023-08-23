@@ -47,6 +47,8 @@ map('v', '<', '<gv');
 
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
+map('n', '<Leader>cn', ':let @*=expand("%:t")<CR>')
+map('n', '<Leader>cf', ':let @*=expand("%:p")<CR>')
 
 map('n', '<S-u>', '<C-u>');
 map('n', '<S-d>', '<C-d>');
@@ -72,11 +74,11 @@ map('v', '<S-k>', ':m-2<CR>gv=gv')
 map('v', ';;', '<Esc>')
 
 -- disable recording macros
-map('n', 'q', '<Nop>')
-map('n', 'Q', '<Nop>')
+-- map('n', 'q', '<Nop>')
+-- map('n', 'Q', '<Nop>')
 
-map('n', 'qq', ':q<CR>')
-map('n', 'QQ', ':q!<CR>')
+map('n', '<Leader>q', ':q<CR>')
+map('n', '<Leader>Q', ':q!<CR>')
 
 -- paste on selection
 map('x', 'p', [["_dP]])
