@@ -225,6 +225,7 @@ require('lazy').setup({
             'nvim-lua/plenary.nvim'
         },
         keys = {
+            { '<Leader>st', '<cmd>lua require("spectre").toggle()<CR>' },
             { '<Leader>sr', '<cmd>lua require("spectre").open()<CR>' },
             { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
             { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
