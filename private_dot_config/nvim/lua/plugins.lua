@@ -230,7 +230,7 @@ require('lazy').setup({
             { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
             { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
         },
-        config = true,
+        config = { is_block_ui_break = true, mapping={ ['send_to_qf'] = {map = "<leader>k"} } },
     },
 
     -- marks
