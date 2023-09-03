@@ -245,12 +245,6 @@ require('lazy').setup({
         }
     },
 
-    -- terminal
-    {
-        'numToStr/FTerm.nvim',
-        keys = { { '<Leader>;', '<cmd>lua require("FTerm").toggle()<CR>' } },
-    },
-
     -- startup time
     { 'dstein64/vim-startuptime',     cmd = "StartupTime", },
     -- jk to escape
