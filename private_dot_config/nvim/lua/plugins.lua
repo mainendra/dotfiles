@@ -1,13 +1,13 @@
 -------------------- PLUGIN MANAGER ------------------------------
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "--single-branch",
-        "https://github.com/folke/lazy.nvim.git",
+        'git',
+        'clone',
+        '--filter=blob:none',
+        '--single-branch',
+        'https://github.com/folke/lazy.nvim.git',
         lazypath,
     })
 end
@@ -27,7 +27,7 @@ require('lazy').setup({
         dependencies = {
             'williamboman/mason-lspconfig.nvim',
         },
-        event = 'BufAdd',
+        event = { 'BufRead' },
         cmd = 'Mason',
         config = function()
             require('lsp').setup()
@@ -37,7 +37,7 @@ require('lazy').setup({
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
-        event = { 'BufAdd' },
+        event = { 'BufRead' },
         version = false,
         keys = {
             {
@@ -90,15 +90,23 @@ require('lazy').setup({
     },
 
     -- emmet
-    { 'mattn/emmet-vim', event = 'BufAdd', },
+    {
+        'mattn/emmet-vim',
+        event = { 'BufRead' },
+    },
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', tag = 'legacy', config = true, event = { 'BufAdd' } },
+    {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        config = true,
+        event = { 'BufRead' }
+    },
 
     -- Highlight, edit, and navigate code
     {
         'nvim-treesitter/nvim-treesitter',
-        event = 'BufAdd',
+        event = { 'BufRead' },
         build = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
@@ -119,8 +127,8 @@ require('lazy').setup({
             })
 
             -- folding with treesitter
-            vim.opt.foldmethod = "expr"
-            vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+            vim.opt.foldmethod = 'expr'
+            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
         end
     },
 
@@ -132,7 +140,7 @@ require('lazy').setup({
             { '<Leader>cd', '<cmd>CodeiumDisable<CR>' },
         },
         config = function()
-            vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+            vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
         end
     },
 
@@ -141,7 +149,7 @@ require('lazy').setup({
         'utilyre/barbecue.nvim',
         name = 'barbecue',
         version = '*',
-        event = 'BufAdd',
+        event = { 'BufRead' },
         dependencies = {
             'SmiteshP/nvim-navic',
             'nvim-tree/nvim-web-devicons', -- optional dependency
@@ -163,7 +171,7 @@ require('lazy').setup({
     },
     {
         'lewis6991/gitsigns.nvim',
-        event = { 'BufAdd' },
+        event = { 'BufRead' },
         config = true,
     },
 
@@ -181,7 +189,10 @@ require('lazy').setup({
     },
 
     -- Detect tabstop and shiftwidth automatically
-    { 'tpope/vim-sleuth',       event = 'BufAdd' },
+    {
+        'tpope/vim-sleuth',
+        event = { 'BufRead' }
+    },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -216,10 +227,16 @@ require('lazy').setup({
     },
 
     -- ui select and input
-    { 'stevearc/dressing.nvim', event = 'BufAdd', },
+    {
+        'stevearc/dressing.nvim',
+        event = { 'BufRead' },
+    },
 
     -- quick fix list
-    { 'kevinhwang91/nvim-bqf',  ft = 'qf' },
+    {
+        'kevinhwang91/nvim-bqf',
+        ft = 'qf'
+    },
 
     -- search and replace
     {
@@ -233,7 +250,7 @@ require('lazy').setup({
             { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
             { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
         },
-        config = { is_block_ui_break = true, mapping={ ['send_to_qf'] = {map = "<leader>k"} } },
+        config = { is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } },
     },
 
     -- marks
@@ -249,9 +266,19 @@ require('lazy').setup({
     },
 
     -- startup time
-    { 'dstein64/vim-startuptime',     cmd = "StartupTime", },
+    {
+        'dstein64/vim-startuptime',
+        cmd = 'StartupTime',
+    },
     -- jk to escape
-    { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
+    {
+        'max397574/better-escape.nvim',
+        event = 'InsertEnter',
+        config = true,
+    },
     -- case convert
-    { 'tpope/vim-abolish',            event = 'BufAdd', },
+    {
+        'tpope/vim-abolish',
+        event = { 'BufRead' },
+    },
 })
