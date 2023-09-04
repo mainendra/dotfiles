@@ -90,11 +90,13 @@ require('lazy').setup({
     },
 
     -- emmet
-    { 'mattn/emmet-vim', event = 'BufRead', },
+    { 'mattn/emmet-vim', event = 'BufAdd', },
 
     -- Useful status updates for LSP
     { 'j-hui/fidget.nvim', tag = 'legacy', config = true, event = { 'BufAdd' } },
-    { -- Highlight, edit, and navigate code
+
+    -- Highlight, edit, and navigate code
+    {
         'nvim-treesitter/nvim-treesitter',
         event = 'BufAdd',
         build = function()
@@ -200,6 +202,7 @@ require('lazy').setup({
             { '<Leader>fk', '<cmd>Telescope keymaps theme=get_ivy layout_config={height=0.5}<CR>' },
             { '<Leader>fc', '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", hidden = true, layout_config={height=0.5} }))<CR>' },
         },
+        cmd = 'Telescope',
         config = {
             defaults = {
                 mappings = {
@@ -250,5 +253,5 @@ require('lazy').setup({
     -- jk to escape
     { 'max397574/better-escape.nvim', event = 'InsertEnter', config = true, },
     -- case convert
-    { 'tpope/vim-abolish',            event = 'BufRead', },
+    { 'tpope/vim-abolish',            event = 'BufAdd', },
 })
