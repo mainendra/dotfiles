@@ -214,7 +214,7 @@ require('lazy').setup({
             { '<Leader>fc', '<cmd>lua require("telescope.builtin").fd(require("telescope.themes").get_ivy({ prompt_title="Find config files", cwd="~/.config", hidden = true, layout_config={height=0.5} }))<CR>' },
         },
         cmd = 'Telescope',
-        config = {
+        opts = {
             defaults = {
                 mappings = {
                     i = {
@@ -250,7 +250,7 @@ require('lazy').setup({
             { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
             { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
         },
-        config = { is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } },
+        opts = { is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } },
     },
 
     -- marks
