@@ -247,9 +247,6 @@ export PATH=$PATH:$GOROOT/bin
 
 source $HOME/.config/broot/launcher/bash/br
 
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 # Bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -263,4 +260,12 @@ export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 
 # asdf version manager
-. $(brew --prefix asdf)/libexec/asdf.sh
+z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh}
+
+# ocaml
+ [[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# bob (nvim version manager)
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+# bob completions
+fpath+=~/.zfunc
