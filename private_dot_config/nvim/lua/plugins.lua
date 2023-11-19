@@ -39,6 +39,7 @@ require('lazy').setup({
         'echasnovski/mini.nvim',
         event = { 'BufRead' },
         version = false,
+        cmd = 'Pick',
         keys = {
             {
                 '<Leader>e',
@@ -59,10 +60,10 @@ require('lazy').setup({
             require('mini.align').setup()
             require('mini.basics').setup()
             require('mini.bracketed').setup()
-            require('mini.clue').setup()
             require('mini.comment').setup()
             require('mini.completion').setup()
             require('mini.cursorword').setup()
+            require('mini.extra').setup()
             require('mini.files').setup()
             require('mini.fuzzy').setup()
             require('mini.jump').setup()
@@ -82,6 +83,7 @@ require('lazy').setup({
             require('mini.move').setup()
             require('mini.operators').setup()
             require('mini.pairs').setup()
+            require('mini.pick').setup()
             require('mini.splitjoin').setup()
             require('mini.statusline').setup()
             require('mini.surround').setup()
