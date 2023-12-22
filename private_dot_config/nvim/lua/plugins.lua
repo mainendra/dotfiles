@@ -260,13 +260,18 @@ require('lazy').setup({
     -- marks
     {
         'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        keys = {
-            { '<Leader>ha', '<cmd>lua require("harpoon.mark").add_file()<CR>' },
-            { '<Leader>ht', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>' },
-            { '<Leader>hn', '<cmd>lua require("harpoon.ui").nav_next()<CR>' },
-            { '<Leader>hp', '<cmd>lua require("harpoon.ui").nav_prev()<CR>' },
-        }
+        keys = function()
+            local harpoon = require('harpoon');
+            return {
+                { '<Leader>ha', function() harpoon:list():append() end },
+                { '<Leader>ht', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end },
+                { '<Leader>hn', function() harpoon:list():next() end },
+                { '<Leader>hp', function() harpoon:list():prev() end },
+            };
+        end,
+        config = true
     },
 
     -- startup time
