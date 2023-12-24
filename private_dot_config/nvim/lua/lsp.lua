@@ -51,7 +51,7 @@ return {
       ensure_installed = {
         'lua_ls',
         'cssls',
-        'cssmodule-ls',
+        'cssmodules_ls',
         'denols',
         'emmet_language_server',
         'emmet_ls',
