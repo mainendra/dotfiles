@@ -48,7 +48,22 @@ end
 return {
   setup = function()
     mason_lspconfig.setup({
-      ensure_installed = { 'lua_ls' },
+      ensure_installed = {
+        'lua_ls',
+        'cssls',
+        'cssmodule-ls',
+        'denols',
+        'emmet_language_server',
+        'emmet_ls',
+        'html',
+        'jsonls',
+        'marksman',
+        'svelte',
+        'tailwindcss',
+        'tsserver',
+        'vimls',
+        'yamlls'
+      },
       automatic_installation = true
     })
     mason_lspconfig.setup_handlers({
