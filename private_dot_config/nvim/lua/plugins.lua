@@ -82,7 +82,6 @@ require('lazy').setup({
             require('mini.misc').setup()
             require('mini.move').setup()
             require('mini.operators').setup()
-            require('mini.pairs').setup()
             require('mini.pick').setup()
             require('mini.splitjoin').setup()
             require('mini.statusline').setup()
@@ -101,7 +100,6 @@ require('lazy').setup({
     -- Useful status updates for LSP
     {
         'j-hui/fidget.nvim',
-        tag = 'legacy',
         config = true,
         event = { 'BufRead' }
     },
@@ -289,5 +287,12 @@ require('lazy').setup({
     {
         'tpope/vim-abolish',
         event = { 'BufRead' },
+    },
+
+    -- hide env content
+    {
+        'laytan/cloak.nvim',
+        ft = 'env',
+        config = true
     },
 })
