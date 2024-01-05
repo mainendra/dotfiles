@@ -81,6 +81,7 @@ require('lazy').setup({
             })
             require('mini.misc').setup()
             require('mini.move').setup()
+            require('mini.notify').setup()
             require('mini.operators').setup()
             require('mini.pick').setup()
             require('mini.splitjoin').setup()
@@ -95,13 +96,6 @@ require('lazy').setup({
     {
         'mattn/emmet-vim',
         event = { 'BufRead' },
-    },
-
-    -- Useful status updates for LSP
-    {
-        'j-hui/fidget.nvim',
-        config = true,
-        event = { 'BufRead' }
     },
 
     -- Highlight, edit, and navigate code
