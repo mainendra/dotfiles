@@ -271,12 +271,7 @@ require('lazy').setup({
         'dstein64/vim-startuptime',
         cmd = 'StartupTime',
     },
-    -- jk to escape
-    {
-        'max397574/better-escape.nvim',
-        event = 'InsertEnter',
-        config = true,
-    },
+
     -- case convert
     {
         'tpope/vim-abolish',

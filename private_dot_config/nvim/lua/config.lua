@@ -30,9 +30,13 @@ map('n', '<Leader>sv', ':source $MYVIMRC<CR>')
 
 map('n', '<Space>', '<Nop>', { noremap = true, silent = true })
 
+-- better escape
+map('i', 'jj', '<Esc>', { noremap = true, silent = true })
+map('i', 'jk', '<Esc>', { noremap = true, silent = true })
+
 -- <Tab> to navigate the completion menu
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', { expr = true, noremap = true, silent = true })
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true, noremap = true, silent = true })
 
 map('n', '\\', '<cmd>noh<CR>')    -- Clear highlights
 
