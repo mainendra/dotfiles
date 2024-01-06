@@ -53,7 +53,6 @@ require('lazy').setup({
                     end
                 end
             },
-            { '<Leader>mm', '<cmd>lua MiniMap.toggle()<CR>' }
         },
         config = function()
             require('mini.ai').setup()
@@ -68,17 +67,6 @@ require('lazy').setup({
             require('mini.fuzzy').setup()
             require('mini.jump').setup()
             require('mini.jump2d').setup()
-            local map = require('mini.map')
-            map.setup({
-                integrations = {
-                    map.gen_integration.builtin_search(),
-                    map.gen_integration.gitsigns(),
-                    map.gen_integration.diagnostic(),
-                },
-                symbols = {
-                    encode = map.gen_encode_symbols.shade('2x1')
-                },
-            })
             require('mini.misc').setup()
             require('mini.move').setup()
             require('mini.notify').setup()
