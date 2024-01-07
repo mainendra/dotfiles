@@ -181,18 +181,6 @@ require('lazy').setup({
         end,
     },
 
-    -- Detect tabstop and shiftwidth automatically
-    {
-        'tpope/vim-sleuth',
-        event = { 'BufRead' }
-    },
-
-    -- ui select and input
-    {
-        'stevearc/dressing.nvim',
-        event = { 'BufRead' },
-    },
-
     -- quick fix list
     {
         'kevinhwang91/nvim-bqf',
@@ -235,12 +223,6 @@ require('lazy').setup({
     {
         'dstein64/vim-startuptime',
         cmd = 'StartupTime',
-    },
-
-    -- case convert
-    {
-        'tpope/vim-abolish',
-        event = { 'BufRead' },
     },
 
     -- hide env content
