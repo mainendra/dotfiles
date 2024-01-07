@@ -86,6 +86,9 @@ require('lazy').setup({
             require('mini.surround').setup()
             require('mini.trailspace').setup()
             require('mini.visits').setup()
+
+            -- use Mini.pick for vim.ui.select
+            vim.ui.select = require('mini.pick').ui_select
         end
     },
 
