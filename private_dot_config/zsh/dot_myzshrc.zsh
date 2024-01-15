@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # thinker fix
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -9,22 +9,12 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # In ZSH $PATH is tied to $path array
 
-# pyenv - python version manager
-export PYENV_ROOT="$HOME/.pyenv"
-path+=($PYENV_ROOT/bin)
-
 # Add tizen sdk to path
 path+=($HOME/tizen-studio/tools/)
 path+=($HOME/tizen-studio/tools/ide/bin)
 
 # Android studio
 path+=($HOME/Library/Android/sdk/platform-tools)
-
-# local bin to path
-path+=($HOME/.local/bin)
-
-# lsp servers
-# path+=($HOME/.local/share/nvim/lsp_servers)
 
 # force path to have unique values
 typeset -U path
@@ -63,6 +53,7 @@ export EDITOR='nvim'
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
+# mac
 enable-proxy() {
     networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 $1
     networksetup -setwebproxy Wi-Fi 127.0.0.1 $1
@@ -130,24 +121,15 @@ alias ls='exa --color=auto'
 # Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
-
-# Python3
-# alias python=/usr/local/bin/python3
-# alias pip=/usr/local/bin/pip3
+# bookmark manager
+alias cb='chrome $(buku -p -f 10 | fzf)'
+# chrome with security disabled
+alias chrome-ds='open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security --disable-site-isolation-trials'
 
 alias venv='python -m venv ./venv && echo "layout_python3" > .envrc && direnv allow'
 alias pipreq='pip freeze > requirements.txt'
 
-# pyenv install
-alias pyinstall="PYTHON_CONFIGURE_OPTS=\"--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'\" pyenv install \$1"
-
-# bookmark manager
-alias cb='chrome $(buku -p -f 10 | fzf)'
-
-# chrome with security disabled
-alias chrome-ds='open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security --disable-site-isolation-trials'
-
-# VLC video player
+# VLC video player (mac)
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 # pnpm
@@ -181,61 +163,6 @@ rate() {
     http -b rate.sx/"$1"
 }
 
-# Install or open the webpage for the selected application
-# using brew cask search as input source
-# and display a info quickview window for the currently marked application
-install() {
-    local token
-    token=$(brew search --casks | fzf-tmux --query="$1" +m --preview 'brew cask info {}')
-
-    if [ "x$token" != "x" ]
-    then
-        echo "(I)nstall or open the (h)omepage of $token"
-        read input
-        if [ $input = "i" ] || [ $input = "I" ]; then
-            brew cask install $token
-        fi
-        if [ $input = "h" ] || [ $input = "H" ]; then
-            brew cask home $token
-        fi
-    fi
-}
-# Uninstall or open the webpage for the selected application
-# using brew list as input source (all brew cask installed applications)
-# and display a info quickview window for the currently marked application
-uninstall() {
-    local token
-    token=$(brew cask list | fzf-tmux --query="$1" +m --preview 'brew cask info {}')
-
-    if [ "x$token" != "x" ]
-    then
-        echo "(U)ninstall or open the (h)omepage of $token"
-        read input
-        if [ $input = "u" ] || [ $input = "U" ]; then
-            brew cask uninstall $token
-        fi
-        if [ $input = "h" ] || [ $token = "h" ]; then
-            brew cask home $token
-        fi
-    fi
-}
-
-# Restart LogiMgrDaemon
-restartLogi() (
-    PID=$(ps -eaf | grep LogiMgrDaemon | grep -v grep | awk '{print $2}')
-    if [[ "" != "$PID" ]]; then
-        echo "Killing LogiMgrDaemon with PID $PID"
-        kill -9 "$PID"
-    fi
-)
-
-# Init python version manager (pyenv)
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-export PATH="$HOME/.deno/bin:$PATH"
-
 # brew auto update
 export HOMEBREW_AUTO_UPDATE_SECS="86400"
 
@@ -245,32 +172,11 @@ export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 
 typeset -aU path
 
-# golang
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
-
 [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
-
-# Bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
 
 # asdf version manager
 z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh}
 [ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
-
-# ocaml
- [[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # bob (nvim version manager)
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
