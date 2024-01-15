@@ -245,7 +245,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 
-source $HOME/.config/broot/launcher/bash/br
+[ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
 
 # Bun
 export BUN_INSTALL="$HOME/.bun"
@@ -261,6 +261,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # asdf version manager
 z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh}
+[ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
 
 # ocaml
  [[ ! -r $HOME/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
