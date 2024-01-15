@@ -64,7 +64,7 @@ alias gtb="git commit --allow-empty -m 'Trigger build'"
 
 # alias ip="ifconfig | ack \"inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)\" --output \"$1\""
 alias ip="ifconfig | ack 'inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)' --output '\$1'"
-alias gip="http ipecho.net/plain -p b"
+alias gip="http https://ipecho.io/plain -p b"
 
 alias ta="tmux a"
 alias tk="tmux kill-server"
