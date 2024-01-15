@@ -118,6 +118,9 @@ alias header='curl -I'
 alias headerc='curl -I --compress'
 
 # default utils
+if command -v batcat > /dev/null 2>&1; then # on pi
+    alias bat='batcat'
+fi
 alias cat='bat --style=plain'
 alias l='exa'
 alias la='exa -la'
