@@ -32,6 +32,9 @@ typeset -U path
 # layzygit config dir
 export CONFIG_DIR="$HOME/.config/lazygit"
 
+# rg config
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 # FZF config
 # export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --exclude 'node_modules'"
 # export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'head -100 {}' --bind 'ctrl-e:execute(echo {+} | xargs -o nvim)' --bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'"
