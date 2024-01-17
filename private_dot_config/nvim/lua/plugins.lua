@@ -234,4 +234,10 @@ require('lazy').setup({
         ft = 'env',
         config = true
     },
-})
+
+    -- games
+    {
+        'alec-gibson/nvim-tetris',
+        cmd = 'Tetris',
+    },
+}, { install = { colorscheme = { 'gruvbox' } } })
