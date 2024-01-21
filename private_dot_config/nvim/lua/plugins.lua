@@ -27,7 +27,7 @@ require('lazy').setup({
         dependencies = {
             'williamboman/mason-lspconfig.nvim',
         },
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
         cmd = 'Mason',
         config = function()
             require('lsp').setup()
@@ -37,7 +37,7 @@ require('lazy').setup({
     -- utilities. autocomplete, surround, pair, etc ...
     {
         'echasnovski/mini.nvim',
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
         version = false,
         cmd = 'Pick',
         keys = {
@@ -106,10 +106,7 @@ require('lazy').setup({
     -- linter, formatter, etc...
     {
         'nvimtools/none-ls.nvim',
-        event = {
-            'BufReadPre',
-            'BufNewFile',
-        },
+        event = { 'BufRead', 'BufNewFile' },
         config = function()
             local null_ls = require('null-ls')
             null_ls.setup({
@@ -130,13 +127,13 @@ require('lazy').setup({
     -- emmet
     {
         'mattn/emmet-vim',
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
     },
 
     -- Highlight, edit, and navigate code
     {
         'nvim-treesitter/nvim-treesitter',
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
         build = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
@@ -179,7 +176,7 @@ require('lazy').setup({
         'utilyre/barbecue.nvim',
         name = 'barbecue',
         version = '*',
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
         dependencies = {
             'SmiteshP/nvim-navic',
             'nvim-tree/nvim-web-devicons', -- optional dependency
@@ -202,7 +199,7 @@ require('lazy').setup({
     },
     {
         'lewis6991/gitsigns.nvim',
-        event = { 'BufRead' },
+        event = { 'BufRead', 'BufNewFile' },
         config = true,
     },
 
