@@ -98,6 +98,8 @@ require('lazy').setup({
 
             -- use Mini.pick for vim.ui.select
             vim.ui.select = require('mini.pick').ui_select
+            vim.cmd('highlight MiniPickNormal guibg=NONE')
+            vim.cmd('highlight MiniFilesNormal guibg=NONE')
         end
     },
 
