@@ -103,6 +103,30 @@ require('lazy').setup({
         end
     },
 
+    -- linter, formatter, etc...
+    {
+        'nvimtools/none-ls.nvim',
+        event = {
+            'BufReadPre',
+            'BufNewFile',
+        },
+        config = function()
+            local null_ls = require('null-ls')
+            null_ls.setup({
+                debug = false,
+                log_level = 'off',
+                notify_format = 'null',
+                sources = {
+                    null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.diagnostics.eslint_d,
+                    null_ls.builtins.code_actions.eslint_d,
+                    null_ls.builtins.code_actions.gitsigns,
+                    null_ls.builtins.completion.spell,
+                },
+            })
+        end,
+    },
+
     -- emmet
     {
         'mattn/emmet-vim',
