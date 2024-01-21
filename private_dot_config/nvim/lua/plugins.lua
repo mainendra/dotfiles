@@ -78,7 +78,16 @@ require('lazy').setup({
             require('mini.jump2d').setup()
             require('mini.misc').setup()
             require('mini.move').setup()
-            require('mini.notify').setup()
+            local notify = require('mini.notify')
+            -- disable null-ls notifications
+            local filterout = function(notif_arr)
+                local not_diagnosing = function(notif) return not vim.startswith(notif.msg, 'null-ls') end
+                notif_arr = vim.tbl_filter(not_diagnosing, notif_arr)
+                return notify.default_sort(notif_arr)
+            end
+            notify.setup({
+                content = { sort = filterout },
+            })
             require('mini.operators').setup()
             require('mini.pick').setup()
             require('mini.splitjoin').setup()
