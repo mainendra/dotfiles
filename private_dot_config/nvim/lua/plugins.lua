@@ -178,7 +178,7 @@ require('lazy').setup({
         config = function()
             require('gruvbox').setup({
                 contrast = 'hard',
-                transparent_mode = true,
+                invert_selection = true,
             })
             vim.cmd('colorscheme gruvbox')
         end,
