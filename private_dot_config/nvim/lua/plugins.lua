@@ -39,7 +39,7 @@ require('lazy').setup({
         'echasnovski/mini.nvim',
         event = { 'BufRead', 'BufNewFile' },
         version = false,
-        cmd = 'Pick',
+        cmd = { 'Pick', 'Mason' }, -- mason search requires mini.pick
         keys = {
             {
                 '<Leader>e',
