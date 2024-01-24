@@ -45,10 +45,6 @@ map('n', '<Leader>J', ':j!<CR>')
 
 map('n', '<Leader>w', ':w<CR>')
 
--- keep visual selection after indenting
-map('v', '>', '>gv');
-map('v', '<', '<gv');
-
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
 map('n', '<Leader>cn', ':let @*=expand("%:t")<CR>')
@@ -70,16 +66,8 @@ map('n', '<S-j>', '<C-w>j')
 map('n', '<S-k>', '<C-w>k')
 map('n', '<S-l>', '<C-w>l')
 
--- move selection using jk
-map('v', '<S-j>', ':m\'>+<CR>gv=gv')
-map('v', '<S-k>', ':m-2<CR>gv=gv')
-
 -- escape visual selection
 map('v', ';;', '<Esc>')
-
--- disable recording macros
--- map('n', 'q', '<Nop>')
--- map('n', 'Q', '<Nop>')
 
 map('n', '<Leader>q', ':q<CR>')
 map('n', '<Leader>Q', ':q!<CR>')
