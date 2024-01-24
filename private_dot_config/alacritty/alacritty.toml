@@ -53,3 +53,4 @@ semantic_escape_chars = "|:\"' {}()[]<>"
 [window]
 decorations = "none"
 startup_mode = "Maximized"
+option_as_alt = "OnlyLeft"
