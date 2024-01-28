@@ -15,10 +15,7 @@ g['maplocalleader'] = ' ' -- leader key
 
 g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 
--- register
-g['peekup_paste_before'] = '<leader>P'
-g['peekup_paste_after'] = '<leader>p'
-
+-- highlight yanked text
 cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, timeout=200}]]
 
 -- Remove trailing space
@@ -33,6 +30,8 @@ map('n', '<Space>', '<Nop>', { noremap = true, silent = true })
 -- better escape
 map('i', 'jj', '<Esc>', { noremap = true, silent = true })
 map('i', 'jk', '<Esc>', { noremap = true, silent = true })
+-- escape visual selection
+map('v', ';;', '<Esc>')
 
 -- <Tab> to navigate the completion menu
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', { expr = true, noremap = true, silent = true })
@@ -65,9 +64,6 @@ map('n', '<S-h>', '<C-w>h')
 map('n', '<S-j>', '<C-w>j')
 map('n', '<S-k>', '<C-w>k')
 map('n', '<S-l>', '<C-w>l')
-
--- escape visual selection
-map('v', ';;', '<Esc>')
 
 map('n', '<Leader>q', ':q<CR>')
 map('n', '<Leader>Q', ':q!<CR>')
