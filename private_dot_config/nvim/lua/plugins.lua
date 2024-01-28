@@ -18,14 +18,11 @@ vim.opt.runtimepath:prepend(lazypath)
 require('lazy').setup({
     -- lsp
     {
-        'williamboman/mason.nvim',
-        lazy = true,
-        config = true,
-    },
-    {
         'neovim/nvim-lspconfig',
         dependencies = {
+            'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
+            'echasnovski/mini.nvim', -- for picker
         },
         event = { 'BufRead', 'BufNewFile' },
         cmd = 'Mason',

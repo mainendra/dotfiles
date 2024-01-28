@@ -1,6 +1,6 @@
-local status_ok, mason_lspconfig, lspconfig
+local status_ok, mason, mason_lspconfig, lspconfig
 
-status_ok = pcall(require, 'mason')
+status_ok, mason = pcall(require, 'mason')
 if not status_ok then
   return
 end
@@ -47,6 +47,7 @@ end
 
 return {
   setup = function()
+    mason.setup()
     mason_lspconfig.setup({
       ensure_installed = {
         'lua_ls',
