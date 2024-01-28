@@ -118,6 +118,7 @@ require('lazy').setup({
                     null_ls.builtins.completion.spell,
                     null_ls.builtins.formatting.deno_fmt,
                     null_ls.builtins.formatting.rustywind,
+                    null_ls.builtins.formatting.rustfmt,
                 },
             })
         end,
