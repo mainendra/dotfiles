@@ -133,6 +133,15 @@ require('lazy').setup({
         end,
     },
 
+    -- text case
+    {
+        'johmsalas/text-case.nvim',
+        event = { 'BufRead', 'BufNewFile' },
+        config = {
+            prefix = 'gr',
+        },
+    },
+
     -- emmet
     {
         'mattn/emmet-vim',
