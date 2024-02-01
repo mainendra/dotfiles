@@ -171,6 +171,7 @@ require('lazy').setup({
     -- Copilot for neovim
     {
         'Exafunction/codeium.vim',
+        cmd = 'Codeium',
         keys = {
             { '<Leader>ce', '<cmd>CodeiumEnable<CR>' },
             { '<Leader>cd', '<cmd>CodeiumDisable<CR>' },
