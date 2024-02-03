@@ -51,7 +51,7 @@ require('lazy').setup({
                 end
             },
             -- picker
-            { '<Leader>fl', '<cmd>Pick buf_lines<CR>' },
+            { '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>' },
             { '<Leader>ff', '<cmd>Pick files<CR>' },
             { '<Leader>fg', '<cmd>Pick grep_live<CR>' },
             { '<Leader>fb', '<cmd>Pick buffers<CR>' },
