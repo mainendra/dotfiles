@@ -137,9 +137,9 @@ require('lazy').setup({
     {
         'johmsalas/text-case.nvim',
         event = { 'BufRead', 'BufNewFile' },
-        config = {
-            prefix = 'gr',
-        },
+        config = function()
+            require('textcase').setup {prefix = 'gr'}
+        end,
     },
 
     -- emmet
