@@ -187,3 +187,11 @@ fi
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 # bob completions
 fpath+=~/.zfunc
+
+# resend key for pop
+email() {
+    if [[ -z $RESEND_API_KEY ]]; then
+        export RESEND_API_KEY=$(pass RESEND_API_KEY)
+    fi
+    pop "$@"
+}
