@@ -288,4 +288,17 @@ require('lazy').setup({
         'alec-gibson/nvim-tetris',
         cmd = 'Tetris',
     },
+
+    -- screenshot
+    {
+        'michaelrommel/nvim-silicon',
+        lazy = true,
+        cmd = "Silicon",
+        config = function()
+            require('silicon').setup({
+                font = "JetBrainsMono Nerd Font=34",
+                background = "#00000000",
+            })
+        end
+    },
 }, { install = { colorscheme = { 'gruvbox' } } })
