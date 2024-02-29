@@ -133,9 +133,7 @@ require('lazy').setup({
     {
         'johmsalas/text-case.nvim',
         event = { 'BufRead', 'BufNewFile' },
-        config = function()
-            require('textcase').setup {prefix = 'gr'}
-        end,
+        opts = { prefix = 'gr' },
     },
 
     -- emmet
@@ -294,11 +292,9 @@ require('lazy').setup({
         'michaelrommel/nvim-silicon',
         lazy = true,
         cmd = "Silicon",
-        config = function()
-            require('silicon').setup({
-                font = "JetBrainsMono Nerd Font=34",
-                background = "#00000000",
-            })
-        end
+        opts = {
+            font = "JetBrainsMono Nerd Font=34",
+            background = "#00000000",
+        },
     },
 }, { install = { colorscheme = { 'gruvbox' } } })
