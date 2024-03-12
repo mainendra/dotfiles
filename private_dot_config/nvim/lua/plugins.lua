@@ -287,6 +287,14 @@ require('lazy').setup({
         cmd = 'Tetris',
     },
 
+    -- indentation guides
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        event = { 'BufRead', 'BufNewFile' },
+        main = 'ibl',
+        opts = {},
+    },
+
     -- screenshot
     {
         'michaelrommel/nvim-silicon',
