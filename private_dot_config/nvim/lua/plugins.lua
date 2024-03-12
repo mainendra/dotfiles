@@ -277,7 +277,7 @@ require('lazy').setup({
     -- hide env content
     {
         'laytan/cloak.nvim',
-        ft = 'env',
+        ft = 'sh',
         config = true
     },
 
