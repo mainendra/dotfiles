@@ -171,19 +171,6 @@ require('lazy').setup({
         end
     },
 
-    -- Copilot for neovim
-    {
-        'Exafunction/codeium.vim',
-        cmd = 'Codeium',
-        keys = {
-            { '<Leader>ce', '<cmd>CodeiumEnable<CR>' },
-            { '<Leader>cd', '<cmd>CodeiumDisable<CR>' },
-        },
-        config = function()
-            vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-        end
-    },
-
     -- A VS Code like winbar for Neovim
     {
         'utilyre/barbecue.nvim',
@@ -215,6 +202,15 @@ require('lazy').setup({
         'lewis6991/gitsigns.nvim',
         event = { 'BufRead', 'BufNewFile' },
         config = true,
+    },
+    {
+        'NeogitOrg/neogit',
+        cmd = 'Neogit',
+        dependencies = {
+            'nvim-lua/plenary.nvim',         -- required
+            'sindrets/diffview.nvim',        -- optional - Diff integration
+        },
+        config = true
     },
 
     -- theme
