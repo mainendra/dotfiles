@@ -1,304 +1,284 @@
--------------------- PLUGIN MANAGER ------------------------------
+-------------------- HELPERS ------------------------------
 
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        '--single-branch',
-        'https://github.com/folke/lazy.nvim.git',
-        lazypath,
-    })
+local function map(mode, lhs, rhs, opts)
+    local options = {noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-vim.opt.runtimepath:prepend(lazypath)
 
--------------------- PLUGINS ------------------------------
+-------------------- MINI DEPS ------------------------------
 
-require('lazy').setup({
-    -- lsp
-    {
-        'neovim/nvim-lspconfig',
-        dependencies = {
+-- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
+local path_package = vim.fn.stdpath('data') .. '/site/'
+local mini_path = path_package .. 'pack/deps/start/mini.nvim'
+if not vim.loop.fs_stat(mini_path) then
+    vim.cmd('echo "Installing `mini.nvim`" | redraw')
+    local clone_cmd = {
+        'git', 'clone', '--filter=blob:none',
+        'https://github.com/echasnovski/mini.nvim', mini_path
+    }
+    vim.fn.system(clone_cmd)
+    vim.cmd('packadd mini.nvim | helptags ALL')
+    vim.cmd('echo "Installed `mini.nvim`" | redraw')
+end
+
+local MiniDeps = require('mini.deps')
+
+-- Set up 'mini.deps' (customize to your liking)
+MiniDeps.setup({ path = { package = path_package } })
+
+-- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
+-- startup and are optional.
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
+now(function()
+    add({
+        source = 'neovim/nvim-lspconfig',
+        depends = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
             'echasnovski/mini.nvim', -- for picker
-        },
-        event = { 'BufRead', 'BufNewFile' },
-        cmd = 'Mason',
-        config = function()
-            require('lsp').setup()
-        end
-    },
+        }
+    })
 
-    -- utilities. autocomplete, surround, pair, etc ...
-    {
-        'echasnovski/mini.nvim',
-        event = { 'BufRead', 'BufNewFile' },
-        version = false,
-        cmd = { 'Pick', 'Mason' }, -- mason search requires mini.pick
-        keys = {
-            {
-                '<Leader>e',
-                function()
-                    local files = require('mini.files')
-                    if not files.close() then
-                        files.open(vim.api.nvim_buf_get_name(0), false)
-                        -- files.reveal_cwd()
-                    else
-                        files.close()
-                    end
-                end
-            },
-            -- picker
-            { '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>' },
-            { '<Leader>ff', '<cmd>Pick files<CR>' },
-            { '<Leader>fg', '<cmd>Pick grep_live<CR>' },
-            { '<Leader>fb', '<cmd>Pick buffers<CR>' },
-            { '<Leader>fh', '<cmd>Pick help<CR>' },
-            { '<Leader>fv', '<cmd>Pick git_files<CR>' },
-            { '<Leader>fk', '<cmd>Pick keymaps<CR>' },
-            { '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>' },
-        },
-        config = function()
-            require('mini.ai').setup()
-            require('mini.align').setup()
-            require('mini.basics').setup()
-            require('mini.bracketed').setup()
-            require('mini.comment').setup()
-            require('mini.completion').setup()
-            require('mini.cursorword').setup()
-            require('mini.extra').setup()
-            require('mini.files').setup()
-            require('mini.fuzzy').setup()
-            require('mini.jump').setup()
-            require('mini.jump2d').setup()
-            require('mini.misc').setup()
-            require('mini.move').setup()
-            local notify = require('mini.notify')
-            -- disable null-ls notifications
-            local filterout = function(notif_arr)
-                local prefixes = {'null-ls', 'rust_analyzer'}
-                local not_diagnosing = function(notif)
-                    for _, prefix in ipairs(prefixes) do
-                        if vim.startswith(notif.msg, prefix) then
-                            return false
-                        end
-                    end
-                    return true
-                end
+    require('lsp').setup()
+end)
 
-                notif_arr = vim.tbl_filter(not_diagnosing, notif_arr)
-                return notify.default_sort(notif_arr)
+now(function()
+    add({
+        source = 'nvimtools/none-ls.nvim',
+        depends = {
+            'nvim-lua/plenary.nvim'
+        }
+    })
+
+    local null_ls = require('null-ls')
+    null_ls.setup({
+        debug = false,
+        log_level = 'off',
+        sources = {
+            null_ls.builtins.formatting.stylua,
+            null_ls.builtins.code_actions.gitsigns,
+            null_ls.builtins.code_actions.refactoring,
+            null_ls.builtins.completion.spell,
+            null_ls.builtins.formatting.rustywind,
+        },
+    })
+end)
+
+now(function()
+    add({
+        source = 'nvim-treesitter/nvim-treesitter',
+        hooks = {
+            post_checkout = function()
+                pcall(require('nvim-treesitter.install').update { with_sync = true })
             end
-            notify.setup({
-                content = { sort = filterout },
-            })
-            require('mini.operators').setup()
-            require('mini.pick').setup()
-            require('mini.splitjoin').setup()
-            require('mini.statusline').setup()
-            require('mini.surround').setup()
-            require('mini.trailspace').setup()
-            require('mini.visits').setup()
+        }
+    })
 
-            -- use Mini.pick for vim.ui.select
-            vim.ui.select = require('mini.pick').ui_select
-            vim.cmd('highlight MiniPickNormal guibg=NONE')
-            vim.cmd('highlight MiniFilesNormal guibg=NONE')
+    require('nvim-treesitter.configs').setup({
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = false,
+        },
+        indent = {
+            enable = true,
+        },
+        autotag = {
+            enable = true,
+        }
+    })
+
+    -- folding with treesitter
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+end)
+
+now(function()
+    add('ellisonleao/gruvbox.nvim')
+
+    require('gruvbox').setup({
+        contrast = 'hard',
+        invert_selection = true,
+    })
+    vim.cmd('colorscheme gruvbox')
+end)
+
+later(function()
+    require('mini.ai').setup()
+    require('mini.align').setup()
+    require('mini.basics').setup()
+    require('mini.bracketed').setup()
+    require('mini.comment').setup()
+    require('mini.completion').setup()
+    require('mini.cursorword').setup()
+    require('mini.extra').setup()
+    require('mini.files').setup()
+    require('mini.fuzzy').setup()
+    require('mini.jump').setup()
+    require('mini.jump2d').setup()
+    require('mini.misc').setup()
+    require('mini.move').setup()
+    local notify = require('mini.notify')
+    -- disable null-ls notifications
+    local filterout = function(notif_arr)
+        local prefixes = {'null-ls', 'rust_analyzer'}
+        local not_diagnosing = function(notif)
+            for _, prefix in ipairs(prefixes) do
+                if vim.startswith(notif.msg, prefix) then
+                    return false
+                end
+            end
+            return true
         end
-    },
 
-    -- linter, formatter, etc...
-    {
-        'nvimtools/none-ls.nvim',
-        event = { 'BufRead', 'BufNewFile' },
-        config = function()
-            local null_ls = require('null-ls')
-            null_ls.setup({
-                debug = false,
-                log_level = 'off',
-                sources = {
-                    null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.code_actions.gitsigns,
-                    null_ls.builtins.code_actions.refactoring,
-                    null_ls.builtins.completion.spell,
-                    null_ls.builtins.formatting.rustywind,
-                },
-            })
-        end,
-    },
+        notif_arr = vim.tbl_filter(not_diagnosing, notif_arr)
+        return notify.default_sort(notif_arr)
+    end
+    notify.setup({
+        content = { sort = filterout },
+    })
+    require('mini.operators').setup()
+    require('mini.pick').setup()
+    require('mini.splitjoin').setup()
+    require('mini.statusline').setup()
+    require('mini.surround').setup()
+    require('mini.trailspace').setup()
+    require('mini.visits').setup()
 
-    -- text case
-    {
-        'johmsalas/text-case.nvim',
-        event = { 'BufRead', 'BufNewFile' },
-        opts = { prefix = 'gr' },
-    },
+    -- use Mini.pick for vim.ui.select
+    vim.ui.select = require('mini.pick').ui_select
+    vim.cmd('highlight MiniPickNormal guibg=NONE')
+    vim.cmd('highlight MiniFilesNormal guibg=NONE')
 
-    -- emmet
-    {
-        'mattn/emmet-vim',
-        event = { 'BufRead', 'BufNewFile' },
-    },
+    -- picker
+    map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>ff', '<cmd>Pick files<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fb', '<cmd>Pick buffers<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fh', '<cmd>Pick help<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fv', '<cmd>Pick git_files<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>' , { noremap = true, silent = true })
 
-    -- Highlight, edit, and navigate code
-    {
-        'nvim-treesitter/nvim-treesitter',
-        event = { 'BufRead', 'BufNewFile' },
-        build = function()
-            pcall(require('nvim-treesitter.install').update { with_sync = true })
-        end,
-        config = function()
-            require('nvim-treesitter.configs').setup({
-                sync_install = false,
-                auto_install = true,
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                indent = {
-                    enable = true,
-                },
-                autotag = {
-                    enable = true,
-                }
-            })
-
-            -- folding with treesitter
-            vim.opt.foldmethod = 'expr'
-            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+    function showMiniFiles()
+        local files = require('mini.files')
+        if not files.close() then
+            files.open(vim.api.nvim_buf_get_name(0), false)
+            -- files.reveal_cwd()
+        else
+            files.close()
         end
-    },
+    end
+    map('n', '<Leader>e', '<cmd>lua showMiniFiles()<CR>', { noremap = true, silent = true })
+end)
 
-    -- A VS Code like winbar for Neovim
-    {
-        'utilyre/barbecue.nvim',
-        name = 'barbecue',
-        version = '*',
-        event = { 'BufRead', 'BufNewFile' },
-        dependencies = {
+later(function()
+    add('johmsalas/text-case.nvim')
+    require('textcase').setup({ prefix = 'gr' })
+end)
+
+later(function()
+    add('mattn/emmet-vim')
+end)
+
+later(function()
+    add({
+        source = 'utilyre/barbecue.nvim',
+        depends = {
             'SmiteshP/nvim-navic',
             'nvim-tree/nvim-web-devicons', -- optional dependency
-        },
-        opts = {
-            -- configurations go here
-        },
-    },
+        }
+    })
+    require('barbecue').setup()
+end)
 
-    -- Git related plugins
-    {
-        'f-person/git-blame.nvim',
-        cmd = 'GitBlameToggle',
-        keys = { { '<Leader>gb', '<cmd>GitBlameToggle<CR>' } },
-        config = function()
-            vim.g['gitblame_date_format'] = '%r' -- relative date
-            vim.g['gitblame_enabled'] = 0        -- default disabled
-            vim.g['gitblame_delay'] = 10         -- delay in Ms
-            vim.cmd('GitBlameToggle')            -- workaround
-        end
-    },
-    {
-        'lewis6991/gitsigns.nvim',
-        event = { 'BufRead', 'BufNewFile' },
-        config = true,
-    },
-    {
-        'NeogitOrg/neogit',
-        cmd = 'Neogit',
-        dependencies = {
+later(function()
+    add('f-person/git-blame.nvim')
+    vim.g['gitblame_date_format'] = '%r' -- relative date
+    vim.g['gitblame_enabled'] = 0        -- default disabled
+    vim.g['gitblame_delay'] = 10         -- delay in Ms
+    vim.cmd('GitBlameToggle')            -- workaround
+    map('n', '<Leader>gb', '<cmd>GitBlameToggle<CR>', { noremap = true, silent = true })
+end)
+
+later(function()
+    add('lewis6991/gitsigns.nvim')
+    require('gitsigns').setup()
+end)
+
+later(function()
+    add({
+        source = 'NeogitOrg/neogit',
+        depends = {
             'nvim-lua/plenary.nvim',         -- required
             'sindrets/diffview.nvim',        -- optional - Diff integration
         },
-        config = true
-    },
+        checkout = 'nightly',
+        monitor = 'nightly',
+    })
+    require('neogit').setup()
+end)
 
-    -- theme
-    {
-        'ellisonleao/gruvbox.nvim',
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            require('gruvbox').setup({
-                contrast = 'hard',
-                invert_selection = true,
-            })
-            vim.cmd('colorscheme gruvbox')
-        end,
-    },
+later(function()
+    add('kevinhwang91/nvim-bqf')
+end)
 
-    -- quick fix list
-    {
-        'kevinhwang91/nvim-bqf',
-        ft = 'qf'
-    },
-
-    -- search and replace
-    {
-        'windwp/nvim-spectre',
-        dependencies = {
+later(function()
+    add({
+        source = 'windwp/nvim-spectre',
+        depends = {
             'nvim-lua/plenary.nvim'
-        },
-        keys = {
-            { '<Leader>st', '<cmd>lua require("spectre").toggle()<CR>' },
-            { '<Leader>sr', '<cmd>lua require("spectre").open()<CR>' },
-            { '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>' },
-            { '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>' },
-        },
-        opts = { is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } },
-    },
+        }
+    })
+    require('spectre').setup({ is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } })
+    map('n', '<Leader>st', '<cmd>lua require("spectre").toggle()<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sr', '<cmd>lua require("spectre").open()<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>', { noremap = true, silent = true })
+end)
 
-    -- marks
-    {
-        'ThePrimeagen/harpoon',
-        branch = 'harpoon2',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        keys = function()
-            local harpoon = require('harpoon');
-            return {
-                { '<Leader>ha', function() harpoon:list():append() end },
-                { '<Leader>ht', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end },
-                { '<Leader>hn', function() harpoon:list():next() end },
-                { '<Leader>hp', function() harpoon:list():prev() end },
-            };
-        end,
-        config = true
-    },
+later(function()
+    add({
+        source = 'ThePrimeagen/harpoon',
+        checkout = 'harpoon2',
+        monitor = 'harpoon2',
+        depends = { 'nvim-lua/plenary.nvim', 'echasnovski/mini.nvim' }
+    })
+    local harpoon = require('harpoon');
+    harpoon:setup()
+    vim.keymap.set("n", "<Leader>ha", function() harpoon:list():add() end)
+    vim.keymap.set("n", "<Leader>ht", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    vim.keymap.set("n", "<Leader>hn", function() harpoon:list():prev() end)
+    vim.keymap.set("n", "<Leader>hp", function() harpoon:list():next() end)
+end)
 
-    -- startup time
-    {
-        'dstein64/vim-startuptime',
-        cmd = 'StartupTime',
-    },
+later(function()
+    add('dstein64/vim-startuptime')
+end)
 
-    -- hide env content
-    {
-        'laytan/cloak.nvim',
-        ft = 'sh',
-        config = true
-    },
+later(function()
+    add('laytan/cloak.nvim')
 
-    -- games
-    {
-        'alec-gibson/nvim-tetris',
-        cmd = 'Tetris',
-    },
+    require('cloak').setup()
+end)
 
-    -- indentation guides
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        event = { 'BufRead', 'BufNewFile' },
-        main = 'ibl',
-        opts = {},
-    },
+later(function()
+    add('alec-gibson/nvim-tetris')
+end)
 
-    -- screenshot
-    {
-        'michaelrommel/nvim-silicon',
-        lazy = true,
-        cmd = "Silicon",
-        opts = {
-            font = "JetBrainsMono Nerd Font=34",
-            background = "#00000000",
-        },
-    },
-}, { install = { colorscheme = { 'gruvbox' } } })
+later(function()
+    add('lukas-reineke/indent-blankline.nvim')
+    require('ibl').setup()
+end)
+
+later(function()
+    add('michaelrommel/nvim-silicon')
+
+    require('silicon').setup({
+        font = "JetBrainsMono Nerd Font=34",
+        background = "#00000000",
+    })
+end)
