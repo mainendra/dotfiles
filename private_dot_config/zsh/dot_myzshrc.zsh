@@ -14,10 +14,11 @@ path+=($HOME/tizen-studio/tools/)
 path+=($HOME/tizen-studio/tools/ide/bin)
 
 # Android studio
-path+=($HOME/Library/Android/sdk/platform-tools)
-
-# force path to have unique values
-typeset -U path
+if [ -d "$HOME/Library/Android/sdk/platform-tools" ]; then
+    path+=($HOME/Library/Android/sdk/platform-tools)
+elif [ -d "$HOME/platform-tools" ]; then
+    path+=($HOME/platform-tools)
+fi
 
 # layzygit config dir
 export CONFIG_DIR="$HOME/.config/lazygit"
@@ -29,6 +30,8 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --exclude 'node_modules'"
 # export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'head -100 {}' --bind 'ctrl-e:execute(echo {+} | xargs -o nvim)' --bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 # User configuration
 
@@ -100,7 +103,7 @@ alias nowdate='date +"%d-%m-%Y"'
 # Stop after sending count ECHO_REQUEST packets #
 alias ping='ping -c 5'
 # Do not wait interval 1 second, go fast #
-alias fastping='ping -c 100 -s.2'
+alias fastping='ping -c 100 -s 2'
 
 # get web server headers #
 alias header='curl -I'
@@ -113,10 +116,10 @@ if command -v batcat > /dev/null 2>&1; then # on pi
     alias bat='batcat'
 fi
 alias cat='bat --style=plain'
-alias l='exa'
-alias la='exa -la'
-alias ll='exa -lah'
-alias ls='exa --color=auto'
+alias l='eza'
+alias la='eza -la --icons'
+alias ll='eza -lah --icons'
+alias ls='eza --color=auto --icons'
 
 # Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -170,8 +173,6 @@ export HOMEBREW_AUTO_UPDATE_SECS="86400"
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 
-typeset -aU path
-
 [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
 
 # asdf version manager
@@ -195,3 +196,6 @@ email() {
     fi
     pop "$@"
 }
+
+# force path to have unique values
+typeset -aU path
