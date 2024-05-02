@@ -158,12 +158,12 @@ later(function()
     map('n', '<Leader>ff', '<cmd>Pick files<CR>' , { noremap = true, silent = true })
     map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>' , { noremap = true, silent = true })
     map('n', '<Leader>fb', '<cmd>Pick buffers<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fh', '<cmd>Pick help<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fh', '<cmd>Pick git_hunks<CR>' , { noremap = true, silent = true })
     map('n', '<Leader>fv', '<cmd>Pick git_files<CR>' , { noremap = true, silent = true })
     map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>' , { noremap = true, silent = true })
     map('n', '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>' , { noremap = true, silent = true })
 
-    function showMiniFiles()
+    function ShowMiniFiles()
         local files = require('mini.files')
         if not files.close() then
             files.open(vim.api.nvim_buf_get_name(0), false)
@@ -172,7 +172,7 @@ later(function()
             files.close()
         end
     end
-    map('n', '<Leader>e', '<cmd>lua showMiniFiles()<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>e', '<cmd>lua ShowMiniFiles()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
@@ -207,19 +207,6 @@ end)
 later(function()
     add('lewis6991/gitsigns.nvim')
     require('gitsigns').setup()
-end)
-
-later(function()
-    add({
-        source = 'NeogitOrg/neogit',
-        depends = {
-            'nvim-lua/plenary.nvim',         -- required
-            'sindrets/diffview.nvim',        -- optional - Diff integration
-        },
-        checkout = 'nightly',
-        monitor = 'nightly',
-    })
-    require('neogit').setup()
 end)
 
 later(function()
