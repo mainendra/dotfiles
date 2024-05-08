@@ -46,28 +46,6 @@ end)
 
 now(function()
     add({
-        source = 'nvimtools/none-ls.nvim',
-        depends = {
-            'nvim-lua/plenary.nvim'
-        }
-    })
-
-    local null_ls = require('null-ls')
-    null_ls.setup({
-        debug = false,
-        log_level = 'off',
-        sources = {
-            null_ls.builtins.formatting.stylua,
-            null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.code_actions.refactoring,
-            null_ls.builtins.completion.spell,
-            null_ls.builtins.formatting.rustywind,
-        },
-    })
-end)
-
-now(function()
-    add({
         source = 'nvim-treesitter/nvim-treesitter',
         hooks = {
             post_checkout = function()
@@ -104,6 +82,12 @@ now(function()
         invert_selection = true,
     })
     vim.cmd('colorscheme gruvbox')
+end)
+
+now(function()
+    add('laytan/cloak.nvim')
+
+    require('cloak').setup()
 end)
 
 later(function()
@@ -146,7 +130,6 @@ later(function()
     require('mini.statusline').setup()
     require('mini.surround').setup()
     require('mini.trailspace').setup()
-    require('mini.visits').setup()
 
     -- use Mini.pick for vim.ui.select
     vim.ui.select = require('mini.pick').ui_select
@@ -244,12 +227,6 @@ end)
 
 later(function()
     add('dstein64/vim-startuptime')
-end)
-
-later(function()
-    add('laytan/cloak.nvim')
-
-    require('cloak').setup()
 end)
 
 later(function()
