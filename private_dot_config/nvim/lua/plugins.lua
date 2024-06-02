@@ -98,9 +98,16 @@ later(function()
     require('mini.comment').setup()
     require('mini.completion').setup()
     require('mini.cursorword').setup()
+    require('mini.diff').setup()
     require('mini.extra').setup()
     require('mini.files').setup()
     require('mini.fuzzy').setup()
+    require('mini.git').setup()
+    require('mini.indentscope').setup({
+        draw = {
+            animation = require('mini.indentscope').gen_animation.none()
+        }
+    })
     require('mini.jump').setup()
     require('mini.jump2d').setup()
     require('mini.misc').setup()
@@ -160,7 +167,7 @@ end)
 
 later(function()
     add('johmsalas/text-case.nvim')
-    require('textcase').setup({ prefix = 'gr' })
+    require('textcase').setup({ prefix = 'ge' })
 end)
 
 later(function()
@@ -231,11 +238,6 @@ end)
 
 later(function()
     add('alec-gibson/nvim-tetris')
-end)
-
-later(function()
-    add('lukas-reineke/indent-blankline.nvim')
-    require('ibl').setup()
 end)
 
 later(function()
