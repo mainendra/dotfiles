@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:/sbin:/usr/local/sbin:$PATH
-
 # thinker fix
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 # export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
@@ -176,8 +173,8 @@ export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 [ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
 
 # asdf version manager
-z4h source -- ${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh}
 [ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
+[ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # pi
 if command -v xh > /dev/null 2>&1; then # on pi
