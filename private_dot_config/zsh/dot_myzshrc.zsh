@@ -54,7 +54,7 @@ if command -v batcat > /dev/null 2>&1; then # on pi
     alias bat='batcat'
 fi
 alias cat='bat --style=plain'
-alias l='eza --color=auto --icons'
+alias l='eza --color=auto --icons -l'
 alias la='l -la'
 alias ll='l -lah'
 
