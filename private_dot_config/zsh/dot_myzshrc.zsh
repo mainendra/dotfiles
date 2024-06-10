@@ -1,65 +1,6 @@
-# thinker fix
-# export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
-# export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
-# export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
-# export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
-
-# In ZSH $PATH is tied to $path array
-
-# Add tizen sdk to path
-path+=($HOME/tizen-studio/tools/)
-path+=($HOME/tizen-studio/tools/ide/bin)
-
-# Android studio
-if [ -d "$HOME/Library/Android/sdk/platform-tools" ]; then
-    path+=($HOME/Library/Android/sdk/platform-tools)
-elif [ -d "$HOME/platform-tools" ]; then
-    path+=($HOME/platform-tools)
-fi
-
-# layzygit config dir
-export CONFIG_DIR="$HOME/.config/lazygit"
-
-# rg config
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# FZF config
-# export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --exclude 'node_modules'"
-# export FZF_DEFAULT_OPTS="--height 50% --layout=reverse --border --preview 'head -100 {}' --bind 'ctrl-e:execute(echo {+} | xargs -o nvim)' --bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-export EDITOR='nvim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+################ Alias ################
 
 # mac
-enable-proxy() {
-    networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 $1
-    networksetup -setwebproxy Wi-Fi 127.0.0.1 $1
-}
-alias disable-proxy="networksetup -setsecurewebproxystate Wi-Fi off && networksetup -setwebproxystate Wi-Fi off"
-
 alias gtb="git commit --allow-empty -m 'Trigger build'"
 
 # alias ip="ifconfig | ack \"inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)\" --output \"$1\""
@@ -113,10 +54,9 @@ if command -v batcat > /dev/null 2>&1; then # on pi
     alias bat='batcat'
 fi
 alias cat='bat --style=plain'
-alias l='eza'
-alias la='eza -la --icons'
-alias ll='eza -lah --icons'
-alias ls='eza --color=auto --icons'
+alias l='eza --color=auto --icons'
+alias la='l -la'
+alias ll='l -lah'
 
 # Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -141,7 +81,19 @@ alias gf='git forgit'
 # fzf nvim
 alias nfzf='nvim $(fzf)'
 
-# Utils functions
+# pi
+if command -v xh > /dev/null 2>&1; then # on pi
+    alias http='xh'
+fi
+
+################ Utils functions ################
+
+# proxy
+enable-proxy() {
+    networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 $1
+    networksetup -setwebproxy Wi-Fi 127.0.0.1 $1
+}
+alias disable-proxy="networksetup -setsecurewebproxystate Wi-Fi off && networksetup -setwebproxystate Wi-Fi off"
 
 # find-in-file - usage: fif <SEARCH_TERM>
 fif() {
@@ -163,29 +115,6 @@ rate() {
     http -b rate.sx/"$1"
 }
 
-# brew auto update
-export HOMEBREW_AUTO_UPDATE_SECS="86400"
-
-# openjdk
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export CPPFLAGS="-I/usr/local/opt/openjdk/include"
-
-[ -f $HOME/.config/broot/launcher/bash/br ] && source $HOME/.config/broot/launcher/bash/br
-
-# asdf version manager
-[ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
-[ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
-
-# pi
-if command -v xh > /dev/null 2>&1; then # on pi
-    alias http='xh'
-fi
-
-# bob (nvim version manager)
-export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
-# bob completions
-fpath+=~/.zfunc
-
 # resend key for pop
 email() {
     if [[ -z $RESEND_API_KEY ]]; then
@@ -193,6 +122,3 @@ email() {
     fi
     pop "$@"
 }
-
-# force path to have unique values
-typeset -aU path
