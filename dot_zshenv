@@ -5,15 +5,6 @@ export HOMEBREW_AUTO_UPDATE_SECS="86400"
 
 # In ZSH $PATH is tied to $path array
 
-# bob (nvim version manager)
-if [ -d "$HOME/.local/share/bob/nvim-bin" ]; then
-    path+=($HOME/.local/share/bob/nvim-bin)
-fi
-# bob completions
-if [ -d "$HOME/.zfunc" ]; then
-    fpath+=~/.zfunc
-fi
-
 # layzygit config dir
 export CONFIG_DIR="$HOME/.config/lazygit"
 
@@ -22,6 +13,16 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # default editor
 export EDITOR='nvim'
+
+# brew package completions
+if [ -d $(brew --prefix)/share/zsh/site-functions ]; then
+    fpath+=$(brew --prefix)/share/zsh/site-functions
+fi
+
+# bob (nvim version manager)
+if [ -d "$HOME/.local/share/bob/nvim-bin" ]; then
+    path+=($HOME/.local/share/bob/nvim-bin)
+fi
 
 # openjdk
 if [ -d "/usr/local/opt/openjdk/bin" ]; then
