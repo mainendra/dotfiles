@@ -1,0 +1,56 @@
+# homebrew path
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# brew auto update
+export HOMEBREW_AUTO_UPDATE_SECS="86400"
+
+# In ZSH $PATH is tied to $path array
+
+# bob (nvim version manager)
+if [ -d "$HOME/.local/share/bob/nvim-bin" ]; then
+    path+=($HOME/.local/share/bob/nvim-bin)
+fi
+# bob completions
+if [ -d "$HOME/.zfunc" ]; then
+    fpath+=~/.zfunc
+fi
+
+# layzygit config dir
+export CONFIG_DIR="$HOME/.config/lazygit"
+
+# rg config
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# default editor
+export EDITOR='nvim'
+
+# openjdk
+if [ -d "/usr/local/opt/openjdk/bin" ]; then
+    path+=(/usr/local/opt/openjdk/bin)
+    export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+fi
+
+# asdf version manager
+[ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
+[ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
+
+# Set up fzf key bindings and fuzzy completion
+if command -v fzf > /dev/null 2>&1; then
+    eval "$(fzf --zsh)"
+fi
+
+# Add tizen sdk to path
+if [ -d "$HOME/tizen-studio" ]; then
+    path+=($HOME/tizen-studio/tools/)
+    path+=($HOME/tizen-studio/tools/ide/bin)
+fi
+
+# Android studio
+if [ -d "$HOME/Library/Android/sdk/platform-tools" ]; then
+    path+=($HOME/Library/Android/sdk/platform-tools)
+elif [ -d "$HOME/platform-tools" ]; then
+    path+=($HOME/platform-tools)
+fi
+
+
+# force path to have unique values
+typeset -aU path
