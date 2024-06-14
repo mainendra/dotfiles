@@ -43,6 +43,7 @@ map('n', '<Leader>j', ':j<CR>')
 map('n', '<Leader>J', ':j!<CR>')
 
 map('n', '<Leader>w', ':w<CR>')
+map('n', '<Leader>W', ':wq<CR>')
 
 -- copy file path
 map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
