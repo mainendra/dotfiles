@@ -41,7 +41,6 @@ opt('o', 'fileencoding', 'utf-8')
 opt('o', 'cmdheight', 2)
 opt('o', 'mouse', 'a')
 opt('o', 'updatetime', 50)
---opt('o', 'timeoutlen', 100)
 opt('o', 'clipboard', 'unnamedplus')
 opt('o', 'wildmenu', true)
 opt('o', 'hls', true)
@@ -50,5 +49,6 @@ opt('o', 'wildmode', 'full')
 opt('o', 'lazyredraw', true)
 opt('o', 'signcolumn', 'yes:1')
 opt('o', 'background', 'dark')
-opt('o', 'synmaxcol', 200)                           -- syntax file is slow,
-opt('o', 'foldlevelstart', 99)                       -- no fold closed
+opt('o', 'synmaxcol', 200)                            -- syntax file is slow,
+opt('o', 'foldlevelstart', 99)                        -- no fold closed
+opt('o', 'cmdheight', 1)                              -- no fold closed
