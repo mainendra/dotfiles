@@ -54,3 +54,7 @@ semantic_escape_chars = "|:\"' {}()[]<>"
 decorations = "none"
 startup_mode = "Maximized"
 option_as_alt = "OnlyLeft"
+dynamic_title = false
+
+[bell]
+duration = 0
