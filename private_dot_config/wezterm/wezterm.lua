@@ -1,14 +1,14 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
+local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
--- For example, changing the color scheme:
+config.disable_default_key_bindings = true -- disable default keys to support ctrl+shift+6 to switch buffers
 config.color_scheme = 'GruvboxDarkHard'
--- config.font = wezterm.font 'JetBrainsMono Nerd Font'
 config.cell_width = 0.9
 config.font = wezterm.font({ family = 'JetBrainsMono Nerd Font', weight = 'Medium' })
 config.font_size = 14.0
@@ -20,6 +20,11 @@ config.window_padding = {
   right = 0,
   top = 0,
   bottom = 0,
+}
+
+config.keys = {
+  -- paste from the clipboard
+  { key = 'v', mods = 'CMD', action = act.PasteFrom 'Clipboard' },
 }
 
 -- and finally, return the configuration to wezterm
