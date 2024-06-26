@@ -97,20 +97,6 @@ return {
           }
         }
       end,
-      ['tailwindcss'] = function ()
-        lspconfig.tailwindcss.setup {
-          settings = {
-            tailwindCSS = {
-              experimental = {
-                classRegex = {
-                  "cva\\(([^)]*)\\)",
-                  "[\"'`]([^\"'`]*).*?[\"'`]",
-                },
-              },
-            },
-          },
-        }
-      end,
     })
   end
 }
