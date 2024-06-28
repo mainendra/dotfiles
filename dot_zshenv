@@ -14,6 +14,15 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # default editor
 export EDITOR='nvim'
 
+# zsh vi mode config
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+  ZVM_VI_SURROUND_BINDKEY=s-prefix
+}
+
+
 # brew package completions
 if [ -d $(brew --prefix)/share/zsh/site-functions ]; then
     fpath+=$(brew --prefix)/share/zsh/site-functions
@@ -52,6 +61,8 @@ elif [ -d "$HOME/platform-tools" ]; then
     path+=($HOME/platform-tools)
 fi
 
+# disable all bells
+unsetopt BEEP
 
 # force path to have unique values
 typeset -aU path
