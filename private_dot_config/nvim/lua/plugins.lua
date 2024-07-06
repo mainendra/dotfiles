@@ -103,6 +103,7 @@ later(function()
     require('mini.files').setup()
     require('mini.fuzzy').setup()
     require('mini.git').setup()
+    require('mini.icons').setup()
     require('mini.indentscope').setup({
         draw = {
             animation = require('mini.indentscope').gen_animation.none()
@@ -115,7 +116,7 @@ later(function()
     local notify = require('mini.notify')
     -- disable null-ls notifications
     local filterout = function(notif_arr)
-        local prefixes = {'null-ls', 'rust_analyzer'}
+        local prefixes = {'null-ls', 'rust_analyzer', 'jdtl'}
         local not_diagnosing = function(notif)
             for _, prefix in ipairs(prefixes) do
                 if vim.startswith(notif.msg, prefix) then
@@ -137,6 +138,7 @@ later(function()
     require('mini.statusline').setup()
     require('mini.surround').setup()
     require('mini.trailspace').setup()
+    require('mini.visits').setup()
 
     -- use Mini.pick for vim.ui.select
     vim.ui.select = require('mini.pick').ui_select
@@ -179,7 +181,6 @@ later(function()
         source = 'utilyre/barbecue.nvim',
         depends = {
             'SmiteshP/nvim-navic',
-            'nvim-tree/nvim-web-devicons', -- optional dependency
         }
     })
     require('barbecue').setup()
