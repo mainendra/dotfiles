@@ -44,9 +44,13 @@ fi
 [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # Set up fzf key bindings and fuzzy completion
-if command -v fzf > /dev/null 2>&1; then
-    eval "$(fzf --zsh)"
-fi
+function init_fzf_key_bindings() {
+    if command -v fzf > /dev/null 2>&1; then
+        eval "$(fzf --zsh)"
+    fi
+}
+# to avoid compatibility issue with vi mode
+zvm_after_init_commands+=(init_fzf_key_bindings)
 
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
