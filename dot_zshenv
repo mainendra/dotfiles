@@ -22,7 +22,6 @@ function zvm_config() {
   ZVM_VI_SURROUND_BINDKEY=s-prefix
 }
 
-
 # brew package completions
 if [ -d $(brew --prefix)/share/zsh/site-functions ]; then
     fpath+=$(brew --prefix)/share/zsh/site-functions
@@ -51,6 +50,9 @@ function init_fzf_key_bindings() {
 }
 # to avoid compatibility issue with vi mode
 zvm_after_init_commands+=(init_fzf_key_bindings)
+
+# git shortcuts
+[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
 
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
