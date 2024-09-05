@@ -74,7 +74,7 @@ return {
         }
       end,
       ['tsserver'] = function ()
-        lspconfig['tsserver'].setup {
+        lspconfig['ts_ls'].setup {
           on_attach = on_attach,
           root_dir = lspconfig.util.root_pattern("package.json"),
           single_file_support = false,
