@@ -61,7 +61,7 @@ return {
         'marksman',
         'svelte',
         'tailwindcss',
-        'tsserver',
+        'ts_ls',
         'vimls',
         'yamlls'
       },
@@ -73,7 +73,7 @@ return {
           on_attach = on_attach
         }
       end,
-      ['tsserver'] = function ()
+      ['ts_ls'] = function ()
         lspconfig['ts_ls'].setup {
           on_attach = on_attach,
           root_dir = lspconfig.util.root_pattern("package.json"),
