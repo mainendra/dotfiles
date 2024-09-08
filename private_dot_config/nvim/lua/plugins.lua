@@ -234,6 +234,17 @@ later(function()
 end)
 
 later(function()
+    add({
+        source = 'MeanderingProgrammer/render-markdown.nvim',
+        depends = {
+            'nvim-treesitter/nvim-treesitter',
+            'echasnovski/mini.nvim'
+        }
+    })
+    require('render-markdown').setup({})
+end)
+
+later(function()
     add('dstein64/vim-startuptime')
 end)
 
