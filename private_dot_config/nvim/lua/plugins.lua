@@ -247,16 +247,3 @@ end)
 later(function()
     add('dstein64/vim-startuptime')
 end)
-
-later(function()
-    add('alec-gibson/nvim-tetris')
-end)
-
-later(function()
-    add('michaelrommel/nvim-silicon')
-
-    require('silicon').setup({
-        font = "JetBrainsMono Nerd Font=34",
-        background = "#00000000",
-    })
-end)
