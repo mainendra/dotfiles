@@ -184,7 +184,13 @@ later(function()
             'echasnovski/mini.nvim'
         }
     })
-    require('lspsaga').setup({})
+    require('lspsaga').setup({
+        definition = {
+            keys = {
+                edit = 'o'
+            }
+        }
+    })
 end)
 
 later(function()
