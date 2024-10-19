@@ -35,13 +35,14 @@ local on_attach = function(_, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<Leader>do', vim.diagnostic.open_float , bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<Leader>ld', '<cmd>Lspsaga goto_definition<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>lh', '<cmd>Lspsaga hover_doc<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>ls', '<cmd>Lspsaga signature_help<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>ll', '<cmd>Lspsaga show_line_diagnostics', bufopts)
+  vim.keymap.set('n', '<Leader>lr', '<cmd>Lspsaga rename<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>lc', '<cmd>Lspsaga code_action<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>lf', '<cmd>Lspsaga finder<CR>', bufopts)
+  vim.keymap.set('n', '<Leader>lt', '<cmd>Lspsaga term_toggle<CR>', bufopts)
   vim.keymap.set('n', '<Leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 

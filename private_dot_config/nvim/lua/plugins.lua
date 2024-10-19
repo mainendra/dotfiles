@@ -178,12 +178,13 @@ end)
 
 later(function()
     add({
-        source = 'utilyre/barbecue.nvim',
+        source = 'nvimdev/lspsaga.nvim',
         depends = {
-            'SmiteshP/nvim-navic',
+            'nvim-treesitter/nvim-treesitter',
+            'echasnovski/mini.nvim'
         }
     })
-    require('barbecue').setup()
+    require('lspsaga').setup({})
 end)
 
 later(function()
@@ -231,21 +232,6 @@ later(function()
     vim.keymap.set("n", "<Leader>ht", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
     vim.keymap.set("n", "<Leader>hn", function() harpoon:list():prev() end)
     vim.keymap.set("n", "<Leader>hp", function() harpoon:list():next() end)
-end)
-
-later(function()
-    add({
-        source = 'MeanderingProgrammer/render-markdown.nvim',
-        depends = {
-            'nvim-treesitter/nvim-treesitter',
-            'echasnovski/mini.nvim'
-        }
-    })
-    require('render-markdown').setup({
-        latex = {
-            enabled = false
-        }
-    })
 end)
 
 later(function()
