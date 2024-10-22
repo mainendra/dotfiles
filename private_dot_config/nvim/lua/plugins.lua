@@ -216,16 +216,16 @@ end)
 
 later(function()
     add({
-        source = 'windwp/nvim-spectre',
-        depends = {
-            'nvim-lua/plenary.nvim'
+        source = 'MagicDuck/grug-far.nvim'
+    })
+    require('grug-far').setup({
+        keymaps = {
+            close = { n = '<localleader>q' },
+            qflist = { n = '<localleader>u' },
         }
     })
-    require('spectre').setup({ is_block_ui_break = true, mapping = { ['send_to_qf'] = { map = "<leader>k" } } })
-    map('n', '<Leader>st', '<cmd>lua require("spectre").toggle()<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sr', '<cmd>lua require("spectre").open()<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sp', '<cmd>lua require("spectre").open_file_search()<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sw', '<cmd>lua require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sr', '<cmd>GrugFar<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
