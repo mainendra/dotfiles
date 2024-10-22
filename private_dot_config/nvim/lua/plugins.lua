@@ -189,6 +189,9 @@ later(function()
             keys = {
                 edit = 'o'
             }
+        },
+        lightbulb = {
+            enable = false
         }
     })
 end)
