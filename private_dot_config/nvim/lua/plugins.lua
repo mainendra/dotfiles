@@ -221,11 +221,15 @@ later(function()
     require('grug-far').setup({
         keymaps = {
             close = { n = '<localleader>q' },
-            qflist = { n = '<localleader>u' },
-        }
+            qflist = { n = '<localleader>f' },
+            historyAdd = { n = '<localleader>ha' },
+            historyOpen = { n = '<localleader>ho' },
+        },
+        startInInsertMode = false,
+        windowCreationCommand = 'vertical 65% split',
     })
     map('n', '<Leader>sw', '<cmd>lua require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sr', '<cmd>GrugFar<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sr', '<cmd>lua require("grug-far").open()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
