@@ -227,6 +227,11 @@ later(function()
         },
         startInInsertMode = false,
         windowCreationCommand = 'vertical 65% split',
+        history = {
+            autoSave = {
+                enabled = false,
+            },
+        },
     })
     map('n', '<Leader>sw', '<cmd>lua require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })<CR>', { noremap = true, silent = true })
     map('n', '<Leader>sr', '<cmd>lua require("grug-far").open()<CR>', { noremap = true, silent = true })
