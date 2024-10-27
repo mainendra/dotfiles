@@ -1,0 +1,18 @@
+jeffreytse/zsh-vi-mode
+
+Aloxaf/fzf-tab
+mattmc3/ez-compinit
+mattmc3/zfunctions
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting
+
+belak/zsh-utils path:completion/functions kind:autoload post:compstyle_zshzoo_setup
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+belak/zsh-utils path:prompt
+belak/zsh-utils path:utility
+
+# sindresorhus/pure kind:fpath
+romkatv/powerlevel10k
