@@ -1,7 +1,9 @@
-# homebrew path
-eval "$(/opt/homebrew/bin/brew shellenv)"
-# brew auto update
-export HOMEBREW_AUTO_UPDATE_SECS="86400"
+if [[ -f "/opt/homebrew/bin/brew" ]] then
+    # homebrew path
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # brew auto update
+    export HOMEBREW_AUTO_UPDATE_SECS="86400"
+fi
 
 # In ZSH $PATH is tied to $path array
 
