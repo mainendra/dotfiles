@@ -16,15 +16,17 @@ config.window_decorations = 'RESIZE'
 config.enable_tab_bar = false
 config.audible_bell = 'Disabled'
 config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
 }
 
 config.keys = {
-  -- paste from the clipboard
-  { key = 'v', mods = 'CMD', action = act.PasteFrom 'Clipboard' },
+    -- paste from the clipboard
+    { key = 'v', mods = 'CMD', action = act.PasteFrom 'Clipboard' },
+    -- new window
+    { key = 'n', mods = 'CMD', action = wezterm.action.SpawnWindow },
 }
 
 -- and finally, return the configuration to wezterm
