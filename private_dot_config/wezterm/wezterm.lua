@@ -29,5 +29,8 @@ config.keys = {
     { key = 'n', mods = 'CMD', action = wezterm.action.SpawnWindow },
 }
 
+-- theme
+config.color_scheme = 'GruvboxDarkHard'
+
 -- and finally, return the configuration to wezterm
 return config
