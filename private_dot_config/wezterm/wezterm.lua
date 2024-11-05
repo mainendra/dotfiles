@@ -11,6 +11,7 @@ config.disable_default_key_bindings = true -- disable default keys to support ct
 config.color_scheme = 'GruvboxDarkHard'
 config.cell_width = 0.9
 config.font = wezterm.font({ family = 'JetBrainsMono Nerd Font', weight = 'Medium' })
+config.warn_about_missing_glyphs = false
 config.font_size = 14.0
 config.window_decorations = 'RESIZE'
 config.enable_tab_bar = false
