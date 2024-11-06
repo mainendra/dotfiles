@@ -28,6 +28,8 @@ config.keys = {
     { key = 'v', mods = 'CMD', action = act.PasteFrom 'Clipboard' },
     -- new window
     { key = 'n', mods = 'CMD', action = wezterm.action.SpawnWindow },
+    -- close window
+    { key = 'w', mods = 'CMD', action = wezterm.action.CloseCurrentPane { confirm = true } },
 }
 
 -- theme
