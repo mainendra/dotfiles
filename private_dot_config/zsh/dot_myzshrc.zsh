@@ -9,6 +9,7 @@ alias gip="http https://ipecho.io/plain -p b"
 
 alias ta="tmux a"
 alias tk="tmux kill-server"
+alias tc="tmux capture-pane -pS - -E - | nvim -"
 alias lg="lazygit"
 alias ld="lazydocker"
 alias gu="gitui"
