@@ -218,7 +218,8 @@ later(function()
     add({
         source = 'MagicDuck/grug-far.nvim'
     })
-    require('grug-far').setup({
+    local grugfar = require('grug-far');
+    grugfar.setup({
         keymaps = {
             close = { n = '<localleader>q' },
             qflist = { n = '<localleader>f' },
@@ -233,8 +234,22 @@ later(function()
             },
         },
     })
-    map('n', '<Leader>sw', '<cmd>lua require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sr', '<cmd>lua require("grug-far").open()<CR>', { noremap = true, silent = true })
+    function OpenGrugFar(param)
+        param = param or ''
+        local name = 'grug-far-search'
+        local options = {
+            instanceName = name,
+            prefills = { search = param }
+        }
+        if grugfar.has_instance(name) then
+            grugfar.update_instance_prefills(options.instanceName, options.prefills, false)
+            grugfar.open_instance(options.instanceName)
+        else
+            grugfar.open(options)
+        end
+    end
+    map('n', '<Leader>sw', '<cmd>lua OpenGrugFar(vim.fn.expand("<cword>"))<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>sr', '<cmd>lua OpenGrugFar()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
@@ -246,10 +261,10 @@ later(function()
     })
     local harpoon = require('harpoon');
     harpoon:setup()
-    vim.keymap.set("n", "<Leader>ha", function() harpoon:list():add() end)
-    vim.keymap.set("n", "<Leader>ht", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-    vim.keymap.set("n", "<Leader>hn", function() harpoon:list():prev() end)
-    vim.keymap.set("n", "<Leader>hp", function() harpoon:list():next() end)
+    map("n", "<Leader>ha", '<cmd>lua require("harpoon"):list():add()<CR>', { noremap = true, silent = true })
+    map("n", "<Leader>ht", '<cmd>lua require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())<CR>', { noremap = true, silent = true })
+    map("n", "<Leader>hn", '<cmd>lua require("harpoon"):list():prev()<CR>', { noremap = true, silent = true })
+    map("n", "<Leader>hp", '<cmd>lua require("harpoon"):list():next()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
