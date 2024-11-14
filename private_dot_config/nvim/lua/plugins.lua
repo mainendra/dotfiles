@@ -225,6 +225,7 @@ later(function()
             qflist = { n = '<localleader>f' },
             historyAdd = { n = '<localleader>ha' },
             historyOpen = { n = '<localleader>ho' },
+            syncLocations = { n = '<localleader>sa' },
         },
         startInInsertMode = false,
         windowCreationCommand = 'vertical 65% split',
@@ -234,9 +235,10 @@ later(function()
             },
         },
     })
+
+    local name = 'grug-far-search'
     function OpenGrugFar(param)
         param = param or ''
-        local name = 'grug-far-search'
         local options = {
             instanceName = name,
             prefills = { search = param }
@@ -248,8 +250,13 @@ later(function()
             grugfar.open(options)
         end
     end
+    function ToggleGrugFar()
+        grugfar.toggle_instance({ instanceName = name })
+    end
+
     map('n', '<Leader>sw', '<cmd>lua OpenGrugFar(vim.fn.expand("<cword>"))<CR>', { noremap = true, silent = true })
     map('n', '<Leader>sr', '<cmd>lua OpenGrugFar()<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>st', '<cmd>lua ToggleGrugFar()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
