@@ -247,7 +247,7 @@ later(function()
             grugfar.update_instance_prefills(options.instanceName, options.prefills, false)
             grugfar.open_instance(options.instanceName)
         else
-            grugfar.open(options)
+            grugfar.toggle_instance(options)
         end
     end
     function ToggleGrugFar()
