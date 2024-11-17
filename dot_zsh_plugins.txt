@@ -5,4 +5,4 @@ zsh-users/zsh-autosuggestions
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
 
-romkatv/powerlevel10k
+agkozak/agkozak-zsh-prompt

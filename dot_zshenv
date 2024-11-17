@@ -69,6 +69,9 @@ elif [ -d "$HOME/platform-tools" ]; then
     path+=($HOME/platform-tools)
 fi
 
+# Prompt customization
+export AGKOZAK_USER_HOST_DISPLAY=0
+
 # disable all bells
 unsetopt BEEP
 
