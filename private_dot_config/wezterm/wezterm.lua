@@ -35,5 +35,7 @@ config.keys = {
 -- theme
 config.color_scheme = 'GruvboxDarkHard'
 
+config.max_fps = 120
+
 -- and finally, return the configuration to wezterm
 return config
