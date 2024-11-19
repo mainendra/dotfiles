@@ -7,9 +7,6 @@ source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
 
-# fzf-tab
-enable-fzf-tab
-
 # Keybindings
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
