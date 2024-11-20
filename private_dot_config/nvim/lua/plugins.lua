@@ -211,10 +211,6 @@ later(function()
 end)
 
 later(function()
-    add('kevinhwang91/nvim-bqf')
-end)
-
-later(function()
     add({
         source = 'MagicDuck/grug-far.nvim'
     })
