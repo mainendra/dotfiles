@@ -256,20 +256,17 @@ later(function()
 end)
 
 later(function()
-    add({
-        source = 'ThePrimeagen/harpoon',
-        checkout = 'harpoon2',
-        monitor = 'harpoon2',
-        depends = { 'nvim-lua/plenary.nvim', 'echasnovski/mini.nvim' }
-    })
-    local harpoon = require('harpoon');
-    harpoon:setup()
-    map("n", "<Leader>ha", '<cmd>lua require("harpoon"):list():add()<CR>', { noremap = true, silent = true })
-    map("n", "<Leader>ht", '<cmd>lua require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())<CR>', { noremap = true, silent = true })
-    map("n", "<Leader>hn", '<cmd>lua require("harpoon"):list():prev()<CR>', { noremap = true, silent = true })
-    map("n", "<Leader>hp", '<cmd>lua require("harpoon"):list():next()<CR>', { noremap = true, silent = true })
+    add('dstein64/vim-startuptime')
 end)
 
 later(function()
-    add('dstein64/vim-startuptime')
+    add('otavioschwanck/arrow.nvim')
+    require('arrow').setup({
+        show_icons = true,
+        leader_key = 'm',
+        mappings = {
+            next_item = "j",
+            prev_item = "k"
+        }
+    })
 end)
