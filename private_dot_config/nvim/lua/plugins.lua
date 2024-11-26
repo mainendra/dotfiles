@@ -173,7 +173,8 @@ later(function()
 end)
 
 later(function()
-    add('mattn/emmet-vim')
+    add('olrtg/nvim-emmet')
+    map('n', '<Leader>xe', '<cmd>lua require("nvim-emmet").wrap_with_abbreviation()<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
