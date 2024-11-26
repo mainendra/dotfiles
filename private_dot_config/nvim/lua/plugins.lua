@@ -198,16 +198,13 @@ end)
 
 later(function()
     add('f-person/git-blame.nvim')
-    vim.g['gitblame_date_format'] = '%r' -- relative date
-    vim.g['gitblame_enabled'] = 0        -- default disabled
-    vim.g['gitblame_delay'] = 10         -- delay in Ms
-    vim.cmd('GitBlameToggle')            -- workaround
+    require('gitblame').setup({
+        enabled = false,
+        date_format = "%r",
+        delay = 1,
+    })
     map('n', '<Leader>gb', '<cmd>GitBlameToggle<CR>', { noremap = true, silent = true })
-end)
-
-later(function()
-    add('lewis6991/gitsigns.nvim')
-    require('gitsigns').setup()
+    map('n', '<Leader>gc', '<cmd>GitBlameOpenCommitURL<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
