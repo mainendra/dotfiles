@@ -69,6 +69,11 @@ elif [ -d "$HOME/platform-tools" ]; then
     path+=($HOME/platform-tools)
 fi
 
+# Config scripts
+if [ -d "$HOME/.config/bin" ]; then
+    path+=($HOME/.config/bin)
+fi
+
 # Prompt customization
 export AGKOZAK_USER_HOST_DISPLAY=0
 
