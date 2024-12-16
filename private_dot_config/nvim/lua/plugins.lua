@@ -133,7 +133,12 @@ later(function()
         content = { sort = filterout },
     })
     require('mini.operators').setup()
-    require('mini.pick').setup()
+    require('mini.pick').setup({
+        mappings = {
+            move_down  = '<C-j>',
+            move_up    = '<C-k>',
+        }
+    })
     require('mini.splitjoin').setup()
     require('mini.statusline').setup()
     require('mini.surround').setup()
