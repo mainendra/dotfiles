@@ -59,7 +59,6 @@ return {
                 'cssmodules_ls',
                 'denols',
                 'emmet_language_server',
-                'emmet_ls',
                 'html',
                 'jsonls',
                 'marksman',

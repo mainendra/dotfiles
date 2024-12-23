@@ -178,12 +178,6 @@ later(function()
 end)
 
 later(function()
-    add('olrtg/nvim-emmet')
-    map('n', '<C-y>,', '<cmd>lua require("nvim-emmet").wrap_with_abbreviation()<CR>', { noremap = true, silent = true })
-    map('i', '<C-y>,', '<cmd>lua require("nvim-emmet").wrap_with_abbreviation()<CR>', { noremap = true, silent = true })
-end)
-
-later(function()
     add({
         source = 'nvimdev/lspsaga.nvim',
         depends = {
