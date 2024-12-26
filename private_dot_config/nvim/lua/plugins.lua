@@ -269,3 +269,21 @@ later(function()
         }
     })
 end)
+
+later(function()
+    add('github/copilot.vim')
+    function ToggleCopilot()
+        local copilot_status = vim.fn.execute("Copilot status")
+        copilot_status = string.gsub(copilot_status, "\n", "")
+        copilot_status = string.lower(copilot_status)
+
+        if string.match(copilot_status, "%Cready") then
+            vim.cmd("Copilot disable")
+        else
+            vim.cmd("Copilot enable")
+        end
+    end
+    map('n', '<Leader>tc', '<cmd>lua ToggleCopilot()<CR>', { noremap = true, silent = true })
+    -- default disable
+    vim.cmd('Copilot disable')
+end)
