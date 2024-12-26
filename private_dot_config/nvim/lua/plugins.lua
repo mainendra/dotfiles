@@ -195,6 +195,7 @@ later(function()
             enable = false
         }
     })
+    map('n', '<Leader>tt', '<cmd>Lspsaga term_toggle<CR>', { noremap=true, silent=true })
 end)
 
 later(function()
