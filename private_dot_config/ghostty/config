@@ -1,0 +1,7 @@
+theme = GruvboxDarkHard
+font-size = 14
+font-thicken = true
+copy-on-select = true
+mouse-hide-while-typing = true
+window-decoration = false
+quit-after-last-window-closed = true
