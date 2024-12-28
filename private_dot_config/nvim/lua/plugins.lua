@@ -80,6 +80,9 @@ now(function()
     require('gruvbox').setup({
         contrast = 'hard',
         invert_selection = true,
+        palette_overrides = {
+            dark0_hard = "#1b1b1b",
+        },
     })
     vim.cmd('colorscheme gruvbox')
 end)
