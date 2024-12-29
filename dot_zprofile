@@ -76,6 +76,10 @@ fi
 
 # Prompt customization
 export AGKOZAK_USER_HOST_DISPLAY=0
+export AGKOZAK_LEFT_PROMPT_ONLY=1
+
+# Ghostty config
+export XDG_CONFIG_HOME=$HOME/.config
 
 # disable all bells
 unsetopt BEEP
