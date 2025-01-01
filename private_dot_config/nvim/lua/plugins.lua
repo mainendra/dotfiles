@@ -142,6 +142,13 @@ later(function()
             move_up    = '<C-k>',
         }
     })
+    add('rafamadriz/friendly-snippets')
+    local snippets = require('mini.snippets');
+    snippets.setup({
+        snippets = {
+            snippets.gen_loader.from_lang(),
+        },
+    })
     require('mini.splitjoin').setup()
     require('mini.statusline').setup()
     require('mini.surround').setup()
@@ -195,6 +202,9 @@ later(function()
             }
         },
         lightbulb = {
+            enable = false
+        },
+        symbol_in_winbar = {
             enable = false
         }
     })
