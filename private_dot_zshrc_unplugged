@@ -1,0 +1,118 @@
+# where should we download your Zsh plugins?
+ZPLUGINDIR=${ZDOTDIR:-$HOME/.config/zsh}/plugins
+
+# declare a simple plugin-clone function, leaving the user to load plugins themselves
+function plugin-clone {
+    local repo plugdir initfile initfiles=()
+    ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+    for repo in $@; do
+        plugdir=$ZPLUGINDIR/${repo:t}
+        initfile=$plugdir/${repo:t}.plugin.zsh
+        if [[ ! -d $plugdir ]]; then
+            echo "Cloning $repo..."
+            git clone -q --depth 1 --recursive --shallow-submodules https://github.com/$repo $plugdir
+        fi
+        if [[ ! -e $initfile ]]; then
+            initfiles=($plugdir/*.{plugin.zsh,zsh-theme,zsh,sh}(N))
+            (( $#initfiles )) && ln -sf $initfiles[1] $initfile
+        fi
+    done
+}
+
+function plugin-source {
+    local plugdir
+    ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+    for plugdir in $@; do
+        [[ $plugdir = /* ]] || plugdir=$ZPLUGINDIR/$plugdir
+        fpath+=$plugdir
+        local initfile=$plugdir/${plugdir:t}.plugin.zsh
+        (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+    done
+}
+
+function plugin-update {
+    ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.config/zsh/plugins}
+    for d in $ZPLUGINDIR/*/.git(/); do
+        echo "Updating ${d:h:t}..."
+        command git -C "${d:h}" pull --ff --recurse-submodules --depth 1 --rebase --autostash
+    done
+}
+
+function plugin-list {
+    for d in $ZPLUGINDIR/*/.git; do
+        git -C "${d:h}" remote get-url origin
+    done
+}
+
+# make a github repo plugins list
+repos=(
+    jeffreytse/zsh-vi-mode
+
+    Aloxaf/fzf-tab
+
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-history-substring-search
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-completions
+
+    sindresorhus/pure
+    agkozak/agkozak-zsh-prompt
+)
+plugin-clone $repos
+
+# init completion
+autoload -Uz compinit && compinit -C
+
+# source plugins
+plugins=(
+    zsh-vi-mode
+
+    fzf-tab
+
+    zsh-autosuggestions
+    zsh-history-substring-search
+    zsh-syntax-highlighting
+    zsh-completions
+
+    pure
+)
+plugin-source $plugins
+
+# Keybindings
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt append_history
+setopt share_history
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+# shell completion
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
+
+# custom aliases
+source ~/.config/zsh/.myzshrc.zsh
