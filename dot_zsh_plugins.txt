@@ -6,4 +6,4 @@ zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
 
-sindresorhus/pure
+reobin/typewritten
