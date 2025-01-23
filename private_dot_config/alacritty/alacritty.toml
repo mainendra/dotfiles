@@ -1,4 +1,4 @@
-live_config_reload = true
+general.live_config_reload = true
 
 [colors.bright]
 black = "0x928374"
@@ -41,6 +41,7 @@ family = "JetBrainsMono Nerd Font"
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
+# family = "Monocraft Nerd Font"
 
 [scrolling]
 history = 10000
