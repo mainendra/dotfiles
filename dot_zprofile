@@ -74,6 +74,11 @@ if [ -d "$HOME/.config/bin" ]; then
     path+=($HOME/.config/bin)
 fi
 
+# local bin scripts
+if [ -d "$HOME/.local/bin" ]; then
+    path+=($HOME/.local/bin)
+fi
+
 # Prompt customization
 # export TYPEWRITTEN_PROMPT_LAYOUT="pure"
 export TYPEWRITTEN_RELATIVE_PATH="adaptive"
