@@ -2,7 +2,11 @@
 autoload -Uz compinit && compinit -C
 
 # source antidote
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+if [ "$(command -v brew)" ]; then
+    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+elif [[ -f "$HOME/.antidote/antidote.zsh" ]] then
+    source $HOME/.antidote/antidote.zsh
+fi
 
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 antidote load
