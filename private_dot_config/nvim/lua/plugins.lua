@@ -106,6 +106,19 @@ later(function()
     require('mini.files').setup()
     require('mini.fuzzy').setup()
     require('mini.git').setup()
+    local hipatterns = require('mini.hipatterns')
+    hipatterns.setup({
+        highlighters = {
+            -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+            fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+            hack  = { pattern = '%f[%w]()HACK()%f[%W]',  group = 'MiniHipatternsHack'  },
+            todo  = { pattern = '%f[%w]()TODO()%f[%W]',  group = 'MiniHipatternsTodo'  },
+            note  = { pattern = '%f[%w]()NOTE()%f[%W]',  group = 'MiniHipatternsNote'  },
+
+            -- Highlight hex color strings (`#rrggbb`) using that color
+            hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
+    })
     require('mini.icons').setup()
     require('mini.indentscope').setup({
         draw = {
@@ -141,13 +154,6 @@ later(function()
             move_down  = '<C-j>',
             move_up    = '<C-k>',
         }
-    })
-    add('rafamadriz/friendly-snippets')
-    local snippets = require('mini.snippets');
-    snippets.setup({
-        snippets = {
-            snippets.gen_loader.from_lang(),
-        },
     })
     require('mini.splitjoin').setup()
     require('mini.statusline').setup()
