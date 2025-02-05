@@ -25,7 +25,7 @@ function zvm_config() {
 }
 
 # brew package completions
-if [ -d $(brew --prefix)/share/zsh/site-functions ]; then
+if [ "$(command -v brew)" ] && [ -d $(brew --prefix)/share/zsh/site-functions ]; then
     fpath+=$(brew --prefix)/share/zsh/site-functions
 fi
 
@@ -42,7 +42,7 @@ fi
 
 # asdf version manager
 [ -f ~/.asdf/asdf.sh ] && . "$HOME/.asdf/asdf.sh"
-[ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
+[ "$(command -v brew)" ] && [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # Set up fzf key bindings and fuzzy completion
 function init_fzf_key_bindings() {
