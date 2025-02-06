@@ -306,3 +306,16 @@ later(function()
     -- default disable
     vim.cmd('Copilot disable')
 end)
+
+-- note taking
+
+later(function()
+    add('zk-org/zk-nvim')
+    require('zk').setup()
+
+    map('n', '<Leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>zt', "<Cmd>ZkTags<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", { noremap = true, silent = true })
+    map('v', '<Leader>zf', ":'<,'>ZkMatch<CR>", { noremap = true, silent = true })
+end)
