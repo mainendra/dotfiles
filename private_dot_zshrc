@@ -53,7 +53,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # shell completion
-if [ "$(command -v brew)" ]; then
+if [ "$(command -v carapace)" ]; then
     export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
     zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
     source <(carapace _carapace)
@@ -61,3 +61,9 @@ fi
 
 # custom aliases
 source ~/.config/zsh/.myzshrc.zsh
+
+if [ -e $Home/.nix-profile/etc/profile.d/nix.sh ]; then . $Home/.nix-profile/etc/profile.d/nix.sh; fi
+
+if [ "$(command -v devbox)" ]; then
+    eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
+fi

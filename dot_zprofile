@@ -49,7 +49,7 @@ fi
 # Set up fzf key bindings and fuzzy completion
 function init_fzf_key_bindings() {
     if command -v fzf > /dev/null 2>&1; then
-        eval "$(fzf --zsh)"
+        source <(fzf --zsh)
     fi
 }
 # to avoid compatibility issue with vi mode
