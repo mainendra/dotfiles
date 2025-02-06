@@ -7,23 +7,6 @@ fi
 
 # In ZSH $PATH is tied to $path array
 
-# layzygit config dir
-export CONFIG_DIR="$HOME/.config/lazygit"
-
-# rg config
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# default editor
-export EDITOR='nvim'
-
-# zsh vi mode config
-function zvm_config() {
-  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
-  ZVM_VI_SURROUND_BINDKEY=s-prefix
-}
-
 # brew package completions
 if [ "$(command -v brew)" ] && [ -d $(brew --prefix)/share/zsh/site-functions ]; then
     fpath+=$(brew --prefix)/share/zsh/site-functions
@@ -45,18 +28,6 @@ fi
 if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/shims" ]; then
     path=(${ASDF_DATA_DIR:-$HOME/.asdf}/shims $path) # prepend path
 fi
-
-# Set up fzf key bindings and fuzzy completion
-function init_fzf_key_bindings() {
-    if command -v fzf > /dev/null 2>&1; then
-        source <(fzf --zsh)
-    fi
-}
-# to avoid compatibility issue with vi mode
-zvm_after_init_commands+=(init_fzf_key_bindings)
-
-# git shortcuts
-[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
 
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
@@ -85,6 +56,35 @@ fi
 if [ -d "/snap/bin" ]; then
     path+=(/snap/bin)
 fi
+
+# layzygit config dir
+export CONFIG_DIR="$HOME/.config/lazygit"
+
+# rg config
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# default editor
+export EDITOR='nvim'
+
+# zsh vi mode config
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+  ZVM_VI_SURROUND_BINDKEY=s-prefix
+}
+
+# Set up fzf key bindings and fuzzy completion
+function init_fzf_key_bindings() {
+    if command -v fzf > /dev/null 2>&1; then
+        source <(fzf --zsh)
+    fi
+}
+# to avoid compatibility issue with vi mode
+zvm_after_init_commands+=(init_fzf_key_bindings)
+
+# git shortcuts
+[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
 
 # Prompt customization
 # export TYPEWRITTEN_PROMPT_LAYOUT="pure"
