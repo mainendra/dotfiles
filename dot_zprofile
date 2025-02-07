@@ -23,11 +23,6 @@ if [ -d "/usr/local/opt/openjdk/bin" ]; then
     export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 fi
 
-# mise package manager
-if [ "$(command -v mise)" ]; then
-    eval "$(mise activate zsh)"
-fi
-
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
     path+=($HOME/tizen-studio/tools/)
@@ -64,6 +59,11 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # default editor
 export EDITOR='nvim'
+
+# mise package manager
+if [ "$(command -v mise)" ]; then
+    eval "$(mise activate zsh)"
+fi
 
 # zsh vi mode config
 function zvm_config() {
