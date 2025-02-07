@@ -23,10 +23,9 @@ if [ -d "/usr/local/opt/openjdk/bin" ]; then
     export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 fi
 
-# asdf version manager
-[ "$(command -v brew)" ] && [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && . "$(brew --prefix asdf)/libexec/asdf.sh"
-if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/shims" ]; then
-    path=(${ASDF_DATA_DIR:-$HOME/.asdf}/shims $path) # prepend path
+# mise package manager
+if [ "$(command -v mise)" ]; then
+    eval "$(mise activate zsh)"
 fi
 
 # Add tizen sdk to path
