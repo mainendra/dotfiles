@@ -46,11 +46,6 @@ if [ -d "$HOME/.local/bin" ]; then
     path+=($HOME/.local/bin)
 fi
 
-# snap bin scripts
-if [ -d "/snap/bin" ]; then
-    path+=(/snap/bin)
-fi
-
 # layzygit config dir
 export CONFIG_DIR="$HOME/.config/lazygit"
 
