@@ -69,5 +69,10 @@ map('n', '<S-l>', '<C-w>l')
 map('n', '<Leader>q', ':q<CR>')
 map('n', '<Leader>Q', ':q!<CR>')
 
+-- toggle diff
+map('n', '<Leader>dt', ':diffthis<CR>')
+map('n', '<Leader>do', ':diffoff<CR>')
+map('n', '<Leader>dv', ':vs | :enew | :only | :vs | :enew<CR>')
+
 -- paste on selection
 map('x', 'p', [["_dP]])
