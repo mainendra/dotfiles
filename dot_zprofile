@@ -55,11 +55,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # default editor
 export EDITOR='nvim'
 
-# mise package manager
-if [ "$(command -v mise)" ]; then
-    eval "$(mise activate zsh)"
-fi
-
 # zsh vi mode config
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT

@@ -52,11 +52,16 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-# custom aliases
-source ~/.config/zsh/.myzshrc.zsh
-
 if [ -e $Home/.nix-profile/etc/profile.d/nix.sh ]; then . $Home/.nix-profile/etc/profile.d/nix.sh; fi
 
 if [ "$(command -v devbox)" ]; then
     eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
 fi
+
+if [ "$(command -v mise)" ]; then
+    eval "$(mise activate zsh)"
+    eval "$(mise completion zsh)"
+fi
+
+# custom aliases
+source ~/.config/zsh/.myzshrc.zsh
