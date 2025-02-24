@@ -91,14 +91,17 @@ if command -v xh > /dev/null 2>&1; then # on pi
     alias http='xh'
 fi
 
+# aichat
+alias az='aichat'
+
 ################ Utils functions ################
 
 # proxy
-enable-proxy() {
-    networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 $1
-    networksetup -setwebproxy Wi-Fi 127.0.0.1 $1
+function enable-proxy() {
+    sudo networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 $1
+    sudo networksetup -setwebproxy Wi-Fi 127.0.0.1 $1
 }
-alias disable-proxy="networksetup -setsecurewebproxystate Wi-Fi off && networksetup -setwebproxystate Wi-Fi off"
+alias disable-proxy="sudo networksetup -setsecurewebproxystate Wi-Fi off && sudo networksetup -setwebproxystate Wi-Fi off"
 
 # find-in-file - usage: fif <SEARCH_TERM>
 fif() {
