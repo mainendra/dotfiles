@@ -30,8 +30,13 @@ map('n', '<Space>', '<Nop>', { noremap = true, silent = true })
 -- better escape
 map('i', 'jj', '<Esc>', { noremap = true, silent = true })
 map('i', 'jk', '<Esc>', { noremap = true, silent = true })
+
 -- escape visual selection
 map('v', ';;', '<Esc>')
+
+-- move selection
+map('v', '>', '>gv')
+map('v', '<', '<gv')
 
 -- <Tab> to navigate the completion menu
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', { expr = true, noremap = true, silent = true })
