@@ -319,3 +319,9 @@ later(function()
     map('n', '<Leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", { noremap = true, silent = true })
     map('v', '<Leader>zf', ":'<,'>ZkMatch<CR>", { noremap = true, silent = true })
 end)
+
+-- fzf
+later(function()
+    add('ibhagwan/fzf-lua')
+    map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
+end)
