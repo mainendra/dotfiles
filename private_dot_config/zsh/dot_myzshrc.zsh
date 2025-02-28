@@ -92,7 +92,7 @@ if command -v xh > /dev/null 2>&1; then # on pi
 fi
 
 # aichat
-alias az='aichat'
+alias a#='aichat'
 
 ################ Utils functions ################
 
