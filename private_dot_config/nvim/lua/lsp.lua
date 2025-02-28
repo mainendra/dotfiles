@@ -24,17 +24,17 @@ local on_attach = function(_, bufnr)
     -- diagnostic config
     vim.diagnostic.config({
         virtual_text = {
-            source = "always",  -- Or "if_many"
+            source = "always", -- Or "if_many"
         },
         severity_sort = true,
         float = {
-            source = "always",  -- Or "if_many"
+            source = "always", -- Or "if_many"
         },
     })
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '<Leader>gd', '<cmd>Lspsaga peek_definition<CR>', bufopts)
     vim.keymap.set('n', '<Leader>gt', '<cmd>Lspsaga peek_type_definition<CR>', bufopts)
     vim.keymap.set('n', '<Leader>hd', '<cmd>Lspsaga hover_doc<CR>', bufopts)
@@ -43,8 +43,6 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<Leader>rn', '<cmd>Lspsaga rename<CR>', bufopts)
     vim.keymap.set('n', '<Leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
     vim.keymap.set('n', '<Leader>lf', '<cmd>Lspsaga finder<CR>', bufopts)
-    vim.keymap.set('n', '<Leader>ic', '<cmd>Lspsaga incoming_calls<CR>', bufopts)
-    vim.keymap.set('n', '<Leader>oc', '<cmd>Lspsaga outgoing_calls<CR>', bufopts)
     vim.keymap.set('n', '<Leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
@@ -70,25 +68,25 @@ return {
             automatic_installation = true
         })
         mason_lspconfig.setup_handlers({
-            function (server_name)
+            function(server_name)
                 lspconfig[server_name].setup {
                     on_attach = on_attach
                 }
             end,
-            ['ts_ls'] = function ()
+            ['ts_ls'] = function()
                 lspconfig['ts_ls'].setup {
                     on_attach = on_attach,
                     root_dir = lspconfig.util.root_pattern("package.json"),
                     single_file_support = false,
                 }
             end,
-            ['denols'] = function ()
+            ['denols'] = function()
                 lspconfig['denols'].setup {
                     on_attach = on_attach,
                     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
                 }
             end,
-            ['lua_ls'] = function ()
+            ['lua_ls'] = function()
                 lspconfig.lua_ls.setup {
                     on_attach = on_attach,
                     settings = {
