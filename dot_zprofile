@@ -79,7 +79,7 @@ zvm_after_init_commands+=(init_fzf_key_bindings)
 # export TYPEWRITTEN_PROMPT_LAYOUT="pure"
 export TYPEWRITTEN_RELATIVE_PATH="adaptive"
 
-# Ghostty config
+# config home
 export XDG_CONFIG_HOME=$HOME/.config
 
 # notes
