@@ -155,7 +155,7 @@ later(function()
             move_up    = '<C-k>',
         }
     })
-    require('mini.splitjoin').setup()
+    require('mini.splitjoin').setup() -- gS -> toggle
     require('mini.statusline').setup()
     require('mini.surround').setup()
     require('mini.trailspace').setup()
