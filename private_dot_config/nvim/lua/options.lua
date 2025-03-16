@@ -52,3 +52,4 @@ opt('o', 'background', 'dark')
 opt('o', 'synmaxcol', 200)                            -- syntax file is slow,
 opt('o', 'foldlevelstart', 99)                        -- no fold closed
 opt('o', 'cmdheight', 1)                              -- no fold closed
+opt('o', 'inccommand', 'split')                       -- Preview substitutions live, as you type!

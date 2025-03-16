@@ -13,6 +13,8 @@ end
 g['mapleader'] = ' ' -- leader key
 g['maplocalleader'] = ' ' -- leader key
 
+g['have_nerd_font'] = true
+
 g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 
 -- highlight yanked text
