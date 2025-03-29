@@ -1,13 +1,8 @@
 -------------------- HELPERS ------------------------------
 
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local g = vim.g      -- a table to access global variables
-
-local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend('force', options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+local cmd = vim.cmd         -- to execute Vim commands e.g. cmd('pwd')
+local g = vim.g             -- a table to access global variables
+local map = vim.keymap.set  -- new function for keymap
 
 -------------------- CONFIG -------------------------------
 g['mapleader'] = ' ' -- leader key
@@ -28,6 +23,15 @@ cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 map('n', '<Leader>sv', ':source $MYVIMRC<CR>')
 
 map('n', '<Space>', '<Nop>', { noremap = true, silent = true })
+
+-- E end of line
+map('n', 'E', '$', { noremap = true, silent = true })
+-- B begin of line
+map('n', 'B', '^', { noremap = true, silent = true })
+
+map("n", "d", '"_d') -- Replace the default `d` with black hole delete
+map("n", "D", '"_D') -- For deleting till the end of the line
+map("v", "d", '"_d') -- For visual mode
 
 -- better escape
 map('i', 'jj', '<Esc>', { noremap = true, silent = true })
@@ -57,8 +61,8 @@ map('n', '<Leader>cp', ':let @*=expand("%")<CR>')
 map('n', '<Leader>cn', ':let @*=expand("%:t")<CR>')
 map('n', '<Leader>cf', ':let @*=expand("%:p")<CR>')
 
-map('n', '<S-u>', '<C-u>');
-map('n', '<S-d>', '<C-d>');
+map('n', 'U', '<C-u>');
+map('n', 'D', '<C-d>');
 
 map('n', 'qo', ':only<CR>')
 
@@ -68,10 +72,10 @@ map('', '<C-S-Up>', ':resize +5<CR>')
 map('', '<C-S-Down>', ':resize -5<CR>')
 
 -- switch window using hjkl
-map('n', '<S-h>', '<C-w>h')
-map('n', '<S-j>', '<C-w>j')
-map('n', '<S-k>', '<C-w>k')
-map('n', '<S-l>', '<C-w>l')
+map('n', 'H', '<C-w>h')
+map('n', 'J', '<C-w>j')
+map('n', 'K', '<C-w>k')
+map('n', 'L', '<C-w>l')
 
 map('n', '<Leader>q', ':q<CR>')
 map('n', '<Leader>Q', ':q!<CR>')
