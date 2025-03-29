@@ -12,9 +12,6 @@ g['have_nerd_font'] = true
 
 g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
 
--- highlight yanked text
-cmd [[au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false, timeout=200}]]
-
 -- Remove trailing space
 cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
 
