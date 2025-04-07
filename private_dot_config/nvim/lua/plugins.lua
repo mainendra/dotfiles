@@ -321,3 +321,15 @@ later(function()
     add('ibhagwan/fzf-lua')
     map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
 end)
+
+later(function()
+    add({
+        source = 'kevinhwang91/nvim-ufo',
+        depends = { 'kevinhwang91/promise-async' }
+    })
+    require('ufo').setup({
+        provider_selector = function()
+            return {'treesitter', 'indent'}
+        end
+    })
+end)
