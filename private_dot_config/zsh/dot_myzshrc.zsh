@@ -16,7 +16,7 @@ alias tk="tmux kill-server"
 alias tc="tmux capture-pane -pS - -E - | nvim -"
 alias lg="lazygit"
 alias ld="lazydocker"
-alias gu="gitui"
+alias gu="gitu"
 alias br="broot"
 
 ## get rid of command not found ##
