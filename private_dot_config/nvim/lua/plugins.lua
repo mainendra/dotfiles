@@ -225,48 +225,20 @@ later(function()
 end)
 
 later(function()
-    add({
-        source = 'MagicDuck/grug-far.nvim'
-    })
-    local grugfar = require('grug-far');
-    grugfar.setup({
-        keymaps = {
-            close = { n = '<localleader>q' },
-            qflist = { n = '<localleader>f' },
-            historyAdd = { n = '<localleader>ha' },
-            historyOpen = { n = '<localleader>ho' },
-            syncLocations = { n = '<localleader>sa' },
-        },
-        startInInsertMode = false,
-        windowCreationCommand = 'vertical 65% split',
-        history = {
-            autoSave = {
-                enabled = false,
-            },
-        },
-    })
+    add('FabijanZulj/blame.nvim')
+    require('blame').setup()
+end)
 
-    local name = 'grug-far-search'
-    function OpenGrugFar(param)
-        param = param or ''
-        local options = {
-            instanceName = name,
-            prefills = { search = param }
-        }
-        if grugfar.has_instance(name) then
-            grugfar.update_instance_prefills(options.instanceName, options.prefills, false)
-            grugfar.open_instance(options.instanceName)
-        else
-            grugfar.toggle_instance(options)
-        end
-    end
-    function ToggleGrugFar()
-        grugfar.toggle_instance({ instanceName = name })
-    end
-
-    map('n', '<Leader>sw', '<cmd>lua OpenGrugFar(vim.fn.expand("<cword>"))<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>sr', '<cmd>lua OpenGrugFar()<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>st', '<cmd>lua ToggleGrugFar()<CR>', { noremap = true, silent = true })
+later(function()
+    add('mangelozzi/rgflow.nvim')
+    require('rgflow').setup( {
+        cmd_flags = "--smart-case --fixed-strings --ignore --max-columns 200",
+        default_trigger_mappings = true,
+        default_ui_mappings = true,
+        default_quickfix_mappings = true,
+    })
+    -- enable cfilter
+    vim.cmd('packadd cfilter')
 end)
 
 later(function()
