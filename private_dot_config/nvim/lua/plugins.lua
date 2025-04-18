@@ -214,19 +214,12 @@ later(function()
 end)
 
 later(function()
-    add('f-person/git-blame.nvim')
-    require('gitblame').setup({
-        enabled = false,
-        date_format = "%r",
-        delay = 1,
-    })
-    map('n', '<Leader>gb', '<cmd>GitBlameToggle<CR>', { noremap = true, silent = true })
-    map('n', '<Leader>gc', '<cmd>GitBlameOpenCommitURL<CR>', { noremap = true, silent = true })
-end)
-
-later(function()
     add('FabijanZulj/blame.nvim')
-    require('blame').setup()
+    require('blame').setup({
+        date_format = '%r'
+    })
+    map('n', '<Leader>bt', '<cmd>BlameToggle<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>bv', '<cmd>BlameToggle virtual<CR>', { noremap = true, silent = true })
 end)
 
 later(function()
