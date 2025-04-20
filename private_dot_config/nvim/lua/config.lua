@@ -61,7 +61,7 @@ map('n', '<Leader>cf', ':let @*=expand("%:p")<CR>')
 map('n', 'U', '<C-u>');
 map('n', 'D', '<C-d>');
 
-map('n', 'qo', ':only<CR>')
+map('n', '<Leader>on', ':only<CR>')
 
 map('', '<C-S-Left>', ':vertical resize -5<CR>')
 map('', '<C-S-Right>', ':vertical resize +5<CR>')
