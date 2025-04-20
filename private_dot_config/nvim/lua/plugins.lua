@@ -190,30 +190,6 @@ later(function()
 end)
 
 later(function()
-    add({
-        source = 'nvimdev/lspsaga.nvim',
-        depends = {
-            'nvim-treesitter/nvim-treesitter',
-            'echasnovski/mini.nvim'
-        }
-    })
-    require('lspsaga').setup({
-        definition = {
-            keys = {
-                edit = 'o'
-            }
-        },
-        lightbulb = {
-            enable = false
-        },
-        symbol_in_winbar = {
-            enable = false
-        }
-    })
-    map('n', '<Leader>tt', '<cmd>Lspsaga term_toggle<CR>', { noremap=true, silent=true })
-end)
-
-later(function()
     add('FabijanZulj/blame.nvim')
     require('blame').setup({
         date_format = '%r'
