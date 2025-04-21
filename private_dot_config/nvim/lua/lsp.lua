@@ -36,9 +36,8 @@ local on_attach = function(_, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '<Leader>gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', '<Leader>gt', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<Leader>hd', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<Leader>ls', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<Leader>sh', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<Leader>ld', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
