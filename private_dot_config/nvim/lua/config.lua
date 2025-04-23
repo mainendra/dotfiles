@@ -26,10 +26,6 @@ map('n', 'E', '$', { noremap = true, silent = true })
 -- B begin of line
 map('n', 'B', '^', { noremap = true, silent = true })
 
-map("n", "d", '"_d') -- Replace the default `d` with black hole delete
-map("n", "D", '"_D') -- For deleting till the end of the line
-map("v", "d", '"_d') -- For visual mode
-
 -- better escape
 map('i', 'jj', '<Esc>', { noremap = true, silent = true })
 map('i', 'jk', '<Esc>', { noremap = true, silent = true })
