@@ -11,6 +11,8 @@ g['maplocalleader'] = ' ' -- leader key
 g['have_nerd_font'] = true
 
 g['node_host_prog'] = vim.call('system', 'which neovim-node-host | tr -d "\n"')
+g['loaded_ruby_provider'] = 0
+g['loaded_perl_provider'] = 0
 
 -- Remove trailing space
 cmd [[autocmd InsertLeavePre * :%s/\s\+$//e]]
