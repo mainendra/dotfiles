@@ -197,6 +197,9 @@ later(function()
         delay = 1,
     })
     map('n', '<Leader>bt', '<cmd>GitBlameToggle<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>bc', '<cmd>GitBlameOpenCommitURL<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>bf', '<cmd>GitBlameOpenFileURL<CR>', { noremap = true, silent = true })
+    map('v', '<Leader>bf', ":'<,'>GitBlameOpenFileURL<CR>", { noremap = true, silent = true })
 end)
 
 later(function()
