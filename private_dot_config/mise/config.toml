@@ -2,7 +2,6 @@
 deno = "latest"
 rust = "latest"
 usage = "latest"
-yarn = "latest"
 node = "latest"
 chezmoi = "latest"
 python = "latest"
@@ -15,3 +14,5 @@ go = "latest"
 sops = "latest"
 age = "latest"
 julia = "latest"
+
+[env]
