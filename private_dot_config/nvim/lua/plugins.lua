@@ -31,8 +31,8 @@ now(function()
     add({
         source = 'neovim/nvim-lspconfig',
         depends = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
+            'mason-org/mason.nvim',
+            'mason-org/mason-lspconfig.nvim',
             'echasnovski/mini.nvim', -- for picker
         }
     })

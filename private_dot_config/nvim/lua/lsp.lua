@@ -1,4 +1,4 @@
-local status_ok, mason, mason_lspconfig, lspconfig
+local status_ok, mason, mason_lspconfig
 
 status_ok, mason = pcall(require, 'mason')
 if not status_ok then
@@ -6,11 +6,6 @@ if not status_ok then
 end
 
 status_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
-if not status_ok then
-    return
-end
-
-status_ok, lspconfig = pcall(require, 'lspconfig')
 if not status_ok then
     return
 end
@@ -63,39 +58,27 @@ return {
                 'vimls',
                 'yamlls'
             },
-            automatic_installation = true
         })
-        mason_lspconfig.setup_handlers({
-            function(server_name)
-                lspconfig[server_name].setup {
-                    on_attach = on_attach
-                }
-            end,
-            ['ts_ls'] = function()
-                lspconfig['ts_ls'].setup {
-                    on_attach = on_attach,
-                    root_dir = lspconfig.util.root_pattern("package.json"),
-                    single_file_support = false,
-                }
-            end,
-            ['denols'] = function()
-                lspconfig['denols'].setup {
-                    on_attach = on_attach,
-                    root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-                }
-            end,
-            ['lua_ls'] = function()
-                lspconfig.lua_ls.setup {
-                    on_attach = on_attach,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { 'vim' }
-                            }
-                        }
+
+        vim.lsp.config('*', {
+            on_attach = on_attach,
+        })
+        vim.lsp.config('lua_ls', {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { 'vim' }
                     }
                 }
-            end,
+            }
+        })
+        vim.lsp.config('ts_ls', {
+            root_markers = { 'package.json' },
+            workspace_required = true,
+        })
+        vim.lsp.config('denols', {
+            root_markers = { 'deno.json', 'deno.jsonc' },
+            workspace_required = true,
         })
     end
 }
