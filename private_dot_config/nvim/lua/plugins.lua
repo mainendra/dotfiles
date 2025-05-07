@@ -33,7 +33,6 @@ now(function()
         depends = {
             'mason-org/mason.nvim',
             'mason-org/mason-lspconfig.nvim',
-            'echasnovski/mini.nvim', -- for picker
         }
     })
 
