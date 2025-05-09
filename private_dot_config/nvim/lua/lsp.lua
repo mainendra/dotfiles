@@ -14,17 +14,13 @@ end
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     -- diagnostic config
     vim.diagnostic.config({
-        virtual_text = {
-            source = "always", -- Or "if_many"
-        },
+        virtual_text = true,
         severity_sort = true,
-        float = {
-            source = "always", -- Or "if_many"
-        },
+        float = true,
     })
 
     -- Mappings.
@@ -66,10 +62,14 @@ return {
         vim.lsp.config('lua_ls', {
             settings = {
                 Lua = {
-                    diagnostics = {
-                        globals = { 'vim' }
-                    }
-                }
+                    workspace = {
+                        library = {
+                            vim.env.VIMRUNTIME,
+                            '${3rd}/luv/library',
+                            '${3rd}/busted/library',
+                        },
+                    },
+                },
             }
         })
         vim.lsp.config('ts_ls', {
