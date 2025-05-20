@@ -279,18 +279,20 @@ later(function()
     require('chainsaw').setup({
         logStatements = {
             variableLog = {
-                javascript = 'console.warn(\'{{marker}} {{var}}:\', {{var}});',
+                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', {{var}});',
             },
             objectLog = {
-                javascript = 'console.warn(\'{{marker}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
+                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
             },
             messageLog = {
-                javascript = 'console.warn(\'{{marker}} {{insert}}\');',
+                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{insert}}\');',
             }
-        }
+        },
+        marker = '[CW]',
     })
 
     map('n', 'g?v', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
     map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
     map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
+    map('n', 'g?r', "<Cmd>Chainsaw removeLogs<CR>", { noremap = true, silent = true })
 end)
