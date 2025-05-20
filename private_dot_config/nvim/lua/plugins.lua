@@ -243,24 +243,6 @@ later(function()
     })
 end)
 
-later(function()
-    add('github/copilot.vim')
-    function ToggleCopilot()
-        local copilot_status = vim.fn.execute("Copilot status")
-        copilot_status = string.gsub(copilot_status, "\n", "")
-        copilot_status = string.lower(copilot_status)
-
-        if string.match(copilot_status, "%Cready") then
-            vim.cmd("Copilot disable")
-        else
-            vim.cmd("Copilot enable")
-        end
-    end
-    map('n', '<Leader>tc', '<cmd>lua ToggleCopilot()<CR>', { noremap = true, silent = true })
-    -- default disable
-    vim.cmd('Copilot disable')
-end)
-
 -- note taking
 
 later(function()
@@ -290,4 +272,25 @@ later(function()
             return {'treesitter', 'indent'}
         end
     })
+end)
+
+later(function()
+    add('chrisgrieser/nvim-chainsaw')
+    require('chainsaw').setup({
+        logStatements = {
+            variableLog = {
+                javascript = 'console.warn(\'{{marker}} {{var}}:\', {{var}});',
+            },
+            objectLog = {
+                javascript = 'console.warn(\'{{marker}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
+            },
+            messageLog = {
+                javascript = 'console.warn(\'{{marker}} {{insert}}\');',
+            }
+        }
+    })
+
+    map('n', 'g?v', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
+    map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
+    map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
 end)
