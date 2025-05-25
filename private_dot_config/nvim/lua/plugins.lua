@@ -120,8 +120,6 @@ later(function()
             animation = require('mini.indentscope').gen_animation.none()
         }
     })
-    require('mini.jump').setup()
-    require('mini.jump2d').setup()
     require('mini.keymap').setup()
     local map_multistep = require('mini.keymap').map_multistep
     map_multistep('i', '<Tab>',   { 'pmenu_next' })
@@ -295,4 +293,18 @@ later(function()
     map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
     map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
     map('n', 'g?r', "<Cmd>Chainsaw removeLogs<CR>", { noremap = true, silent = true })
+end)
+
+later(function()
+    add('rlane/pounce.nvim')
+    map('n', '<CR>', "<Cmd>Pounce<CR>", { noremap = true, silent = true })
+
+    -- Corrections for default `<CR>` mapping to not interfere with popular usages
+    local gr = vim.api.nvim_create_augroup('Pounce', {})
+    local au = function(event, pattern, callback, desc)
+        vim.api.nvim_create_autocmd(event, { pattern = pattern, group = gr, callback = callback, desc = desc })
+    end
+    local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
+    au('FileType', 'qf', revert_cr, 'Revert <CR>')
+    au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
 end)
