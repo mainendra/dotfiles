@@ -45,6 +45,7 @@ return {
                 'cssmodules_ls',
                 'denols',
                 'emmet_language_server',
+                'harper_ls',
                 'html',
                 'jsonls',
                 'marksman',
