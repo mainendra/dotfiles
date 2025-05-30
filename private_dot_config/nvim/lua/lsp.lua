@@ -18,7 +18,11 @@ local on_attach = function(_, bufnr)
 
     -- diagnostic config
     vim.diagnostic.config({
-        virtual_text = true,
+        virtual_text = {
+            severity = {
+                min = vim.diagnostic.severity.ERROR, -- (only ERROR and above)
+            },
+        },
         severity_sort = true,
         float = true,
     })
@@ -45,7 +49,6 @@ return {
                 'cssmodules_ls',
                 'denols',
                 'emmet_language_server',
-                'harper_ls',
                 'html',
                 'jsonls',
                 'marksman',

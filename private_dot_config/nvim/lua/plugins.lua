@@ -61,6 +61,9 @@ now(function()
         },
         autotag = {
             enable = true,
+        },
+        spell = {
+            enable = true,
         }
     })
 
@@ -307,4 +310,28 @@ later(function()
     local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
     au('FileType', 'qf', revert_cr, 'Revert <CR>')
     au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
+end)
+
+-- code spell check
+later(function()
+    add({
+        source = 'nvimtools/none-ls.nvim',
+        depends = {
+            'davidmh/cspell.nvim',
+            'nvim-lua/plenary.nvim',
+        },
+    })
+    local null_ls = require('null-ls')
+    local cspell = require('cspell')
+
+    null_ls.setup({
+        sources = {
+            cspell.diagnostics.with({
+                diagnostics_postprocess = function(diagnostic)
+                    diagnostic.severity = vim.diagnostic.severity.HINT
+                end,
+            }),
+            cspell.code_actions,
+        },
+    })
 end)
