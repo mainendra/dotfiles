@@ -19,9 +19,7 @@ local on_attach = function(_, bufnr)
     -- diagnostic config
     vim.diagnostic.config({
         virtual_text = {
-            severity = {
-                min = vim.diagnostic.severity.ERROR, -- (only ERROR and above)
-            },
+            severity = { min = vim.diagnostic.severity.INFO, },
         },
         severity_sort = true,
         float = true,

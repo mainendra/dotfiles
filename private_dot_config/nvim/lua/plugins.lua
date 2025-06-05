@@ -58,18 +58,18 @@ now(function()
         },
         indent = {
             enable = true,
-        },
-        autotag = {
-            enable = true,
-        },
-        spell = {
-            enable = true,
         }
     })
 
     -- folding with treesitter
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
+    -- spell check
+    vim.opt.spell = true
+    vim.opt.spelllang = { 'en_us' }
+    vim.opt.spelloptions = 'camel'
+    vim.opt.syntax = 'on'
 end)
 
 now(function()
