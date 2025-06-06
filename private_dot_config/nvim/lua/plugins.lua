@@ -324,14 +324,18 @@ later(function()
     local null_ls = require('null-ls')
     local cspell = require('cspell')
 
+    local config = { cspell_config_dirs = {'~/.config/cspell/'} }
     null_ls.setup({
         sources = {
             cspell.diagnostics.with({
                 diagnostics_postprocess = function(diagnostic)
                     diagnostic.severity = vim.diagnostic.severity.HINT
                 end,
+                config = config,
             }),
-            cspell.code_actions,
+            cspell.code_actions.with({
+                config = config,
+            }),
         },
     })
 end)
