@@ -86,6 +86,9 @@ alias gf='git forgit'
 # fzf nvim
 alias nfzf='nvim $(fzf)'
 
+# git branch spell check
+alias bspell='git diff origin/develop...$(git branch -r --format="%(refname:short)" | fzf) | grep '^+' | grep -v '^+++' | sed 's/^+//' | cspell stdin --unique --config ~/.config/cspell/cspell.json'
+
 # pi
 if command -v xh > /dev/null 2>&1; then # on pi
     alias http='xh'
