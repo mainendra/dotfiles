@@ -217,6 +217,7 @@ later(function()
     map('v', '<Leader>bf', ":'<,'>GitBlameOpenFileURL<CR>", { noremap = true, silent = true })
 end)
 
+-- ripgrep search
 later(function()
     add('mangelozzi/rgflow.nvim')
     require('rgflow').setup( {
@@ -229,10 +230,12 @@ later(function()
     vim.cmd('packadd cfilter')
 end)
 
+-- startup timing
 later(function()
     add('dstein64/vim-startuptime')
 end)
 
+-- bookmarks
 later(function()
     add('otavioschwanck/arrow.nvim')
     require('arrow').setup({
@@ -246,7 +249,6 @@ later(function()
 end)
 
 -- note taking
-
 later(function()
     add('zk-org/zk-nvim')
     require('zk').setup()
@@ -264,6 +266,7 @@ later(function()
     map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
 end)
 
+-- folds
 later(function()
     add({
         source = 'kevinhwang91/nvim-ufo',
@@ -276,6 +279,7 @@ later(function()
     })
 end)
 
+-- smart logs
 later(function()
     add('chrisgrieser/nvim-chainsaw')
     require('chainsaw').setup({
@@ -299,6 +303,7 @@ later(function()
     map('n', 'g?r', "<Cmd>Chainsaw removeLogs<CR>", { noremap = true, silent = true })
 end)
 
+-- fuzzy search motion plugin
 later(function()
     add('rlane/pounce.nvim')
     map('n', '<CR>', "<Cmd>Pounce<CR>", { noremap = true, silent = true })
