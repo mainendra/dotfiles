@@ -63,5 +63,9 @@ if [ "$(command -v mise)" ]; then
     eval "$(mise completion zsh)"
 fi
 
+if [ "$(command -v bob)" ]; then
+    source <(bob complete zsh)
+fi
+
 # custom aliases
 source ~/.config/zsh/.myzshrc.zsh
