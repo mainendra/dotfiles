@@ -54,6 +54,7 @@ return {
                 'svelte',
                 'tailwindcss',
                 'ts_ls',
+                'typos_lsp',
                 'vimls',
                 'yamlls'
             },
