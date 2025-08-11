@@ -86,6 +86,7 @@ now(function()
     vim.cmd('colorscheme gruvbox')
 end)
 
+-- overlay * over defined pattern
 now(function()
     add('laytan/cloak.nvim')
 
@@ -248,18 +249,6 @@ later(function()
     })
 end)
 
--- note taking
-later(function()
-    add('zk-org/zk-nvim')
-    require('zk').setup()
-
-    map('n', '<Leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", { noremap = true, silent = true })
-    map('n', '<Leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", { noremap = true, silent = true })
-    map('n', '<Leader>zt', "<Cmd>ZkTags<CR>", { noremap = true, silent = true })
-    map('n', '<Leader>zf', "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>", { noremap = true, silent = true })
-    map('v', '<Leader>zf', ":'<,'>ZkMatch<CR>", { noremap = true, silent = true })
-end)
-
 -- fzf
 later(function()
     add('ibhagwan/fzf-lua')
@@ -298,9 +287,7 @@ later(function()
     })
 
     map('n', 'g?v', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
-    map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
     map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
-    map('n', 'g?r', "<Cmd>Chainsaw removeLogs<CR>", { noremap = true, silent = true })
 end)
 
 -- fuzzy search motion plugin
