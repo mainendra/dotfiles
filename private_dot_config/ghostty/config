@@ -6,3 +6,4 @@ window-decoration = false
 quit-after-last-window-closed = true
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+keybind = global:ctrl+s=toggle_secure_input
