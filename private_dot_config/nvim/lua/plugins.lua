@@ -304,3 +304,9 @@ later(function()
     au('FileType', 'qf', revert_cr, 'Revert <CR>')
     au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
 end)
+
+-- quickfix list
+later(function()
+    add('stevearc/quicker.nvim')
+    require('quicker').setup()
+end)
