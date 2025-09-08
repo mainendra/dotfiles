@@ -71,3 +71,9 @@ map('n', '<Leader>dv', ':vs | :enew | :only | :vs | :enew<CR>')
 
 -- paste on selection
 map('x', 'p', [["_dP]])
+
+-- quickfix navigation
+map('n', '<Leader>co', ':copen<CR>')
+map('n', '<Leader>cj', ':cnext<CR>')
+map('n', '<Leader>ck', ':cprevious<CR>')
+
