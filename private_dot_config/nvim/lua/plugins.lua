@@ -286,6 +286,7 @@ later(function()
         marker = '[CW]',
     })
 
+    map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
     map('n', 'g?v', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
     map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
 end)
