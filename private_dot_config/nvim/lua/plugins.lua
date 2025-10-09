@@ -280,15 +280,15 @@ later(function()
                 javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
             },
             messageLog = {
-                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{insert}}\');',
+                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}}\');',
             }
         },
         marker = '[CW]',
     })
 
-    map('n', 'g?m', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
-    map('n', 'g?v', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
-    map('n', 'g?o', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>cwm', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>cwv', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
+    map('n', '<Leader>cwo', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
 end)
 
 -- fuzzy search motion plugin
