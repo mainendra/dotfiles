@@ -2,7 +2,7 @@
 deno = "latest"
 rust = "latest"
 usage = "latest"
-node = "latest"
+node = "lts"
 chezmoi = "latest"
 python = "latest"
 java = "openjdk-25.0.0"
