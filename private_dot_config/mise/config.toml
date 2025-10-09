@@ -12,6 +12,7 @@ go = "latest"
 sops = "latest"
 age = "latest"
 julia = "latest"
+zig = "latest"
 
 [env]
 
