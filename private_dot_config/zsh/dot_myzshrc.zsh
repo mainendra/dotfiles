@@ -8,7 +8,12 @@ alias arm="$env /usr/bin/arch -arm64 /bin/zsh ---login"
 alias gtb="git commit --allow-empty -m 'Trigger build'"
 
 # alias ip="ifconfig | ack \"inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)\" --output \"$1\""
-alias ip="ifconfig | ack 'inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)' --output '\$1'"
+if [ "$(command -v ipconfig)" ]; then
+    alias ip="ifconfig | ack 'inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)' --output '\$1'"
+fi
+if [ "$(command -v ip)" ]; then
+    alias ip="ip address | ack 'inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)' --output '\$1'"
+fi
 alias gip="http https://ipecho.io/plain -p b"
 
 alias ta="tmux a"
