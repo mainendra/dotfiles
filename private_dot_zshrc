@@ -67,9 +67,6 @@ if [ "$(command -v bob)" ]; then
     source <(bob complete zsh)
 fi
 
-if [ -f /etc/bashrc.d/dietpi.bash ]; then
-  source /etc/bashrc.d/dietpi.bash
-fi
-
 # custom aliases
 source ~/.config/zsh/.myzshrc.zsh
+export PATH=$PATH:$HOME/.local/bin
