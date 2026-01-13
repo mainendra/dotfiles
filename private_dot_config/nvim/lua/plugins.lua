@@ -33,7 +33,6 @@ now(function()
         depends = {
             'mason-org/mason.nvim',
             'mason-org/mason-lspconfig.nvim',
-            'WhoIsSethDaniel/mason-tool-installer.nvim',
         }
     })
 
@@ -142,9 +141,9 @@ later(function()
     require('mini.misc').setup()
     require('mini.move').setup()
     local notify = require('mini.notify')
-    -- disable null-ls notifications
+    -- disable notifications
     local filterout = function(notif_arr)
-        local prefixes = {'null-ls', 'rust_analyzer', 'jdtl'}
+        local prefixes = {'rust_analyzer', 'jdtl'}
         local not_diagnosing = function(notif)
             for _, prefix in ipairs(prefixes) do
                 if vim.startswith(notif.msg, prefix) then
