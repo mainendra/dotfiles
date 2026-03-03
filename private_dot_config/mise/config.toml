@@ -5,14 +5,14 @@ usage = "latest"
 node = "25"
 chezmoi = "latest"
 python = "latest"
-java = "25"
+java = "26"
 pnpm = "latest"
 bun = "latest"
 go = "latest"
 sops = "latest"
 age = "latest"
 julia = "latest"
-zig = "latest"
+caddy = "latest"
 
 [env]
 
