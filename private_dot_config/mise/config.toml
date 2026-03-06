@@ -2,7 +2,7 @@
 deno = "latest"
 rust = "latest"
 usage = "latest"
-node = "25"
+node = "latest"
 chezmoi = "latest"
 python = "latest"
 java = "26"
