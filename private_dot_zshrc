@@ -52,8 +52,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-if [ -e $Home/.nix-profile/etc/profile.d/nix.sh ]; then . $Home/.nix-profile/etc/profile.d/nix.sh; fi
-
 if [ "$(command -v devbox)" ]; then
     eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
 fi
