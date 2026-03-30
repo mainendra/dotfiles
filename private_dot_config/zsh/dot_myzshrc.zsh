@@ -137,3 +137,12 @@ email() {
     fi
     pop "$@"
 }
+
+# tsm - Terminal session manager
+tsm_palette() {
+  zle -I
+  tsm p
+  zle reset-prompt
+}
+zle -N tsm_palette
+bindkey '^g' tsm_palette
