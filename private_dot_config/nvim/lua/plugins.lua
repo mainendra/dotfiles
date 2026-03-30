@@ -43,22 +43,9 @@ now(function()
     add({
         source = 'nvim-treesitter/nvim-treesitter',
         hooks = {
-            post_checkout = function()
-                pcall(require('nvim-treesitter.install').update { with_sync = true })
-            end
-        }
-    })
-
-    require('nvim-treesitter.configs').setup({
-        sync_install = false,
-        auto_install = true,
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
+            post_checkout = function() vim.cmd('TSUpdate') end,
+            post_install = function() vim.cmd('TSUpdate') end,
         },
-        indent = {
-            enable = true,
-        }
     })
 
     -- folding with treesitter
@@ -303,4 +290,10 @@ later(function()
     local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
     au('FileType', 'qf', revert_cr, 'Revert <CR>')
     au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
+end)
+
+-- fuzzy search
+later(function()
+    add('alexpasmantier/tv.nvim')
+    require('tv').setup({})
 end)
