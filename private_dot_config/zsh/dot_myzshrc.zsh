@@ -13,7 +13,7 @@ if [ "$(command -v ifconfig)" ]; then
 elif [ "$(command -v ip)" ]; then
     alias ip="ip address | ack 'inet ([0-9]+.[0-9]+.[0-9]+.[0-9]+)' --output '\$1'"
 fi
-alias gip="http https://ipecho.io/plain -p b"
+alias gip="http -4 https://ipecho.io/plain -p b"
 
 alias ta="tmux a"
 alias tk="tmux kill-server"
