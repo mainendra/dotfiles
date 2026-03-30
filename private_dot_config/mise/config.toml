@@ -13,6 +13,7 @@ sops = "latest"
 age = "latest"
 julia = "latest"
 caddy = "latest"
+tree-sitter = "latest"
 
 [env]
 
