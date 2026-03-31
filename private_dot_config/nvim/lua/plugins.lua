@@ -217,11 +217,6 @@ later(function()
     vim.cmd('packadd cfilter')
 end)
 
--- startup timing
-later(function()
-    add('dstein64/vim-startuptime')
-end)
-
 -- bookmarks
 later(function()
     add('otavioschwanck/arrow.nvim')
