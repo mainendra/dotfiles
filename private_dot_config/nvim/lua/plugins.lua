@@ -1,88 +1,60 @@
 -------------------- HELPERS ------------------------------
 
-local map = vim.keymap.set  -- new function for keymap
+local map = vim.keymap.set -- new function for keymap
 
--------------------- MINI DEPS ------------------------------
+-------------------- PLUGINS ------------------------------
 
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
-local path_package = vim.fn.stdpath('data') .. '/site/'
-local mini_path = path_package .. 'pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-    vim.cmd('echo "Installing `mini.nvim`" | redraw')
-    local clone_cmd = {
-        'git', 'clone', '--filter=blob:none',
-        'https://github.com/nvim-mini/mini.nvim', mini_path
-    }
-    vim.fn.system(clone_cmd)
-    vim.cmd('packadd mini.nvim | helptags ALL')
-    vim.cmd('echo "Installed `mini.nvim`" | redraw')
+local add = function(plugin)
+    vim.pack.add({ 'https://github.com/' .. plugin })
 end
 
-local MiniDeps = require('mini.deps')
+add('mason-org/mason.nvim')
+add('neovim/nvim-lspconfig')
+add('mason-org/mason-lspconfig.nvim')
 
--- Set up 'mini.deps' (customize to your liking)
-MiniDeps.setup({ path = { package = path_package } })
+require('lsp').setup() -- lsp.lua file
 
--- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
--- startup and are optional.
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+        local name, kind = ev.data.spec.name, ev.data.kind
+        if name == 'nvim-treesitter' and kind == 'update' then
+            if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+            vim.cmd('TSUpdate')
+        end
+    end
+})
 
-now(function()
-    add({
-        source = 'mason-org/mason-lspconfig.nvim',
-        depends = {
-            'mason-org/mason.nvim',
-            'neovim/nvim-lspconfig',
-        }
-    })
+add('nvim-treesitter/nvim-treesitter')
 
-    require('lsp').setup()
-end)
+require('nvim-treesitter').setup({ auto_install = true })
 
-now(function()
-    add({
-        source = 'nvim-treesitter/nvim-treesitter',
-        hooks = {
-            post_checkout = function() vim.cmd('TSUpdate') end,
-            post_install = function() vim.cmd('TSUpdate') end,
-        },
-    })
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
+})
 
-    require('nvim-treesitter').setup({ auto_install = true })
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
-    vim.api.nvim_create_autocmd('FileType', {
-        callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
-    })
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_us' }
+vim.opt.spelloptions = 'camel'
 
-    vim.opt.foldmethod = 'expr'
-    vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+add('ellisonleao/gruvbox.nvim')
+require('gruvbox').setup({
+    contrast = 'hard',
+    invert_selection = true,
+    palette_overrides = {
+        dark0_hard = "#1b1b1b",
+    },
+})
+vim.cmd('colorscheme gruvbox')
 
-    vim.opt.spell = true
-    vim.opt.spelllang = { 'en_us' }
-    vim.opt.spelloptions = 'camel'
-end)
+add('laytan/cloak.nvim')
+require('cloak').setup()
 
-now(function()
-    add('ellisonleao/gruvbox.nvim')
+vim.schedule(function()
+    add('nvim-mini/mini.nvim')
 
-    require('gruvbox').setup({
-        contrast = 'hard',
-        invert_selection = true,
-        palette_overrides = {
-            dark0_hard = "#1b1b1b",
-        },
-    })
-    vim.cmd('colorscheme gruvbox')
-end)
-
--- overlay * over defined pattern
-now(function()
-    add('laytan/cloak.nvim')
-
-    require('cloak').setup()
-end)
-
-later(function()
     require('mini.ai').setup()
     require('mini.align').setup()
     require('mini.basics').setup()
@@ -99,10 +71,10 @@ later(function()
     hipatterns.setup({
         highlighters = {
             -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-            fixme = { pattern = '%f[%w]()[Ff][Ii][Xx][Mm][Ee]()%f[%W]', group = 'MiniHipatternsFixme' },
-            hack  = { pattern = '%f[%w]()[Hh][Aa][Cc][Kk]()%f[%W]',  group = 'MiniHipatternsHack'  },
-            todo  = { pattern = '%f[%w]()[Tt][Oo][Dd][Oo]()%f[%W]',  group = 'MiniHipatternsTodo'  },
-            note  = { pattern = '%f[%w]()[Nn][Oo][Tt][Ee]()%f[%W]',  group = 'MiniHipatternsNote'  },
+            fixme     = { pattern = '%f[%w]()[Ff][Ii][Xx][Mm][Ee]()%f[%W]', group = 'MiniHipatternsFixme' },
+            hack      = { pattern = '%f[%w]()[Hh][Aa][Cc][Kk]()%f[%W]', group = 'MiniHipatternsHack' },
+            todo      = { pattern = '%f[%w]()[Tt][Oo][Dd][Oo]()%f[%W]', group = 'MiniHipatternsTodo' },
+            note      = { pattern = '%f[%w]()[Nn][Oo][Tt][Ee]()%f[%W]', group = 'MiniHipatternsNote' },
 
             -- Highlight hex color strings (`#rrggbb`) using that color
             hex_color = hipatterns.gen_highlighter.hex_color(),
@@ -116,10 +88,10 @@ later(function()
     })
     require('mini.keymap').setup()
     local map_multistep = require('mini.keymap').map_multistep
-    map_multistep('i', '<Tab>',   { 'pmenu_next' })
+    map_multistep('i', '<Tab>', { 'pmenu_next' })
     map_multistep('i', '<S-Tab>', { 'pmenu_prev' })
-    map_multistep('i', '<CR>',    { 'pmenu_accept', 'minipairs_cr' })
-    map_multistep('i', '<BS>',    { 'minipairs_bs' })
+    map_multistep('i', '<CR>', { 'pmenu_accept', 'minipairs_cr' })
+    map_multistep('i', '<BS>', { 'minipairs_bs' })
 
     local map_combo = require('mini.keymap').map_combo
     local mode = { 'i', 'c', 'x', 's' }
@@ -133,7 +105,7 @@ later(function()
     local notify = require('mini.notify')
     -- disable notifications
     local filterout = function(notif_arr)
-        local prefixes = {'rust_analyzer', 'jdtl'}
+        local prefixes = { 'rust_analyzer', 'jdtl' }
         local not_diagnosing = function(notif)
             for _, prefix in ipairs(prefixes) do
                 if vim.startswith(notif.msg, prefix) then
@@ -152,8 +124,8 @@ later(function()
     require('mini.operators').setup()
     require('mini.pick').setup({
         mappings = {
-            move_down  = '<C-j>',
-            move_up    = '<C-k>',
+            move_down = '<C-j>',
+            move_up   = '<C-k>',
         }
     })
     require('mini.splitjoin').setup() -- gS -> toggle
@@ -168,14 +140,15 @@ later(function()
     vim.cmd('highlight MiniFilesNormal guibg=NONE')
 
     -- picker
-    map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>ff', '<cmd>Pick files<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fb', '<cmd>Pick buffers<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fh', '<cmd>Pick git_hunks<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fv', '<cmd>Pick git_files<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>' , { noremap = true, silent = true })
-    map('n', '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>' , { noremap = true, silent = true })
+    map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>ff', '<cmd>Pick files<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fb', '<cmd>Pick buffers<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fh', '<cmd>Pick git_hunks<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fv', '<cmd>Pick git_files<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>', { noremap = true, silent = true })
+    map('n', '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>',
+    { noremap = true, silent = true })
 
     function ShowMiniFiles()
         local files = require('mini.files')
@@ -186,15 +159,12 @@ later(function()
             files.close()
         end
     end
-    map('n', '<Leader>e', '<cmd>lua ShowMiniFiles()<CR>', { noremap = true, silent = true })
-end)
 
-later(function()
+    map('n', '<Leader>e', '<cmd>lua ShowMiniFiles()<CR>', { noremap = true, silent = true })
+
     add('johmsalas/text-case.nvim')
     require('textcase').setup({ prefix = 'ge' })
-end)
 
-later(function()
     add('f-person/git-blame.nvim')
     require('gitblame').setup({
         enabled = false,
@@ -205,12 +175,9 @@ later(function()
     map('n', '<Leader>bc', '<cmd>GitBlameOpenCommitURL<CR>', { noremap = true, silent = true })
     map('n', '<Leader>bf', '<cmd>GitBlameOpenFileURL<CR>', { noremap = true, silent = true })
     map('v', '<Leader>bf', ":'<,'>GitBlameOpenFileURL<CR>", { noremap = true, silent = true })
-end)
 
--- ripgrep search
-later(function()
     add('mangelozzi/rgflow.nvim')
-    require('rgflow').setup( {
+    require('rgflow').setup({
         cmd_flags = "--smart-case --fixed-strings --ignore --max-columns 200",
         default_trigger_mappings = true,
         default_ui_mappings = true,
@@ -218,10 +185,7 @@ later(function()
     })
     -- enable cfilter
     vim.cmd('packadd cfilter')
-end)
 
--- bookmarks
-later(function()
     add('otavioschwanck/arrow.nvim')
     require('arrow').setup({
         show_icons = true,
@@ -231,29 +195,18 @@ later(function()
             prev_item = "k"
         }
     })
-end)
 
--- fzf
-later(function()
     add('ibhagwan/fzf-lua')
     map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
-end)
 
--- folds
-later(function()
-    add({
-        source = 'kevinhwang91/nvim-ufo',
-        depends = { 'kevinhwang91/promise-async' }
-    })
+    add('kevinhwang91/promise-async')
+    add('kevinhwang91/nvim-ufo')
     require('ufo').setup({
         provider_selector = function()
-            return {'treesitter', 'indent'}
+            return { 'treesitter', 'indent' }
         end
     })
-end)
 
--- smart logs
-later(function()
     add('chrisgrieser/nvim-chainsaw')
     require('chainsaw').setup({
         logStatements = {
@@ -261,7 +214,8 @@ later(function()
                 javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', {{var}});',
             },
             objectLog = {
-                javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
+                javascript =
+                'console.warn(\'{{marker}} {{filename}}:{{lnum}} {{var}}:\', JSON.stringify({{var}}, null, 2));',
             },
             messageLog = {
                 javascript = 'console.warn(\'{{marker}} {{filename}}:{{lnum}}\');',
@@ -273,10 +227,7 @@ later(function()
     map('n', '<Leader>cwm', "<Cmd>Chainsaw messageLog<CR>", { noremap = true, silent = true })
     map('n', '<Leader>cwv', "<Cmd>Chainsaw variableLog<CR>", { noremap = true, silent = true })
     map('n', '<Leader>cwo', "<Cmd>Chainsaw objectLog<CR>", { noremap = true, silent = true })
-end)
 
--- fuzzy search motion plugin
-later(function()
     add('rlane/pounce.nvim')
     map('n', '<CR>', "<Cmd>Pounce<CR>", { noremap = true, silent = true })
 
@@ -288,10 +239,7 @@ later(function()
     local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
     au('FileType', 'qf', revert_cr, 'Revert <CR>')
     au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
-end)
 
--- fuzzy search
-later(function()
     add('alexpasmantier/tv.nvim')
     require('tv').setup({})
 end)
