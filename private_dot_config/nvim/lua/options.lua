@@ -11,7 +11,7 @@ end
 local indent = 4
 opt('b', 'shiftwidth', indent)                        -- Size of an indent
 opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
-opt('b', 'softtabstop', indent)
+opt('b', 'softtabstop', indent)                       -- Number of spaces for soft tab
 opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
 opt('b', 'smartindent', true)                         -- Insert indents automatically
 opt('o', 'completeopt', 'menuone,noinsert,noselect')  -- Completion options (for deoplete)
@@ -31,26 +31,26 @@ opt('w', 'number', true)                              -- Print line number
 opt('w', 'relativenumber', false)                     -- Relative line numbers
 opt('w', 'wrap', false)                               -- Disable line wrap
 opt('o', 'swapfile', false)                           -- Disable swapfile
-opt('o', 'history', 1000)
-opt('o', 'autoread', true)
-opt('o', 'backup', false)
-opt('o', 'writebackup', false)
-opt('w', 'cursorline', true)
-opt('o', 'pumheight', 10)
-opt('o', 'fileencoding', 'utf-8')
-opt('o', 'cmdheight', 2)
-opt('o', 'mouse', 'a')
-opt('o', 'updatetime', 50)
-opt('o', 'clipboard', 'unnamedplus')
-opt('o', 'wildmenu', true)
-opt('o', 'hls', true)
-opt('o', 'incsearch', true)
-opt('o', 'wildmode', 'full')
-opt('o', 'lazyredraw', true)
-opt('o', 'signcolumn', 'yes:1')
-opt('o', 'background', 'dark')
-opt('o', 'synmaxcol', 200)                            -- syntax file is slow,
-opt('o', 'foldlevelstart', 99)                        -- no fold closed
-opt('o', 'cmdheight', 1)                              -- no fold closed
+opt('o', 'history', 1000)                             -- Command history size
+opt('o', 'autoread', true)                            -- Auto reload files changed outside vim
+opt('o', 'backup', false)                             -- Disable backup files
+opt('o', 'writebackup', false)                        -- Disable write backup
+opt('w', 'cursorline', true)                          -- Highlight current line
+opt('o', 'pumheight', 10)                             -- Popup menu max height
+opt('o', 'fileencoding', 'utf-8')                     -- File encoding
+opt('o', 'cmdheight', 2)                              -- Command line height
+opt('o', 'mouse', 'a')                                -- Enable mouse in all modes
+opt('o', 'updatetime', 50)                            -- Faster CursorHold events
+opt('o', 'clipboard', 'unnamedplus')                  -- Use system clipboard
+opt('o', 'wildmenu', true)                            -- Enhanced command-line completion
+opt('o', 'hls', true)                                 -- Highlight search matches
+opt('o', 'incsearch', true)                           -- Show matches while typing
+opt('o', 'wildmode', 'full')                          -- Complete first full match
+opt('o', 'lazyredraw', true)                          -- Don't redraw during macros
+opt('o', 'signcolumn', 'yes:1')                       -- Always show sign column
+opt('o', 'background', 'dark')                        -- Dark background
+opt('o', 'synmaxcol', 200)                            -- Limit syntax highlight for long lines
+opt('o', 'foldlevelstart', 99)                        -- Start with all folds open
+opt('o', 'cmdheight', 1)                              -- Command line height
 opt('o', 'inccommand', 'split')                       -- Preview substitutions live, as you type!
 opt('o', 'autochdir', false)                          -- Don't auto change directory
