@@ -14,6 +14,7 @@ age = "latest"
 julia = "latest"
 caddy = "latest"
 tree-sitter = "latest"
+fastfetch = "latest"
 
 [env]
 
