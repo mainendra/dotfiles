@@ -243,3 +243,9 @@ vim.schedule(function()
     add('alexpasmantier/tv.nvim')
     require('tv').setup({})
 end)
+
+-- Pack management commands
+-- :PackUpdate          - Update all packs
+vim.api.nvim_create_user_command('PackUpdate', function()
+    vim.pack.update()
+end, { desc = 'Update all packs' })
