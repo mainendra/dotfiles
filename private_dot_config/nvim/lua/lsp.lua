@@ -15,6 +15,7 @@ end
 local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.buf.format({ async = true })'
 
     -- diagnostic config
     vim.diagnostic.config({
@@ -28,6 +29,7 @@ local on_attach = function(_, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', '=', function() vim.lsp.buf.format({ async = true }) end, bufopts)
     vim.keymap.set('n', '<Leader>gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', '<Leader>gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<Leader>hd', vim.lsp.buf.hover, bufopts)
@@ -35,19 +37,20 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<Leader>ld', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<Leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 return {
     setup = function()
         mason.setup()
         mason_lspconfig.setup({
+            automatic_enable = true,
             ensure_installed = {
                 'lua_ls',
                 'cssls',
                 'cssmodules_ls',
                 'denols',
                 'emmet_language_server',
+                'oxlint',
                 'html',
                 'jsonls',
                 'marksman',
@@ -83,6 +86,15 @@ return {
         vim.lsp.config('denols', {
             root_markers = { 'deno.json', 'deno.jsonc' },
             workspace_required = true,
+        })
+        vim.lsp.config('tailwindcss', {
+            filetypes = { 'html', 'css', 'scss', 'less', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'svelte', 'vue', 'astro' },
+        })
+        vim.lsp.config('marksman', {
+            filetypes = { 'markdown' },
+        })
+        vim.lsp.config('yamlls', {
+            filetypes = { 'yaml' },
         })
     end
 }

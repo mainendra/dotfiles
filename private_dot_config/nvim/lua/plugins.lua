@@ -29,10 +29,10 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 now(function()
     add({
-        source = 'neovim/nvim-lspconfig',
+        source = 'mason-org/mason-lspconfig.nvim',
         depends = {
             'mason-org/mason.nvim',
-            'mason-org/mason-lspconfig.nvim',
+            'neovim/nvim-lspconfig',
         }
     })
 
@@ -48,15 +48,18 @@ now(function()
         },
     })
 
-    -- folding with treesitter
-    vim.opt.foldmethod = 'expr'
-    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+    require('nvim-treesitter').setup({ auto_install = true })
 
-    -- spell check
+    vim.api.nvim_create_autocmd('FileType', {
+        callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
+    })
+
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+
     vim.opt.spell = true
     vim.opt.spelllang = { 'en_us' }
     vim.opt.spelloptions = 'camel'
-    vim.opt.syntax = 'on'
 end)
 
 now(function()
