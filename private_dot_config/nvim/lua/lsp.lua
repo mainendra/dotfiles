@@ -51,6 +51,7 @@ return {
                 'denols',
                 'emmet_language_server',
                 'oxlint',
+                'eslint',
                 'html',
                 'jsonls',
                 'marksman',
