@@ -54,3 +54,4 @@ opt('o', 'foldlevelstart', 99)                        -- Start with all folds op
 opt('o', 'cmdheight', 1)                              -- Command line height
 opt('o', 'inccommand', 'split')                       -- Preview substitutions live, as you type!
 opt('o', 'autochdir', false)                          -- Don't auto change directory
+opt('o', 'autocomplete', true)                        -- shows a completion menu as you type

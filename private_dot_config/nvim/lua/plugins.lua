@@ -8,6 +8,15 @@ local add = function(plugin)
     vim.pack.add({ 'https://github.com/' .. plugin })
 end
 
+-- Enable new UI (neovim 0.12+)
+require('vim._core.ui2').enable({})
+
+-- enable builtin plugin
+vim.cmd('packadd nvim.difftool')
+vim.cmd('packadd nvim.undotree')
+vim.cmd('packadd cfilter')
+vim.cmd('packadd justify')
+
 add('mason-org/mason.nvim')
 add('neovim/nvim-lspconfig')
 add('mason-org/mason-lspconfig.nvim')
