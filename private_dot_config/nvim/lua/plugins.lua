@@ -205,9 +205,6 @@ vim.schedule(function()
         }
     })
 
-    add('ibhagwan/fzf-lua')
-    map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
-
     add('kevinhwang91/promise-async')
     add('kevinhwang91/nvim-ufo')
     require('ufo').setup({
@@ -258,3 +255,23 @@ end)
 vim.api.nvim_create_user_command('PackUpdate', function()
     vim.pack.update()
 end, { desc = 'Update all packs' })
+
+-- remove unused plugins
+local function remove_unused_plugins()
+    local unused = vim.iter(vim.pack.get())
+        :filter(function(plugin)
+            return not plugin.active
+        end)
+        :map(function(plugin)
+            return plugin.spec.name
+        end)
+        :totable()
+
+    if vim.tbl_isempty(unused) then
+        vim.notify('No unused plugins found.')
+        return
+    end
+
+    vim.pack.del(unused)
+end
+vim.api.nvim_create_user_command('PackClean', remove_unused_plugins, {})
