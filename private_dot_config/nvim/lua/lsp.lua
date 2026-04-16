@@ -49,7 +49,6 @@ return {
                 'cssls',
                 'cssmodules_ls',
                 'denols',
-                'emmet_language_server',
                 'oxlint',
                 'eslint',
                 'html',
@@ -57,7 +56,7 @@ return {
                 'marksman',
                 'svelte',
                 'tailwindcss',
-                'ts_ls',
+                'vtsls',
                 'typos_lsp',
                 'vimls',
                 'yamlls'
@@ -80,8 +79,8 @@ return {
                 },
             }
         })
-        vim.lsp.config('ts_ls', {
-            root_markers = { 'package.json' },
+        vim.lsp.config('vtsls', {
+            root_markers = { 'tsconfig.json', 'package.json' },
             workspace_required = true,
         })
         vim.lsp.config('denols', {
