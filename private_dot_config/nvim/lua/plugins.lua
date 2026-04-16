@@ -14,6 +14,8 @@ require('vim._core.ui2').enable({})
 -- enable builtin plugin
 vim.cmd('packadd nvim.difftool')
 vim.cmd('packadd nvim.undotree')
+map('n', '<Leader>u', '<cmd>Undotree<CR>', { noremap = true, silent = true })
+
 vim.cmd('packadd cfilter')
 vim.cmd('packadd justify')
 
