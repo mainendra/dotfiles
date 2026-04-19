@@ -1,5 +1,6 @@
 # init completion
 autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
 
 # source antidote
 if [ "$(command -v brew)" ]; then
