@@ -35,13 +35,32 @@ vim.api.nvim_create_autocmd('PackChanged', {
     end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function(ev)
+        pcall(vim.treesitter.start, ev.buf)
+        local web = { 'html', 'css', 'javascript', 'typescript' }
+        local dominated = {
+            svelte = web,
+            vue = web,
+            astro = web,
+            html = { 'css', 'javascript' },
+            markdown = { 'html' },
+            php = web,
+        }
+        local deps = dominated[vim.bo[ev.buf].filetype]
+        if deps then
+            local ts = require('nvim-treesitter')
+            local installed = ts.get_installed()
+            for _, lang in ipairs(deps) do
+                if not vim.tbl_contains(installed, lang) then ts.install(lang) end
+            end
+        end
+    end,
+})
+
 add('nvim-treesitter/nvim-treesitter')
 
 require('nvim-treesitter').setup({ auto_install = true })
-
-vim.api.nvim_create_autocmd('FileType', {
-    callback = function(ev) pcall(vim.treesitter.start, ev.buf) end,
-})
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
