@@ -1,12 +1,11 @@
 -------------------- HELPERS ------------------------------
 
 local map = vim.keymap.set -- new function for keymap
-
--------------------- PLUGINS ------------------------------
-
 local add = function(plugin)
     vim.pack.add({ 'https://github.com/' .. plugin })
 end
+
+-------------------- PLUGINS ------------------------------
 
 -- Enable new UI (neovim 0.12+)
 require('vim._core.ui2').enable({})
@@ -295,4 +294,4 @@ local function remove_unused_plugins()
 
     vim.pack.del(unused)
 end
-vim.api.nvim_create_user_command('PackClean', remove_unused_plugins, {})
+vim.api.nvim_create_user_command('PackClean', remove_unused_plugins, { desc = 'Remove unused packs' })
