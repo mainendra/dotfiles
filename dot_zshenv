@@ -55,7 +55,7 @@ zvm_after_init_commands+=(init_fzf_key_bindings)
 
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
-    path+=($HOME/tizen-studio/tools/)
+    path+=($HOME/tizen-studio/tools)
     path+=($HOME/tizen-studio/tools/ide/bin)
 fi
 
