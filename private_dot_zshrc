@@ -69,3 +69,10 @@ fi
 # custom aliases
 source ~/.config/zsh/.myzshrc.zsh
 export PATH=$PATH:$HOME/.local/bin
+
+# Enable programmable sdb completion features.
+if [ -f ~/.sdb/.sdb-completion.bash ]; then
+ source ~/.sdb/.sdb-completion.bash
+fi
+
+source ~/.config/broot/launcher/bash/br
