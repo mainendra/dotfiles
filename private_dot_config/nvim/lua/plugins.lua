@@ -134,7 +134,7 @@ vim.schedule(function()
     local notify = require('mini.notify')
     -- disable notifications
     local filterout = function(notif_arr)
-        local prefixes = { 'rust_analyzer', 'jdtl' }
+        local prefixes = { 'rust_analyzer', 'jdtl', 'vtsls' }
         local not_diagnosing = function(notif)
             for _, prefix in ipairs(prefixes) do
                 if vim.startswith(notif.msg, prefix) then
