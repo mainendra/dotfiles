@@ -86,8 +86,26 @@ vim.schedule(function()
 
     require('mini.ai').setup()
     require('mini.align').setup()
-    require('mini.basics').setup()
+    require('mini.basics').setup({
+        options = {
+            extra_ui = true,
+        }
+    })
     require('mini.bracketed').setup()
+    local miniclue = require('mini.clue')
+    miniclue.setup({
+        triggers = {
+            -- `[` and `]` keys
+            { mode = 'n', keys = '[' },
+            { mode = 'n', keys = ']' },
+
+            -- `g` key
+            { mode = { 'n', 'x' }, keys = 'g' },
+        },
+        clues = {
+            miniclue.gen_clues.square_brackets(),
+        },
+    })
     require('mini.comment').setup()
     require('mini.completion').setup()
     require('mini.cursorword').setup()
