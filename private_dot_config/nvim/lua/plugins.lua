@@ -22,6 +22,26 @@ add('mason-org/mason.nvim')
 add('neovim/nvim-lspconfig')
 add('mason-org/mason-lspconfig.nvim')
 
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        local bufnr = ev.buf
+        vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.buf.format({ async = true })'
+
+        vim.diagnostic.config({
+            virtual_text = { severity = { min = vim.diagnostic.severity.INFO } },
+            severity_sort = true,
+            float = true,
+        })
+
+        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set('n', '=', function() vim.lsp.buf.format({ async = true }) end, bufopts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+        vim.keymap.set('n', '<Leader>sh', vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set('n', '<Leader>ld', vim.diagnostic.open_float, bufopts)
+    end,
+})
+
 require('lsp').setup() -- lsp.lua file
 
 vim.api.nvim_create_autocmd('PackChanged', {
