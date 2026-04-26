@@ -55,12 +55,6 @@ map('', '<C-S-Right>', ':vertical resize +5<CR>')
 map('', '<C-S-Up>', ':resize +5<CR>')
 map('', '<C-S-Down>', ':resize -5<CR>')
 
--- switch window using hjkl
-map('n', 'H', '<C-w>h')
-map('n', 'J', '<C-w>j')
-map('n', 'K', '<C-w>k')
-map('n', 'L', '<C-w>l')
-
 map('n', '<Leader>q', ':q<CR>')
 map('n', '<Leader>Q', ':q!<CR>')
 
