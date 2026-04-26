@@ -168,7 +168,6 @@ vim.schedule(function()
     notify.setup({
         content = { sort = filterout },
     })
-    require('mini.operators').setup()
     require('mini.pick').setup({
         mappings = {
             move_down = '<C-j>',
