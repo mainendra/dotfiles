@@ -50,6 +50,12 @@ map('n', 'D', '<C-d>');
 
 map('n', '<Leader>on', ':only<CR>')
 
+-- window navigation
+map('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+map('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+map('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+map('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
+
 map('', '<C-S-Left>', ':vertical resize -5<CR>')
 map('', '<C-S-Right>', ':vertical resize +5<CR>')
 map('', '<C-S-Up>', ':resize +5<CR>')
