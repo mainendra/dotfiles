@@ -303,8 +303,8 @@ vim.schedule(function()
     au('FileType', 'qf', revert_cr, 'Revert <CR>')
     au('CmdwinEnter', '*', revert_cr, 'Revert <CR>')
 
-    add('alexpasmantier/tv.nvim')
-    require('tv').setup({})
+    add('ibhagwan/fzf-lua')
+    map('n', '<Leader>fz', "<Cmd>FzfLua<CR>", { noremap = true, silent = true })
 end)
 
 -- Pack management commands
