@@ -54,5 +54,5 @@ opt('o', 'foldlevelstart', 99)                        -- Start with all folds op
 opt('o', 'cmdheight', 1)                              -- Command line height
 opt('o', 'inccommand', 'split')                       -- Preview substitutions live, as you type!
 opt('o', 'autochdir', false)                          -- Don't auto change directory
-opt('o', 'autocomplete', true)                        -- shows a completion menu as you type
 opt('b', 'undofile', true)                             -- Persistent undo history
+opt('o', 'confirm', true)                             -- Confirm before closing unsaved buffers
