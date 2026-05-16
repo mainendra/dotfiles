@@ -18,4 +18,5 @@ vim.g.loaded_perl_provider = 0
 require('options')
 require('keymaps')
 require('autocmds')
+require('globals')
 require('plugins')

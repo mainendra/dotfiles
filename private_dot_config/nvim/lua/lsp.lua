@@ -38,6 +38,7 @@ return {
           workspace = {
             library = {
               vim.env.VIMRUNTIME,
+              vim.fn.stdpath('config') .. '/lua',
               '${3rd}/luv/library',
               '${3rd}/busted/library',
             },

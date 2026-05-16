@@ -3,10 +3,6 @@
 
 local map = vim.keymap.set
 
-_G.PackAdd = function(plugin)
-  vim.pack.add({ 'https://github.com/' .. plugin })
-end
-
 -- Enable new UI (neovim 0.12+)
 require('vim._core.ui2').enable({})
 
