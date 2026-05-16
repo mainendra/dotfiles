@@ -1,6 +1,35 @@
+# disable all bells
+unsetopt BEEP
+
+# zsh vi mode config
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
+  ZVM_VI_SURROUND_BINDKEY=s-prefix
+  ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+}
+
+# Set up fzf key bindings and fuzzy completion
+function init_fzf_key_bindings() {
+    if command -v fzf > /dev/null 2>&1; then
+        eval "$(fzf --zsh)"
+    fi
+}
+# to avoid compatibility issue with vi mode
+zvm_after_init_commands+=(init_fzf_key_bindings)
+
+# Prompt customization
+export TYPEWRITTEN_RELATIVE_PATH="adaptive"
+
 # init completion
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
+
+# brew package completions
+if [ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]; then
+    fpath+=("$HOMEBREW_PREFIX/share/zsh/site-functions")
+fi
 
 # source antidote
 if [ "$(command -v brew)" ]; then
@@ -53,26 +82,10 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-if [ "$(command -v devbox)" ]; then
-    eval "$(devbox global shellenv --preserve-path-stack -r)" && hash -r
-fi
-
 if [ "$(command -v mise)" ]; then
     eval "$(mise activate zsh)"
     eval "$(mise completion zsh)"
 fi
 
-if [ "$(command -v bob)" ]; then
-    source <(bob complete zsh)
-fi
-
 # custom aliases
 source ~/.config/zsh/.myzshrc.zsh
-export PATH=$PATH:$HOME/.local/bin
-
-# Enable programmable sdb completion features.
-if [ -f ~/.sdb/.sdb-completion.bash ]; then
- source ~/.sdb/.sdb-completion.bash
-fi
-
-source ~/.config/broot/launcher/bash/br

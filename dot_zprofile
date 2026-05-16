@@ -1,15 +1,7 @@
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-    # homebrew path
+# homebrew path
+if [ -x /opt/homebrew/bin/brew ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
-    # brew auto update
     export HOMEBREW_AUTO_UPDATE_SECS="86400"
-fi
-
-# In ZSH $PATH is tied to $path array
-
-# brew package completions
-if [ "$(command -v brew)" ] && [ -d $(brew --prefix)/share/zsh/site-functions ]; then
-    fpath+=$(brew --prefix)/share/zsh/site-functions
 fi
 
 # bob (nvim version manager)
@@ -17,15 +9,9 @@ if [ -d "$HOME/.local/share/bob/nvim-bin" ]; then
     path+=($HOME/.local/share/bob/nvim-bin)
 fi
 
-# openjdk
-if [ -d "/usr/local/opt/openjdk/bin" ]; then
-    path+=(/usr/local/opt/openjdk/bin)
-    export CPPFLAGS="-I/usr/local/opt/openjdk/include"
-fi
-
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
-    path+=($HOME/tizen-studio/tools/)
+    path+=($HOME/tizen-studio/tools)
     path+=($HOME/tizen-studio/tools/ide/bin)
 fi
 
@@ -45,48 +31,6 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
     path+=($HOME/.local/bin)
 fi
-
-# layzygit config dir
-export CONFIG_DIR="$HOME/.config/lazygit"
-
-# rg config
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# default editor
-export EDITOR='nvim'
-
-# zsh vi mode config
-function zvm_config() {
-  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
-  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-  ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX
-  ZVM_VI_SURROUND_BINDKEY=s-prefix
-}
-
-# Set up fzf key bindings and fuzzy completion
-function init_fzf_key_bindings() {
-    if command -v fzf > /dev/null 2>&1; then
-        source <(fzf --zsh)
-    fi
-}
-# to avoid compatibility issue with vi mode
-zvm_after_init_commands+=(init_fzf_key_bindings)
-
-# git shortcuts
-[ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
-
-# Prompt customization
-# export TYPEWRITTEN_PROMPT_LAYOUT="pure"
-export TYPEWRITTEN_RELATIVE_PATH="adaptive"
-
-# config home
-export XDG_CONFIG_HOME=$HOME/.config
-
-# notes
-export ZK_NOTEBOOK_DIR=$HOME/notebook
-
-# disable all bells
-unsetopt BEEP
 
 # force path to have unique values
 typeset -aU path
