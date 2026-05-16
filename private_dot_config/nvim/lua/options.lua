@@ -1,58 +1,66 @@
--------------------- HELPERS ------------------------------
+-- Editor options
+-- Uses modern vim.opt API for all settings
 
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
-local function opt(scope, key, value)
-    scopes[scope][key] = value
-    if scope ~= 'o' then scopes['o'][key] = value end
-end
-
--------------------- OPTIONS -------------------------------
+local opt = vim.opt
 local indent = 4
-opt('b', 'shiftwidth', indent)                        -- Size of an indent
-opt('b', 'tabstop', indent)                           -- Number of spaces tabs count for
-opt('b', 'softtabstop', indent)                       -- Number of spaces for soft tab
-opt('b', 'expandtab', true)                           -- Use spaces instead of tabs
-opt('b', 'smartindent', true)                         -- Insert indents automatically
-opt('o', 'completeopt', 'menuone,noinsert,noselect')  -- Completion options (for deoplete)
-opt('o', 'hidden', true)                              -- Enable modified buffers in background
-opt('o', 'ignorecase', true)                          -- Ignore case
-opt('o', 'joinspaces', false)                         -- No double spaces with join after a dot
-opt('o', 'scrolloff', 4 )                             -- Lines of context
-opt('o', 'shiftround', true)                          -- Round indent
-opt('o', 'sidescrolloff', 8 )                         -- Columns of context
-opt('o', 'smartcase', true)                           -- Don't ignore case with capitals
-opt('o', 'splitbelow', true)                          -- Put new windows below current
-opt('o', 'splitright', true)                          -- Put new windows right of current
-opt('o', 'termguicolors', true)                       -- True color support
-opt('o', 'wildmode', 'list:longest')                  -- Command-line completion mode
-opt('w', 'list', true)                                -- Show some invisible characters (tabs...)
-opt('w', 'number', true)                              -- Print line number
-opt('w', 'relativenumber', false)                     -- Relative line numbers
-opt('w', 'wrap', false)                               -- Disable line wrap
-opt('o', 'swapfile', false)                           -- Disable swapfile
-opt('o', 'history', 1000)                             -- Command history size
-opt('o', 'autoread', true)                            -- Auto reload files changed outside vim
-opt('o', 'backup', false)                             -- Disable backup files
-opt('o', 'writebackup', false)                        -- Disable write backup
-opt('w', 'cursorline', true)                          -- Highlight current line
-opt('o', 'pumheight', 10)                             -- Popup menu max height
-opt('o', 'fileencoding', 'utf-8')                     -- File encoding
-opt('o', 'cmdheight', 2)                              -- Command line height
-opt('o', 'mouse', 'a')                                -- Enable mouse in all modes
-opt('o', 'updatetime', 50)                            -- Faster CursorHold events
-opt('o', 'clipboard', 'unnamedplus')                  -- Use system clipboard
-opt('o', 'wildmenu', true)                            -- Enhanced command-line completion
-opt('o', 'hls', true)                                 -- Highlight search matches
-opt('o', 'incsearch', true)                           -- Show matches while typing
-opt('o', 'wildmode', 'full')                          -- Complete first full match
-opt('o', 'lazyredraw', true)                          -- Don't redraw during macros
-opt('o', 'signcolumn', 'yes:1')                       -- Always show sign column
-opt('o', 'background', 'dark')                        -- Dark background
-opt('o', 'synmaxcol', 200)                            -- Limit syntax highlight for long lines
-opt('o', 'foldlevelstart', 99)                        -- Start with all folds open
-opt('o', 'cmdheight', 1)                              -- Command line height
-opt('o', 'inccommand', 'split')                       -- Preview substitutions live, as you type!
-opt('o', 'autochdir', false)                          -- Don't auto change directory
-opt('b', 'undofile', true)                             -- Persistent undo history
-opt('o', 'confirm', true)                             -- Confirm before closing unsaved buffers
+
+-- Indentation
+opt.shiftwidth = indent      -- Number of spaces for each step of (auto)indent
+opt.tabstop = indent         -- Number of spaces a <Tab> counts for
+opt.softtabstop = indent     -- Number of spaces a <Tab> counts for while editing
+opt.expandtab = true         -- Convert tabs to spaces
+opt.smartindent = true       -- Auto-indent new lines based on syntax
+opt.shiftround = true        -- Round indent to multiple of shiftwidth
+
+-- Search
+opt.ignorecase = true        -- Ignore case in search patterns
+opt.smartcase = true         -- Override ignorecase if pattern has uppercase
+opt.hlsearch = true          -- Highlight all search matches
+opt.incsearch = true         -- Show matches as you type the search pattern
+opt.inccommand = 'split'     -- Show live preview of :substitute in a split
+
+-- UI
+opt.number = true            -- Show absolute line numbers
+opt.relativenumber = false   -- Disable relative line numbers
+opt.cursorline = true        -- Highlight the current line
+opt.wrap = false             -- Disable line wrapping
+opt.list = true              -- Show invisible characters (tabs, trailing spaces)
+opt.termguicolors = true     -- Enable 24-bit RGB colors in the TUI
+opt.signcolumn = 'yes:1'     -- Always show sign column with width of 1
+opt.pumheight = 10           -- Max number of items in popup menu
+opt.cmdheight = 1            -- Height of the command-line area
+opt.background = 'dark'      -- Use dark variant of colorscheme
+opt.lazyredraw = true        -- Don't redraw screen during macros/scripts
+opt.synmaxcol = 200          -- Max column for syntax highlighting (performance)
+
+-- Splits
+opt.splitbelow = true        -- Open horizontal splits below current window
+opt.splitright = true        -- Open vertical splits to the right
+
+-- Scrolling
+opt.scrolloff = 4            -- Min lines to keep above/below cursor
+opt.sidescrolloff = 8        -- Min columns to keep left/right of cursor
+
+-- Files and buffers
+opt.hidden = true            -- Allow switching buffers without saving
+opt.swapfile = false         -- Disable swap file creation
+opt.backup = false           -- Disable backup file creation
+opt.writebackup = false      -- Disable backup before overwriting a file
+opt.undofile = true          -- Persist undo history to disk
+opt.autoread = true          -- Auto-reload files changed outside of Neovim
+opt.fileencoding = 'utf-8'   -- File encoding for the current buffer
+opt.confirm = true           -- Prompt to save changes instead of failing
+
+-- Completion
+opt.completeopt = 'menuone,noinsert,noselect' -- Show menu even for one match, don't auto-insert or select
+opt.wildmenu = true          -- Enhanced command-line completion menu
+opt.wildmode = 'full'        -- Complete the next full match
+
+-- Misc
+opt.joinspaces = false       -- Don't insert two spaces after punctuation on join
+opt.mouse = 'a'              -- Enable mouse in all modes
+opt.updatetime = 50          -- Faster CursorHold event trigger (ms)
+opt.clipboard = 'unnamedplus' -- Use system clipboard for all yank/paste
+opt.history = 1000           -- Number of commands/searches to remember
+opt.foldlevelstart = 99      -- Start with all folds open
+opt.autochdir = false        -- Don't auto-change directory to current file
