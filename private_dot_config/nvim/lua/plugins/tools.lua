@@ -74,7 +74,3 @@ local gr = vim.api.nvim_create_augroup('Pounce', {})
 local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
 vim.api.nvim_create_autocmd('FileType', { pattern = 'qf', group = gr, callback = revert_cr, desc = 'Revert <CR>' })
 vim.api.nvim_create_autocmd('CmdwinEnter', { pattern = '*', group = gr, callback = revert_cr, desc = 'Revert <CR>' })
-
--- FzfLua
-PackAdd('ibhagwan/fzf-lua')
-map('n', '<Leader>fz', '<Cmd>FzfLua<CR>', { noremap = true, silent = true, desc = 'FzfLua' })
