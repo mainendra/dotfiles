@@ -50,10 +50,6 @@ vim.schedule(function()
 end)
 
 -- Pack management commands
-vim.api.nvim_create_user_command('PackUpdate', function()
-  vim.pack.update()
-end, { desc = 'Update all packs' })
-
 vim.api.nvim_create_user_command('PackClean', function()
   local unused = vim.iter(vim.pack.get())
     :filter(function(plugin) return not plugin.active end)
