@@ -12,9 +12,9 @@ go = "latest"
 sops = "latest"
 age = "latest"
 julia = "latest"
-caddy = "latest"
 tree-sitter = "latest"
 fastfetch = "latest"
+hunkdiff = "latest"
 
 [env]
 
