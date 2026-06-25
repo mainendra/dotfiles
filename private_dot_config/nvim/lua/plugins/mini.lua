@@ -46,6 +46,8 @@ require('mini.indentscope').setup({
   draw = { animation = require('mini.indentscope').gen_animation.none() },
 })
 
+require('mini.input').setup()
+
 -- Keymap multistep and combos
 require('mini.keymap').setup()
 local map_multistep = require('mini.keymap').map_multistep
