@@ -16,6 +16,10 @@ alias ta="tmux a"
 alias tk="tmux kill-server"
 alias tc="tmux capture-pane -pS - -E - | nvim -"
 
+# ─── Tmux ─────────────────────────────────────────────────────────────────────
+
+alias hk="herdr server stop"
+
 # ─── Tools ────────────────────────────────────────────────────────────────────
 
 alias lg="lazygit"
