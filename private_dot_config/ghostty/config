@@ -1,4 +1,7 @@
+auto-update-channel = tip
+
 font-size = 14
+font-thicken = true
 theme = Gruvbox Dark Hard
 background = #1b1b1b
 copy-on-select = true
@@ -11,3 +14,6 @@ macos-secure-input-indication = true
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 keybind = global:ctrl+s=toggle_secure_input
+
+keybind = ctrl+shift+alt+super+b=text:\x02
+keybind = ctrl+shift+alt+super+l=text:\x02L

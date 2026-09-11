@@ -30,7 +30,6 @@ opt.signcolumn = 'yes:1'     -- Always show sign column with width of 1
 opt.pumheight = 10           -- Max number of items in popup menu
 opt.cmdheight = 1            -- Height of the command-line area
 opt.background = 'dark'      -- Use dark variant of colorscheme
-opt.lazyredraw = true        -- Don't redraw screen during macros/scripts
 opt.synmaxcol = 200          -- Max column for syntax highlighting (performance)
 
 -- Splits
@@ -53,7 +52,6 @@ opt.confirm = true           -- Prompt to save changes instead of failing
 
 -- Completion
 opt.completeopt = 'menuone,noinsert,noselect' -- Show menu even for one match, don't auto-insert or select
-opt.wildmenu = true          -- Enhanced command-line completion menu
 opt.wildmode = 'full'        -- Complete the next full match
 
 -- Misc

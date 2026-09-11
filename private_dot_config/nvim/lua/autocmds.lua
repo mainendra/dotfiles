@@ -1,7 +1,9 @@
 -- Autocommands
 
--- Remove trailing whitespace on leaving insert mode
-vim.api.nvim_create_autocmd('InsertLeavePre', {
+-- Trim trailing whitespace on save (uses mini.trailspace)
+vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
-  command = ':%s/\\s\\+$//e',
+  callback = function()
+    pcall(function() require('mini.trailspace').trim() end)
+  end,
 })

@@ -1,4 +1,4 @@
--- Tool plugins: git-blame, rgflow, arrow, ufo, chainsaw, pounce, fzf-lua, text-case
+-- Tool plugins: git-blame, rgflow, arrow, ufo, chainsaw, pounce, text-case
 
 local map = vim.keymap.set
 
@@ -26,7 +26,6 @@ require('rgflow').setup({
   default_ui_mappings = true,
   default_quickfix_mappings = true,
 })
-vim.cmd('packadd cfilter')
 
 -- Arrow (bookmarks)
 PackAdd('otavioschwanck/arrow.nvim')
@@ -34,15 +33,6 @@ require('arrow').setup({
   show_icons = true,
   leader_key = 'm',
   mappings = { next_item = 'j', prev_item = 'k' },
-})
-
--- UFO (folding)
-PackAdd('kevinhwang91/promise-async')
-PackAdd('kevinhwang91/nvim-ufo')
-require('ufo').setup({
-  provider_selector = function()
-    return { 'treesitter', 'indent' }
-  end,
 })
 
 -- Chainsaw (logging)

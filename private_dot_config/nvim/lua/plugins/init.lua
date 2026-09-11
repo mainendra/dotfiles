@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require('lsp').setup()
 
--- UI plugins (loaded synchronously for colorscheme)
+-- UI plugins (loaded synchronously for colorscheme
 require('plugins.ui')
 
 -- Deferred plugins (loaded after UI is ready)

@@ -5,7 +5,7 @@ usage = "latest"
 node = "latest"
 chezmoi = "latest"
 python = "latest"
-java = "26"
+java = "27"
 pnpm = "latest"
 bun = "latest"
 go = "latest"
@@ -15,6 +15,8 @@ julia = "latest"
 tree-sitter = "latest"
 fastfetch = "latest"
 hunkdiff = "latest"
+zig = "latest"
+"github:agavra/tuicr" = "latest"
 
 [env]
 
