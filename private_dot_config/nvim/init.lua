@@ -1,9 +1,5 @@
 -- Entry point for Neovim configuration
--- Sets up PATH for Homebrew, global variables, and loads all modules
-
-if vim.fn.isdirectory('/opt/homebrew/bin') == 1 then
-  vim.env.PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:' .. vim.env.PATH
-end
+-- Sets up global variables and loads all modules
 
 -- Leader keys (must be set before any keymaps)
 vim.g.mapleader = ' '
