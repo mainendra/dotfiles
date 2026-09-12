@@ -11,7 +11,10 @@ vim.g.maplocalleader = ' '
 
 -- Provider configuration
 vim.g.have_nerd_font = true
-vim.g.node_host_prog = vim.call('system', 'which neovim-node-host | tr -d "\n"')
+-- No plugins use language providers, so disable them all to skip
+-- the provider checks (and speed up startup slightly).
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
