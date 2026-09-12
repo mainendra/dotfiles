@@ -31,7 +31,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '=', function() vim.lsp.buf.format({ async = true }) end, vim.tbl_extend('force', bufopts, { desc = 'Format buffer' }))
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', bufopts, { desc = 'Go to definition' }))
-    -- Signature help: use native insert-mode <C-s> (Neovim 0.11+)
     vim.keymap.set('n', '<Leader>ld', vim.diagnostic.open_float, vim.tbl_extend('force', bufopts, { desc = 'Line diagnostics' }))
   end,
 })
