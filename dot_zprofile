@@ -4,11 +4,6 @@ if [ -x /opt/homebrew/bin/brew ]; then
     export HOMEBREW_AUTO_UPDATE_SECS="86400"
 fi
 
-# bob (nvim version manager)
-if [ -d "$HOME/.local/share/bob/nvim-bin" ]; then
-    path+=($HOME/.local/share/bob/nvim-bin)
-fi
-
 # Add tizen sdk to path
 if [ -d "$HOME/tizen-studio" ]; then
     path+=($HOME/tizen-studio/tools)
