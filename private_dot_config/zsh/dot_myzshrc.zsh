@@ -16,7 +16,7 @@ alias ta="tmux a"
 alias tk="tmux kill-server"
 alias tc="tmux capture-pane -pS - -E - | nvim -"
 
-# ─── Tmux ─────────────────────────────────────────────────────────────────────
+# ─── Herdr ────────────────────────────────────────────────────────────────────
 
 alias hk="herdr server stop"
 
@@ -24,7 +24,6 @@ alias hk="herdr server stop"
 
 alias lg="lazygit"
 alias ld="lazydocker"
-alias br="broot"
 alias pn="pnpm"
 alias nfzf='nvim $(fzf)'
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
