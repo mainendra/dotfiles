@@ -17,6 +17,8 @@ fastfetch = "latest"
 hunkdiff = "latest"
 zig = "latest"
 "github:agavra/tuicr" = "latest"
+viteplus = "latest"
+neovim = "nightly"
 
 [env]
 
