@@ -17,7 +17,6 @@ return {
         'lua_ls',
         'cssls',
         'cssmodules_ls',
-        'denols',
         'oxlint',
         'eslint',
         'html',
@@ -35,6 +34,12 @@ return {
     vim.lsp.config('lua_ls', {
       settings = {
         Lua = {
+          runtime = {
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            globals = { 'vim' },
+          },
           workspace = {
             library = {
               vim.env.VIMRUNTIME,
@@ -42,16 +47,13 @@ return {
               '${3rd}/luv/library',
               '${3rd}/busted/library',
             },
+            checkThirdParty = false,
           },
         },
       },
     })
     vim.lsp.config('vtsls', {
       root_markers = { 'tsconfig.json', 'package.json' },
-      workspace_required = true,
-    })
-    vim.lsp.config('denols', {
-      root_markers = { 'deno.json', 'deno.jsonc' },
       workspace_required = true,
     })
     vim.lsp.config('tailwindcss', {
