@@ -1,5 +1,4 @@
 [tools]
-deno = "latest"
 rust = "latest"
 usage = "latest"
 node = "latest"
