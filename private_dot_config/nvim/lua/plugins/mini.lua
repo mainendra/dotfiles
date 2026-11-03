@@ -6,11 +6,6 @@ PackAdd('nvim-mini/mini.nvim')
 
 require('mini.ai').setup()
 require('mini.align').setup()
--- mini.basics `extra_ui` sets winblend/pumblend=10 (transparent floats). It only
--- applies options not already set manually, so pre-setting these opts out of the
--- transparency while keeping the rest of extra_ui.
-vim.o.winblend = 0
-vim.o.pumblend = 0
 require('mini.basics').setup({ options = { extra_ui = true } })
 require('mini.bracketed').setup()
 
