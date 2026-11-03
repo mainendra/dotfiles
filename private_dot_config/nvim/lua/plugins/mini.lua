@@ -6,6 +6,11 @@ PackAdd('nvim-mini/mini.nvim')
 
 require('mini.ai').setup()
 require('mini.align').setup()
+-- mini.basics `extra_ui` sets winblend/pumblend=10 (transparent floats). It only
+-- applies options not already set manually, so pre-setting these opts out of the
+-- transparency while keeping the rest of extra_ui.
+vim.o.winblend = 0
+vim.o.pumblend = 0
 require('mini.basics').setup({ options = { extra_ui = true } })
 require('mini.bracketed').setup()
 
@@ -93,8 +98,6 @@ require('mini.visits').setup()
 
 -- Use Mini.pick for vim.ui.select
 vim.ui.select = require('mini.pick').ui_select
-vim.cmd('highlight MiniPickNormal guibg=NONE')
-vim.cmd('highlight MiniFilesNormal guibg=NONE')
 
 -- Picker keymaps
 map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>', { noremap = true, silent = true, desc = 'Pick buffer lines' })
