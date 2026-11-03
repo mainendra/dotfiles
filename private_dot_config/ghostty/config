@@ -2,6 +2,7 @@ auto-update-channel = tip
 
 font-size = 14
 font-thicken = true
+adjust-cell-height = -10%
 theme = Gruvbox Dark Hard
 background = #1b1b1b
 copy-on-select = true
