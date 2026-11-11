@@ -2,6 +2,7 @@
 -- Manages builtin plugins, LSP attach handler, and loads plugin modules
 
 local map = vim.keymap.set
+local pack_add = require('util').pack_add
 
 -- Enable new UI (neovim 0.12+)
 require('vim._core.ui2').enable({})
@@ -9,35 +10,35 @@ require('vim._core.ui2').enable({})
 -- Builtin plugins
 vim.cmd('packadd nvim.difftool')
 vim.cmd('packadd nvim.undotree')
-map('n', '<Leader>u', '<cmd>Undotree<CR>', { noremap = true, silent = true, desc = 'Toggle undotree' })
+map('n', '<Leader>u', '<cmd>Undotree<CR>', { silent = true, desc = 'Toggle undotree' })
 vim.cmd('packadd cfilter')
 vim.cmd('packadd justify')
 
 -- LSP plugins
-PackAdd('mason-org/mason.nvim')
-PackAdd('neovim/nvim-lspconfig')
-PackAdd('mason-org/mason-lspconfig.nvim')
+pack_add('mason-org/mason.nvim')
+pack_add('neovim/nvim-lspconfig')
+pack_add('mason-org/mason-lspconfig.nvim')
+
+vim.diagnostic.config({
+  virtual_text = { severity = { min = vim.diagnostic.severity.INFO } },
+  severity_sort = true,
+  float = true,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    local bufnr = ev.buf
-
-    vim.diagnostic.config({
-      virtual_text = { severity = { min = vim.diagnostic.severity.INFO } },
-      severity_sort = true,
-      float = true,
-    })
-
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', '=', function() vim.lsp.buf.format({ async = true }) end, vim.tbl_extend('force', bufopts, { desc = 'Format buffer' }))
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, vim.tbl_extend('force', bufopts, { desc = 'Go to definition' }))
-    vim.keymap.set('n', '<Leader>ld', vim.diagnostic.open_float, vim.tbl_extend('force', bufopts, { desc = 'Line diagnostics' }))
+    local function lmap(lhs, rhs, desc)
+      map('n', lhs, rhs, { silent = true, buffer = ev.buf, desc = desc })
+    end
+    lmap('=', function() vim.lsp.buf.format({ async = true }) end, 'Format buffer')
+    lmap('gd', vim.lsp.buf.definition, 'Go to definition')
+    lmap('<Leader>ld', vim.diagnostic.open_float, 'Line diagnostics')
   end,
 })
 
 require('lsp').setup()
 
--- UI plugins (loaded synchronously for colorscheme
+-- UI plugins (loaded synchronously for colorscheme)
 require('plugins.ui')
 
 -- Deferred plugins (loaded after UI is ready)

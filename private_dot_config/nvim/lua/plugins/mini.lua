@@ -2,7 +2,7 @@
 
 local map = vim.keymap.set
 
-PackAdd('nvim-mini/mini.nvim')
+require('util').pack_add('nvim-mini/mini.nvim')
 
 require('mini.ai').setup()
 require('mini.align').setup()
@@ -27,7 +27,6 @@ require('mini.cursorword').setup()
 require('mini.diff').setup()
 require('mini.extra').setup()
 require('mini.files').setup()
-require('mini.fuzzy').setup()
 require('mini.git').setup()
 
 local hipatterns = require('mini.hipatterns')
@@ -48,6 +47,9 @@ require('mini.indentscope').setup({
 
 require('mini.input').setup()
 
+-- Pairs (required by the minipairs_* multistep actions below)
+require('mini.pairs').setup()
+
 -- Keymap multistep and combos
 require('mini.keymap').setup()
 local map_multistep = require('mini.keymap').map_multistep
@@ -63,13 +65,12 @@ map_combo(mode, 'kj', '<BS><BS><Esc>')
 map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
 map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 
-require('mini.misc').setup()
 require('mini.move').setup()
 
 -- Notifications (filter noisy LSP messages)
 local notify = require('mini.notify')
 local filterout = function(notif_arr)
-  local prefixes = { 'rust_analyzer', 'jdtl', 'vtsls' }
+  local prefixes = { 'rust_analyzer', 'jdtls', 'vtsls' }
   notif_arr = vim.tbl_filter(function(notif)
     for _, prefix in ipairs(prefixes) do
       if vim.startswith(notif.msg, prefix) then return false end
@@ -89,29 +90,24 @@ require('mini.splitjoin').setup()
 require('mini.statusline').setup()
 require('mini.surround').setup()
 require('mini.trailspace').setup()
-require('mini.visits').setup()
 
 -- Use Mini.pick for vim.ui.select
 vim.ui.select = require('mini.pick').ui_select
 
 -- Picker keymaps
-map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>', { noremap = true, silent = true, desc = 'Pick buffer lines' })
-map('n', '<Leader>ff', '<cmd>Pick files<CR>', { noremap = true, silent = true, desc = 'Pick files' })
-map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>', { noremap = true, silent = true, desc = 'Pick grep' })
-map('n', '<Leader>fb', '<cmd>Pick buffers<CR>', { noremap = true, silent = true, desc = 'Pick buffers' })
-map('n', '<Leader>fh', '<cmd>Pick git_hunks<CR>', { noremap = true, silent = true, desc = 'Pick git hunks' })
-map('n', '<Leader>fv', '<cmd>Pick git_files<CR>', { noremap = true, silent = true, desc = 'Pick git files' })
-map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>', { noremap = true, silent = true, desc = 'Pick keymaps' })
-map('n', '<Leader>fc', '<cmd>lua MiniPick.builtin.files(nil, { source={ cwd="~/.config" } })<CR>', { noremap = true, silent = true, desc = 'Pick config files' })
+map('n', '<Leader>fl', '<cmd>Pick buf_lines scope="current"<CR>', { silent = true, desc = 'Pick buffer lines' })
+map('n', '<Leader>ff', '<cmd>Pick files<CR>', { silent = true, desc = 'Pick files' })
+map('n', '<Leader>fg', '<cmd>Pick grep_live<CR>', { silent = true, desc = 'Pick grep' })
+map('n', '<Leader>fb', '<cmd>Pick buffers<CR>', { silent = true, desc = 'Pick buffers' })
+map('n', '<Leader>fh', '<cmd>Pick git_hunks<CR>', { silent = true, desc = 'Pick git hunks' })
+map('n', '<Leader>fv', '<cmd>Pick git_files<CR>', { silent = true, desc = 'Pick git files' })
+map('n', '<Leader>fk', '<cmd>Pick keymaps<CR>', { silent = true, desc = 'Pick keymaps' })
+map('n', '<Leader>fc', function()
+  MiniPick.builtin.files(nil, { source = { cwd = '~/.config' } })
+end, { silent = true, desc = 'Pick config files' })
 
--- File explorer
-function ShowMiniFiles()
+-- File explorer (toggle)
+map('n', '<Leader>e', function()
   local files = require('mini.files')
-  if not files.close() then
-    files.open(vim.api.nvim_buf_get_name(0), false)
-  else
-    files.close()
-  end
-end
-
-map('n', '<Leader>e', '<cmd>lua ShowMiniFiles()<CR>', { noremap = true, silent = true, desc = 'Toggle file explorer' })
+  if not files.close() then files.open(vim.api.nvim_buf_get_name(0), false) end
+end, { silent = true, desc = 'Toggle file explorer' })

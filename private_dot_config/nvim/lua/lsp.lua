@@ -1,15 +1,15 @@
 -- LSP server configuration via Mason
-
-local status_ok, mason, mason_lspconfig
-
-status_ok, mason = pcall(require, 'mason')
-if not status_ok then return end
-
-status_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
-if not status_ok then return end
+-- Must be called after mason, mason-lspconfig and nvim-lspconfig are added.
 
 return {
   setup = function()
+    local ok_mason, mason = pcall(require, 'mason')
+    local ok_mlsp, mason_lspconfig = pcall(require, 'mason-lspconfig')
+    if not (ok_mason and ok_mlsp) then
+      vim.notify('mason / mason-lspconfig not available; LSP disabled', vim.log.levels.WARN)
+      return
+    end
+
     mason.setup()
     mason_lspconfig.setup({
       automatic_enable = true,

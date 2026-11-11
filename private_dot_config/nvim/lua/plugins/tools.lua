@@ -1,25 +1,26 @@
--- Tool plugins: git-blame, rgflow, arrow, ufo, chainsaw, pounce, text-case
+-- Tool plugins: text-case, git-blame, rgflow, arrow, chainsaw, pounce
 
 local map = vim.keymap.set
+local pack_add = require('util').pack_add
 
 -- Text case conversion
-PackAdd('johmsalas/text-case.nvim')
+pack_add('johmsalas/text-case.nvim')
 require('textcase').setup({ prefix = 'ge' })
 
 -- Git blame
-PackAdd('f-person/git-blame.nvim')
+pack_add('f-person/git-blame.nvim')
 require('gitblame').setup({
   enabled = false,
   date_format = '%r',
   delay = 1,
 })
-map('n', '<Leader>bt', '<cmd>GitBlameToggle<CR>', { noremap = true, silent = true, desc = 'Toggle git blame' })
-map('n', '<Leader>bc', '<cmd>GitBlameOpenCommitURL<CR>', { noremap = true, silent = true, desc = 'Open commit URL' })
-map('n', '<Leader>bf', '<cmd>GitBlameOpenFileURL<CR>', { noremap = true, silent = true, desc = 'Open file URL' })
-map('v', '<Leader>bf', ":'<,'>GitBlameOpenFileURL<CR>", { noremap = true, silent = true, desc = 'Open file URL (selection)' })
+map('n', '<Leader>bt', '<cmd>GitBlameToggle<CR>', { silent = true, desc = 'Toggle git blame' })
+map('n', '<Leader>bc', '<cmd>GitBlameOpenCommitURL<CR>', { silent = true, desc = 'Open commit URL' })
+map('n', '<Leader>bf', '<cmd>GitBlameOpenFileURL<CR>', { silent = true, desc = 'Open file URL' })
+map('v', '<Leader>bf', ":'<,'>GitBlameOpenFileURL<CR>", { silent = true, desc = 'Open file URL (selection)' })
 
 -- Ripgrep flow
-PackAdd('mangelozzi/rgflow.nvim')
+pack_add('mangelozzi/rgflow.nvim')
 require('rgflow').setup({
   cmd_flags = '--smart-case --fixed-strings --ignore --max-columns 200',
   default_trigger_mappings = true,
@@ -28,7 +29,7 @@ require('rgflow').setup({
 })
 
 -- Arrow (bookmarks)
-PackAdd('otavioschwanck/arrow.nvim')
+pack_add('otavioschwanck/arrow.nvim')
 require('arrow').setup({
   show_icons = true,
   leader_key = 'm',
@@ -36,7 +37,7 @@ require('arrow').setup({
 })
 
 -- Chainsaw (logging)
-PackAdd('chrisgrieser/nvim-chainsaw')
+pack_add('chrisgrieser/nvim-chainsaw')
 require('chainsaw').setup({
   logStatements = {
     variableLog = {
@@ -51,16 +52,23 @@ require('chainsaw').setup({
   },
   marker = '[CW]',
 })
-map('n', '<Leader>cwm', '<Cmd>Chainsaw messageLog<CR>', { noremap = true, silent = true, desc = 'Log message' })
-map('n', '<Leader>cwv', '<Cmd>Chainsaw variableLog<CR>', { noremap = true, silent = true, desc = 'Log variable' })
-map('n', '<Leader>cwo', '<Cmd>Chainsaw objectLog<CR>', { noremap = true, silent = true, desc = 'Log object' })
+map('n', '<Leader>cwm', '<Cmd>Chainsaw messageLog<CR>', { silent = true, desc = 'Log message' })
+map('n', '<Leader>cwv', '<Cmd>Chainsaw variableLog<CR>', { silent = true, desc = 'Log variable' })
+map('n', '<Leader>cwo', '<Cmd>Chainsaw objectLog<CR>', { silent = true, desc = 'Log object' })
 
 -- Pounce (motion)
-PackAdd('rlane/pounce.nvim')
-map('n', '<CR>', '<Cmd>Pounce<CR>', { noremap = true, silent = true })
+pack_add('rlane/pounce.nvim')
+map('n', '<CR>', '<Cmd>Pounce<CR>', { silent = true, desc = 'Pounce' })
 
--- Revert <CR> in quickfix and cmdwin
+-- Restore <CR> in special buffers (quickfix, help, ...) and cmdwin
 local gr = vim.api.nvim_create_augroup('Pounce', {})
-local revert_cr = function() vim.keymap.set('n', '<CR>', '<CR>', { buffer = true }) end
-vim.api.nvim_create_autocmd('FileType', { pattern = 'qf', group = gr, callback = revert_cr, desc = 'Revert <CR>' })
-vim.api.nvim_create_autocmd('CmdwinEnter', { pattern = '*', group = gr, callback = revert_cr, desc = 'Revert <CR>' })
+local revert_cr = function(ev)
+  vim.keymap.set('n', '<CR>', '<CR>', { buffer = ev.buf })
+end
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'qf', 'help', 'man', 'checkhealth' },
+  group = gr,
+  callback = revert_cr,
+  desc = 'Revert <CR>',
+})
+vim.api.nvim_create_autocmd('CmdwinEnter', { group = gr, callback = revert_cr, desc = 'Revert <CR>' })
