@@ -27,8 +27,6 @@ opt.pumheight = 10           -- Max number of items in popup menu
 opt.winblend = 0             -- Opaque floating windows (opt out of mini.basics extra_ui transparency)
 opt.pumblend = 0             -- Opaque popup menu (opt out of mini.basics extra_ui transparency)
 opt.background = 'dark'      -- Use dark variant of colorscheme
-opt.synmaxcol = 200          -- Max column for syntax highlighting (performance)
-opt.winborder = 'rounded'    -- Border for floating windows
 
 -- Splits
 opt.splitbelow = true        -- Open horizontal splits below current window
@@ -47,7 +45,6 @@ opt.confirm = true           -- Prompt to save changes instead of failing
 
 -- Completion
 opt.completeopt = 'menuone,noinsert,noselect' -- Show menu even for one match, don't auto-insert or select
-opt.wildmode = 'full'        -- Complete the next full match
 
 -- Folding (treesitter-based)
 opt.foldmethod = 'expr'

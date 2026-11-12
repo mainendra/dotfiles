@@ -26,6 +26,9 @@ require('rgflow').setup({
   default_trigger_mappings = true,
   default_ui_mappings = true,
   default_quickfix_mappings = true,
+  -- Hide the bar above the dialog: blank character, same colors as the dialog
+  ui_top_line_char = ' ',
+  colors = { RgFlowHeadLine = { link = 'NormalFloat' } },
 })
 
 -- Arrow (bookmarks)
