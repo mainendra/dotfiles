@@ -1,7 +1,27 @@
 # disable all bells
 unsetopt BEEP
 
-# zsh vi mode config
+# ─── Startup cache ────────────────────────────────────────────────────────────
+# Cached init output. Delete ~/.cache/zsh to rebuild everything.
+ZSH_CACHE=$HOME/.cache/zsh
+[[ -d $ZSH_CACHE/completions ]] || mkdir -p $ZSH_CACHE/completions
+
+# _cache_file <name> <binary> <command...>: regenerate when the binary is newer
+_cache_file() {
+    local out=$ZSH_CACHE/$1 bin=${commands[$2]}; shift 2
+    # $commands is empty inside zsh-vi-mode's init hook; fall back to whence
+    [[ -n $bin ]] || bin=${$(whence -p -- ${1%% *}):-}
+    [[ -n $bin ]] || return 1
+    if [[ ! -s $out || $bin -nt $out ]]; then
+        "$@" >| $out 2>/dev/null && [[ -s $out ]] || { rm -f $out; return 1 }
+        zcompile $out 2>/dev/null
+    fi
+}
+
+# ─── Prompt / vi mode config ──────────────────────────────────────────────────
+export TYPEWRITTEN_RELATIVE_PATH="adaptive"
+export TYPEWRITTEN_CURSOR="beam"
+
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -10,44 +30,57 @@ function zvm_config() {
   ZVM_SYSTEM_CLIPBOARD_ENABLED=true
 }
 
-# Set up fzf key bindings and fuzzy completion
-function init_fzf_key_bindings() {
-    if command -v fzf > /dev/null 2>&1; then
-        eval "$(fzf --zsh)"
+# Runs after zsh-vi-mode initializes, so fzf/history bindings are not overwritten
+function init_late_bindings() {
+    if _cache_file fzf.zsh fzf fzf --zsh; then
+        source $ZSH_CACHE/fzf.zsh
     fi
+    bindkey -M vicmd 'k' history-substring-search-up
+    bindkey -M vicmd 'j' history-substring-search-down
 }
-# to avoid compatibility issue with vi mode
-zvm_after_init_commands+=(init_fzf_key_bindings)
+zvm_after_init_commands+=(init_late_bindings)
 
-# Prompt customization
-export TYPEWRITTEN_RELATIVE_PATH="adaptive"
+# ─── Plugins (static bundle; antidote loads only when needed) ─────────────────
+# fpath must be complete before compinit
+fpath+=("${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions" "$ZSH_CACHE/completions")
+_cache_file completions/_mise mise mise completion zsh
 
-# init completion
-autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
+# antidote on demand: `antidote update` etc. work, but cost nothing at startup
+antidote() {
+    unfunction antidote
+    if [[ -f ${HOMEBREW_PREFIX:-/opt/homebrew}/opt/antidote/share/antidote/antidote.zsh ]]; then
+        source ${HOMEBREW_PREFIX:-/opt/homebrew}/opt/antidote/share/antidote/antidote.zsh
+    else
+        source $HOME/.antidote/antidote.zsh
+    fi
+    antidote "$@"
+}
 
-# brew package completions
-if [ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]; then
-    fpath+=("$HOMEBREW_PREFIX/share/zsh/site-functions")
+# regenerate the static bundle only if the plugin list changed
+if [[ ! -s ~/.zsh_plugins.zsh || ~/.zsh_plugins.txt -nt ~/.zsh_plugins.zsh ]]; then
+    antidote bundle <~/.zsh_plugins.txt >| ~/.zsh_plugins.zsh
+    zcompile ~/.zsh_plugins.zsh
 fi
+source ~/.zsh_plugins.zsh
 
-# source antidote
-if [ "$(command -v brew)" ]; then
-    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
-elif [[ -f "$HOME/.antidote/antidote.zsh" ]] then
-    source $HOME/.antidote/antidote.zsh
-fi
+# ─── Completion (after all fpath changes), cached ─────────────────────────────
+autoload -Uz compinit
+() {
+    setopt local_options extended_glob
+    local dump=$ZSH_CACHE/zcompdump
+    if [[ ! -f $dump || -n $dump(#qN.mh+24) ]]; then
+        compinit -d $dump
+    else
+        compinit -C -d $dump
+    fi
+    [[ -s $dump && ( ! -f $dump.zwc || $dump -nt $dump.zwc ) ]] && zcompile $dump
+}
 
-# initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
-antidote load
-
-# Keybindings
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# ─── Prompt (typewritten is on fpath; activate it synchronously) ──────────────
+autoload -Uz promptinit && promptinit && prompt typewritten
 
 # Basic options
 setopt autocd              # change directory just by typing its name
-setopt correct             # auto correct mistakes
 setopt interactivecomments # allow comments in interactive mode
 setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
 setopt nonomatch           # hide error message if there is no match for the pattern
@@ -56,17 +89,13 @@ setopt numericglobsort     # sort filenames numerically when it makes sense
 setopt promptsubst         # enable command substitution in prompt
 
 # History
-HISTSIZE=5000
+HISTSIZE=50000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
-HISTDUP=erase
 setopt append_history
 setopt share_history
 setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+setopt hist_ignore_all_dups  # also covers ignore_dups, save_no_dups, find_no_dups
 
 # Completion styling
 # disable sort when completing `git checkout`
@@ -82,9 +111,9 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 
-if [ "$(command -v mise)" ]; then
+# (mise completion is cached in $ZSH_CACHE/completions/_mise)
+if (( $+commands[mise] )); then
     eval "$(mise activate zsh)"
-    eval "$(mise completion zsh)"
 fi
 
 # custom aliases

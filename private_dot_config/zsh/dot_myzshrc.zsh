@@ -33,7 +33,7 @@ alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 if command -v xh > /dev/null 2>&1; then
     alias http='xh'
 fi
-alias cat='bat --style=plain'
+alias cat='bat --style=plain --paging=never'
 alias l='eza --color=auto --icons -l'
 alias la='l -la'
 alias ll='l -lah'
@@ -97,8 +97,6 @@ rate()  { http -b rate.sx/"$1"; }
 
 # send email via resend/pop
 email() {
-    if [[ -z $RESEND_API_KEY ]]; then
-        export RESEND_API_KEY=$(pass RESEND_API_KEY)
-    fi
-    pop "$@"
+    # pass the key to pop only, without exporting it into the shell
+    RESEND_API_KEY=${RESEND_API_KEY:-$(pass RESEND_API_KEY)} pop "$@"
 }
